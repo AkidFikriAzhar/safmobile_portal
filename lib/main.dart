@@ -1,4 +1,3 @@
-import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:safmobile_portal/routes.dart';
 import 'package:safmobile_portal/theme_data.dart';
@@ -17,8 +16,8 @@ class MainApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routerConfig: Routes.router,
       theme: MyTheme.lightTheme,
-      darkTheme: FlexThemeData.dark(scheme: FlexScheme.blueM3),
-      themeMode: ThemeMode.light,
+      darkTheme: MyTheme.darkTheme,
+      themeMode: ThemeMode.system,
     );
   }
 }

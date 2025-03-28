@@ -8,6 +8,16 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: BottomAppBar(
+        color: Colors.transparent,
+        height: 50,
+        child: Center(
+          child: Text(
+            'Assaff Enterprise 2025 © All Rights Reserved',
+            style: TextStyle(color: Colors.grey, fontSize: 10),
+          ),
+        ),
+      ),
       appBar: AppBar(
         actions: [
           IconButton(
@@ -18,7 +28,12 @@ class HomeView extends StatelessWidget {
           IconButton(
             tooltip: 'Language',
             onPressed: () {},
-            icon: Icon(Icons.language),
+            icon: Icon(Icons.language_outlined),
+          ),
+          IconButton(
+            tooltip: 'Help',
+            onPressed: () {},
+            icon: Icon(Icons.help_outline),
           ),
         ],
       ),
@@ -31,7 +46,12 @@ class HomeView extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
+                  Image.asset(
+                    Theme.of(context).brightness == Brightness.dark ? 'assets/images/logo_dark.png' : 'assets/images/logo_light.png',
+                    width: 70,
+                  ),
+                  const SizedBox(height: 25),
+                  const Text(
                     'Check Your Invoice or Service Order Status',
                     textAlign: TextAlign.center,
                     style: TextStyle(
@@ -39,7 +59,7 @@ class HomeView extends StatelessWidget {
                       // fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const SizedBox(height: 45),
+                  const SizedBox(height: 30),
                   TextFormField(
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(

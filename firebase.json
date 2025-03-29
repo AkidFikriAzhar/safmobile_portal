@@ -1,0 +1,11 @@
+{
+  "hosting": {
+    "site" : "portal-safmobile",
+    "public": "build/web",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}

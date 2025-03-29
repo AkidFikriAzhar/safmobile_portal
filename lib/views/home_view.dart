@@ -96,7 +96,7 @@ class _HomeViewState extends State<HomeView> {
                     width: 250,
                     child: FilledButton.icon(
                       onPressed: () {
-                        context.pushNamed(Routes.invoices);
+                        context.goNamed(Routes.invoices);
                       },
                       label: Text(context.localization.search),
                       icon: const Icon(Icons.search),

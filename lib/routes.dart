@@ -22,7 +22,7 @@ class Routes {
         path: '/$invoices',
         name: invoices,
         builder: (context, state) => const ViewInvoices(),
-      )
+      ),
     ],
   );
 }

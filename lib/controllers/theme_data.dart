@@ -1,5 +1,6 @@
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
+import 'package:go_transitions/go_transitions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ThemeProvider extends ChangeNotifier {
@@ -26,8 +27,17 @@ class ThemeProvider extends ChangeNotifier {
 
   static ThemeData lightTheme = FlexThemeData.light(
     useMaterial3: true,
-    scheme: FlexScheme.sanJuanBlue,
+    scheme: FlexScheme.blueM3,
   ).copyWith(
+    pageTransitionsTheme: const PageTransitionsTheme(
+      builders: {
+        TargetPlatform.android: GoTransitions.zoom,
+        TargetPlatform.iOS: GoTransitions.zoom,
+        TargetPlatform.windows: GoTransitions.zoom,
+        TargetPlatform.macOS: GoTransitions.zoom,
+        TargetPlatform.linux: GoTransitions.zoom,
+      },
+    ),
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       fillColor: Colors.black.withValues(alpha: 0.05),
@@ -64,8 +74,17 @@ class ThemeProvider extends ChangeNotifier {
   );
   static ThemeData darkTheme = FlexThemeData.dark(
     useMaterial3: true,
-    scheme: FlexScheme.sanJuanBlue,
+    scheme: FlexScheme.blueM3,
   ).copyWith(
+    pageTransitionsTheme: const PageTransitionsTheme(
+      builders: {
+        TargetPlatform.android: GoTransitions.zoom,
+        TargetPlatform.iOS: GoTransitions.zoom,
+        TargetPlatform.windows: GoTransitions.zoom,
+        TargetPlatform.macOS: GoTransitions.zoom,
+        TargetPlatform.linux: GoTransitions.zoom,
+      },
+    ),
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       fillColor: Colors.grey.shade900,

@@ -94,16 +94,8 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.0.0"
-  flutter_localization:
-    dependency: "direct main"
-    description:
-      name: flutter_localization
-      sha256: "424abdffbb54d11149d2df7d6933f03ca5736e4fdafa44271cd2aeb5678cf6b4"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.3.1"
   flutter_localizations:
-    dependency: transitive
+    dependency: "direct main"
     description: flutter
     source: sdk
     version: "0.0.0"
@@ -125,6 +117,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "14.8.1"
+  go_transitions:
+    dependency: "direct main"
+    description:
+      name: go_transitions
+      sha256: db62df9da3c27f773ffc268b205569a544bc8447c5c34e4953f98683f6a9724e
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.8.0"
   intl:
     dependency: "direct main"
     description:
@@ -370,22 +370,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.7.4"
-  typed_data:
-    dependency: transitive
-    description:
-      name: typed_data
-      sha256: f9049c039ebfeb4cf7a7104a675823cd72dba8297f264b6637062516699fa006
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.4.0"
-  universal_io:
-    dependency: transitive
-    description:
-      name: universal_io
-      sha256: "1722b2dcc462b4b2f3ee7d188dad008b6eb4c40bbd03a3de451d82c78bba9aad"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.2.2"
   vector_math:
     dependency: transitive
     description:

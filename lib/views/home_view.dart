@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:safmobile_portal/extensions/locale_extension.dart';
 import 'package:safmobile_portal/routes.dart';
 import 'package:safmobile_portal/controllers/theme_data.dart';
+import 'package:safmobile_portal/widgets/dialogs/change_language.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -21,7 +23,7 @@ class _HomeViewState extends State<HomeView> {
         height: 50,
         child: Center(
           child: Text(
-            'Assaff Enterprise 2025 © All Rights Reserved',
+            context.localization.copyright,
             style: TextStyle(color: Colors.grey, fontSize: 10),
           ),
         ),
@@ -29,7 +31,7 @@ class _HomeViewState extends State<HomeView> {
       appBar: AppBar(
         actions: [
           IconButton(
-            tooltip: 'Themes',
+            tooltip: context.localization.theme,
             onPressed: () {
               setState(() {
                 themeProvider.toggleTheme();
@@ -41,14 +43,19 @@ class _HomeViewState extends State<HomeView> {
             ),
           ),
           IconButton(
-            tooltip: 'Language',
-            onPressed: () {},
+            tooltip: context.localization.changeLanguage,
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (context) => const ChangeLanguageDialog(),
+              );
+            },
             icon: Icon(Icons.language_outlined),
           ),
           IconButton(
-            tooltip: 'Help',
+            tooltip: context.localization.more,
             onPressed: () {},
-            icon: Icon(Icons.help_outline),
+            icon: Icon(Icons.more_vert),
           ),
         ],
       ),
@@ -66,8 +73,8 @@ class _HomeViewState extends State<HomeView> {
                     width: 70,
                   ),
                   const SizedBox(height: 25),
-                  const Text(
-                    'Check Your Invoice or Service Order Status',
+                  Text(
+                    context.localization.homeTitle,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 20,
@@ -78,9 +85,9 @@ class _HomeViewState extends State<HomeView> {
                   TextFormField(
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
-                      prefixIcon: const Icon(Icons.receipt_long),
+                      prefixIcon: Icon(Icons.receipt_long),
                       labelText: 'Ticket ID',
-                      hintText: 'Enter ticket ID',
+                      hintText: context.localization.enterTicketID,
                     ),
                   ),
                   const SizedBox(height: 45),
@@ -91,7 +98,7 @@ class _HomeViewState extends State<HomeView> {
                       onPressed: () {
                         context.pushNamed(Routes.invoices);
                       },
-                      label: const Text('Search'),
+                      label: Text(context.localization.search),
                       icon: const Icon(Icons.search),
                     ),
                   ),
@@ -101,7 +108,7 @@ class _HomeViewState extends State<HomeView> {
                     width: 200,
                     child: TextButton.icon(
                       onPressed: () {},
-                      label: Text('Scan QR'),
+                      label: Text(context.localization.scanQr),
                       icon: const Icon(Icons.qr_code_scanner),
                     ),
                   ),

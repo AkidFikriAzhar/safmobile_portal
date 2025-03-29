@@ -1,0 +1,39 @@
+{
+"@@locale": "en",
+"language": "English",
+"@language": {
+    "description": "Selected language"
+},
+"homeTitle" : "Check Your Invoice or Service Order Status",
+"@homeTitle": {
+    "description": "Home screen title"
+},
+"search" : "Search",
+"@search": {
+    "description": "Search button text"
+},
+"changeLanguage" : "Change Language",
+"@changeLanguage": {
+    "description": "Change language text"
+},
+"enterTicketID" : "Enter Ticket ID",
+"@enterTicketID": {
+    "description": "Enter ticket ID text"
+},
+"scanQr" : "Scan QR Code",
+"@scanQr": {
+    "description": "Scan QR Code text"
+},
+"copyright" : "Assaff Enterprise 2025 © All Rights Reserved",
+"@copyright": {
+    "description": "Copyright text"
+},
+"theme" : "Theme",
+"@theme": {
+    "description": "Theme text"
+},
+"more" : "More",
+"@more": {
+    "description": "More text"
+}
+}

@@ -1,0 +1,35 @@
+{
+"@@locale": "ms",
+"language": "Bahasa Melayu",
+"@language": {
+    "description": "Pilih Bahasa"
+},
+"homeTitle" : "Lihat Invois atau Status Servis Order Anda",
+"@homeTitle": {},
+"search" : "Cari",
+"@search": {},
+"changeLanguage" : "Tukar Bahasa",
+"@changeLanguage": {},
+
+"enterTicketID" : "Masukkan Ticket ID",
+"@enterTicketID": {
+    "description": "Enter ticket ID text"
+},
+"scanQr" : "Imbas Kod QR",
+"@scanQr": {
+    "description": "Scan QR Code text"
+},
+
+"copyright" : "Assaff Enterprise 2025 © Hak Cipta Terpelihara",
+"@copyright": {
+    "description": "Copyright text"
+},
+"theme" : "Tema",
+"@theme": {
+    "description": "Theme text"
+},
+"more" : "Lagi",
+"@more": {
+    "description": "More text"
+}
+} 

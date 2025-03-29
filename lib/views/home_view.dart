@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:safmobile_portal/extensions/locale_extension.dart';
+import 'package:safmobile_portal/extensions/route_extension.dart';
 import 'package:safmobile_portal/routes.dart';
 import 'package:safmobile_portal/controllers/theme_data.dart';
 import 'package:safmobile_portal/widgets/dialogs/change_language.dart';
@@ -96,7 +96,7 @@ class _HomeViewState extends State<HomeView> {
                     width: 250,
                     child: FilledButton.icon(
                       onPressed: () {
-                        context.goNamed(Routes.invoices);
+                        context.goPush(Routes.invoices);
                       },
                       label: Text(context.localization.search),
                       icon: const Icon(Icons.search),

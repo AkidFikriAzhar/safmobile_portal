@@ -1,6 +1,6 @@
 import 'package:go_router/go_router.dart';
-import 'package:safmobile_portal/view_home.dart';
-import 'package:safmobile_portal/view_invoices.dart';
+import 'package:safmobile_portal/views/home_view.dart';
+import 'package:safmobile_portal/views/invoices_view.dart';
 
 class Routes {
   static const String home = 'home';

@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 import 'package:safmobile_portal/routes.dart';
+import 'package:safmobile_portal/controllers/theme_data.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends StatefulWidget {
   const HomeView({super.key});
 
   @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
+  @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return Scaffold(
       bottomNavigationBar: BottomAppBar(
         color: Colors.transparent,
@@ -22,8 +30,15 @@ class HomeView extends StatelessWidget {
         actions: [
           IconButton(
             tooltip: 'Themes',
-            onPressed: () {},
-            icon: Icon(Icons.dark_mode),
+            onPressed: () {
+              setState(() {
+                themeProvider.toggleTheme();
+              });
+            },
+            icon: Icon(
+              Icons.dark_mode,
+              color: themeProvider.isDarkMode ? Colors.amber : Colors.black,
+            ),
           ),
           IconButton(
             tooltip: 'Language',
@@ -90,36 +105,6 @@ class HomeView extends StatelessWidget {
                       icon: const Icon(Icons.qr_code_scanner),
                     ),
                   ),
-                  // Wrap(
-                  //   alignment: WrapAlignment.center,
-                  //   runAlignment: WrapAlignment.center,
-                  //   spacing: 15,
-                  //   runSpacing: 15,
-                  //   children: [
-                  //     SizedBox(
-                  //       height: 45,
-                  //       width: 150,
-                  //       child: FilledButton.icon(
-                  //         onPressed: () {
-                  //           context.pushNamed(Routes.invoices);
-                  //         },
-                  //         label: const Text('Search'),
-                  //         icon: const Icon(Icons.search),
-                  //       ),
-                  //     ),
-                  //     SizedBox(
-                  //       height: 45,
-                  //       width: 150,
-                  //       child: FilledButton.tonalIcon(
-                  //         onPressed: () {
-                  //           context.pushNamed(Routes.invoices);
-                  //         },
-                  //         label: const Text('Scan QR'),
-                  //         icon: const Icon(Icons.qr_code_scanner),
-                  //       ),
-                  //     ),
-                  //   ],
-                  // ),
                 ],
               ),
             ),

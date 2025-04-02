@@ -1,6 +1,9 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:safmobile_portal/controllers/home_controller.dart';
+import 'package:safmobile_portal/firebase_options.dart';
 import 'package:safmobile_portal/l10n/l10n.dart';
 import 'package:safmobile_portal/l10n/stream_language.dart';
 import 'package:safmobile_portal/routes.dart';
@@ -12,9 +15,15 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final themeProvider = ThemeProvider();
   await themeProvider.loadTheme(); // ✅ Load theme sebelum run app
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(
-    ChangeNotifierProvider.value(
-      value: themeProvider,
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider.value(value: themeProvider),
+        ChangeNotifierProvider(create: (_) => HomeController()),
+      ],
       child: const MainApp(),
     ),
   );

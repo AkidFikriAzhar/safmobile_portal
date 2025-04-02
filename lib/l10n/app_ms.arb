@@ -31,5 +31,9 @@
 "more" : "Lagi",
 "@more": {
     "description": "More text"
+},
+"errorTicketId" : "Sila masukkan Ticket ID yang betul!",
+"@errorTicketId": {
+    "description": "Mesej kesalahan untuk Ticket ID"
 }
 } 

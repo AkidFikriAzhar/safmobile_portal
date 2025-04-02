@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:safmobile_portal/controllers/home_controller.dart';
 import 'package:safmobile_portal/extensions/locale_extension.dart';
-import 'package:safmobile_portal/extensions/route_extension.dart';
-import 'package:safmobile_portal/routes.dart';
 import 'package:safmobile_portal/controllers/theme_data.dart';
 import 'package:safmobile_portal/widgets/dialogs/change_language.dart';
 
@@ -14,9 +13,12 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
+    final homeController = Provider.of<HomeController>(context);
+
     return Scaffold(
       bottomNavigationBar: BottomAppBar(
         color: Colors.transparent,
@@ -65,54 +67,66 @@ class _HomeViewState extends State<HomeView> {
             width: 800,
             child: Padding(
               padding: const EdgeInsets.all(20.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    Theme.of(context).brightness == Brightness.dark ? 'assets/images/logo_dark.png' : 'assets/images/logo_light.png',
-                    width: 70,
-                  ),
-                  const SizedBox(height: 25),
-                  Text(
-                    context.localization.homeTitle,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 20,
-                      // fontWeight: FontWeight.bold,
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      Theme.of(context).brightness == Brightness.dark ? 'assets/images/logo_dark.png' : 'assets/images/logo_light.png',
+                      width: 70,
                     ),
-                  ),
-                  const SizedBox(height: 30),
-                  TextFormField(
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.receipt_long),
-                      labelText: 'Ticket ID',
-                      hintText: context.localization.enterTicketID,
+                    const SizedBox(height: 25),
+                    Text(
+                      context.localization.homeTitle,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 20,
+                        // fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 45),
-                  SizedBox(
-                    height: 45,
-                    width: 250,
-                    child: FilledButton.icon(
-                      onPressed: () {
-                        context.goPush(Routes.invoices);
+                    const SizedBox(height: 30),
+                    TextFormField(
+                      controller: homeController.searchController,
+                      keyboardType: TextInputType.number,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return context.localization.errorTicketId;
+                        }
+                        return null;
                       },
-                      label: Text(context.localization.search),
-                      icon: const Icon(Icons.search),
+                      decoration: InputDecoration(
+                        prefixIcon: Icon(Icons.receipt_long),
+                        labelText: 'Ticket ID',
+                        hintText: context.localization.enterTicketID,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 10),
-                  SizedBox(
-                    height: 45,
-                    width: 200,
-                    child: TextButton.icon(
-                      onPressed: () {},
-                      label: Text(context.localization.scanQr),
-                      icon: const Icon(Icons.qr_code_scanner),
+                    const SizedBox(height: 45),
+                    SizedBox(
+                      height: 45,
+                      width: 250,
+                      child: FilledButton.icon(
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            homeController.search(context);
+                          }
+                        },
+                        label: Text(context.localization.search),
+                        icon: const Icon(Icons.search),
+                      ),
                     ),
-                  ),
-                ],
+                    const SizedBox(height: 10),
+                    SizedBox(
+                      height: 45,
+                      width: 200,
+                      child: TextButton.icon(
+                        onPressed: () {},
+                        label: Text(context.localization.scanQr),
+                        icon: const Icon(Icons.qr_code_scanner),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

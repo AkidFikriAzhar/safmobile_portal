@@ -35,5 +35,9 @@
 "more" : "More",
 "@more": {
     "description": "More text"
+},
+"errorTicketId" : "Please enter correct ticket ID!",
+"@errorTicketId": {
+    "description": "Error message for ticket ID"
 }
 }

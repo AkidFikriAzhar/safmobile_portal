@@ -89,13 +89,13 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "safmobile_portal" "\0"
+            VALUE "CompanyName", "Assaff Enterprise" "\0"
+            VALUE "FileDescription", "Saf Mobile Portal" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "safmobile_portal" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2025 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "safmobile_portal.exe" "\0"
-            VALUE "ProductName", "safmobile_portal" "\0"
+            VALUE "InternalName", "Saf Mobile Portal" "\0"
+            VALUE "LegalCopyright", "Copyright ©️ 2025 Assaff Enterprise. All rights reserved." "\0"
+            VALUE "OriginalFilename", "safmobile-portal.exe" "\0"
+            VALUE "ProductName", "Saf Mobile Portal" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

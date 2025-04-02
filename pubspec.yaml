@@ -29,6 +29,77 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^5.0.0
+  package_rename: ^1.9.0
+  flutter_launcher_icons: ^0.14.3
+  flutter_native_splash: ^2.4.5
+
+flutter_native_splash:
+  color: "#fcfcff"
+  color_dark: "#1a1c1e"
+  image: "assets/icons/launcher_icon.png"
+  image_dark: "assets/icons/launcher_icon.png"
+  android: true
+  ios: true
+  web: true
+  android_12:
+    image: "assets/icons/launcher_icon.png"
+    icon_background_color: "#38a4dd"
+    image_dark: "assets/icons/launcher_icon.png"
+    icon_background_color_dark: "#38a4dd"
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icons/launcher_icon.png"
+  # adaptive_icon_background: "assets/icons/launcher_icon_background.png" # only available for Android 8.0 devices and above
+  # adaptive_icon_foreground: "assets/icons/launcher_icon_foreground.png" # only available for Android 8.0 devices and above
+  # adaptive_icon_foreground_inset: 16 # only available for Android 8.0 devices and above
+  # adaptive_icon_monochrome: "assets/icons/launcher_icon_foreground.png" # only available for Android 13 devices and above
+  min_sdk_android: 21 # android min sdk min:16, default 21
+  web:
+    generate: true
+    image_path: "assets/icons/launcher_icon.png"
+    background_color: "#38a4dd"
+    theme_color: "#006595"
+  windows:
+    generate: true
+    image_path: "assets/icons/launcher_icon.png"
+    icon_size: 48 # min:48, max:256, default: 48
+  macos:
+    generate: true
+    image_path: "assets/icons/launcher_icon.png"
+
+package_rename_config:
+  android:
+    app_name: Saf Mobile Portal
+    package_name: my.safmobile.portal
+    override_old_package: com.example.safmobile_portal
+    lang: kotlin
+
+  ios:
+    app_name: Saf Mobile Portal
+    bundle_name: Saf Mobile Portal
+    package_name: my.safmobile.portal
+
+  web:
+    app_name: Saf Mobile Portal
+    description: Saf Mobile Portal is a web app that customers can manage their services order and make online payments on e-invoice on the go.
+
+  linux:
+    app_name: Saf Mobile Portal
+    package_name: my.safmobile.portal
+    exe_name: saf-mobile-portal
+
+  windows:
+    app_name: Saf Mobile Portal
+    organization: Assaff Enterprise
+    copyright_notice: Copyright ©️ 2025 Assaff Enterprise. All rights reserved.
+    exe_name: safmobile-portal
+
+  macos:
+    app_name: Saf Mobile Portal
+    package_name: my.safmobile.portal
+    copyright_notice: Copyright ©️ 2025 Assaff Enterprise. All rights reserved.
 
 flutter:
   generate: true
@@ -36,4 +107,5 @@ flutter:
 
   assets:
     - assets/images/
+    - assets/icons/
   #   - images/a_dot_ham.jpeg

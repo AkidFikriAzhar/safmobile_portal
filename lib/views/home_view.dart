@@ -89,6 +89,11 @@ class _HomeViewState extends State<HomeView> {
                     TextFormField(
                       controller: homeController.searchController,
                       keyboardType: TextInputType.number,
+                      onFieldSubmitted: (value) {
+                        if (_formKey.currentState!.validate()) {
+                          homeController.search(context);
+                        }
+                      },
                       validator: (value) {
                         if (value!.isEmpty) {
                           return context.localization.errorTicketId;

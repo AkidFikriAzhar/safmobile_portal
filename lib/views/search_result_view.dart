@@ -19,6 +19,9 @@ class ViewSearchResult extends StatelessWidget {
           icon: const Icon(Icons.close),
         ),
       ),
+      body: Padding(
+        padding: const EdgeInsets.all(12.0),
+      ),
     );
   }
 }

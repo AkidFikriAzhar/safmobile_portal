@@ -1,8 +1,12 @@
+import 'dart:developer';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
-import 'package:safmobile_portal/controllers/home_controller.dart';
+import 'package:safmobile_portal/controllers/home_provider.dart';
+import 'package:safmobile_portal/controllers/search_provider.dart';
 import 'package:safmobile_portal/firebase_options.dart';
 import 'package:safmobile_portal/l10n/l10n.dart';
 import 'package:safmobile_portal/l10n/stream_language.dart';
@@ -18,11 +22,15 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await FirebaseAuth.instance.signInAnonymously().then((val) {
+    log('User ID: ${val.user?.uid}');
+  });
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider.value(value: themeProvider),
-        ChangeNotifierProvider(create: (_) => HomeController()),
+        ChangeNotifierProvider(create: (_) => HomeProvider()),
+        ChangeNotifierProvider(create: (_) => SearchProvider()),
       ],
       child: const MainApp(),
     ),

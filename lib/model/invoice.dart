@@ -1,5 +1,5 @@
-import 'package:admin_panel_v3/model/payment_method.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:safmobile_portal/model/payment_method.dart';
 
 class Invoice {
   final int id;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:safmobile_portal/controllers/home_controller.dart';
+import 'package:safmobile_portal/controllers/home_provider.dart';
 import 'package:safmobile_portal/extensions/locale_extension.dart';
 import 'package:safmobile_portal/controllers/theme_data.dart';
 import 'package:safmobile_portal/widgets/dialogs/change_language.dart';
@@ -17,7 +17,7 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
-    final homeController = Provider.of<HomeController>(context);
+    final homeController = Provider.of<HomeProvider>(context);
 
     return Scaffold(
       bottomNavigationBar: BottomAppBar(
@@ -63,6 +63,7 @@ class _HomeViewState extends State<HomeView> {
       ),
       body: Center(
         child: SingleChildScrollView(
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           child: SizedBox(
             width: 800,
             child: Padding(
@@ -89,6 +90,9 @@ class _HomeViewState extends State<HomeView> {
                     TextFormField(
                       controller: homeController.searchController,
                       keyboardType: TextInputType.number,
+                      onTapOutside: (event) {
+                        FocusScope.of(context).unfocus();
+                      },
                       onFieldSubmitted: (value) {
                         if (_formKey.currentState!.validate()) {
                           homeController.search(context);

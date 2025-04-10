@@ -1,43 +1,79 @@
 {
-"@@locale": "en",
-"language": "English",
-"@language": {
-    "description": "Selected language"
-},
-"homeTitle" : "Check Your Invoice or Service Order Status",
-"@homeTitle": {
-    "description": "Home screen title"
-},
-"search" : "Search",
-"@search": {
-    "description": "Search button text"
-},
-"changeLanguage" : "Change Language",
-"@changeLanguage": {
-    "description": "Change language text"
-},
-"enterTicketID" : "Enter Ticket ID",
-"@enterTicketID": {
-    "description": "Enter ticket ID text"
-},
-"scanQr" : "Scan QR Code",
-"@scanQr": {
-    "description": "Scan QR Code text"
-},
-"copyright" : "Assaff Enterprise 2025 © All Rights Reserved",
-"@copyright": {
-    "description": "Copyright text"
-},
-"theme" : "Theme",
-"@theme": {
-    "description": "Theme text"
-},
-"more" : "More",
-"@more": {
-    "description": "More text"
-},
-"errorTicketId" : "Please enter correct ticket ID!",
-"@errorTicketId": {
-    "description": "Error message for ticket ID"
-}
+    "@@locale": "en",
+    "language": "English",
+    "@language": {
+        "description": "Selected language"
+    },
+    "homeTitle": "Check Your Invoice, Receipt or Service Order Status",
+    "@homeTitle": {
+        "description": "Home screen title"
+    },
+    "search": "Search",
+    "@search": {
+        "description": "Search button text"
+    },
+    "changeLanguage": "Change Language",
+    "@changeLanguage": {
+        "description": "Change language text"
+    },
+    "enterTicketID": "Enter Ticket ID",
+    "@enterTicketID": {
+        "description": "Enter ticket ID text"
+    },
+    "scanQr": "Scan QR Code",
+    "@scanQr": {
+        "description": "Scan QR Code text"
+    },
+    "copyright": "Assaff Enterprise 2025 © All Rights Reserved",
+    "@copyright": {
+        "description": "Copyright text"
+    },
+    "theme": "Theme",
+    "@theme": {
+        "description": "Theme text"
+    },
+    "more": "More",
+    "@more": {
+        "description": "More text"
+    },
+    "errorTicketId": "Please enter correct ticket ID!",
+    "@errorTicketId": {
+        "description": "Error message for ticket ID"
+    },
+    "searchResult": "Search Result",
+    "@searchResult": {
+        "description": "Search result text"
+    },
+    "noResult": "No records found",
+    "@noResult": {
+        "description": "No result text"
+    },
+    "loading": "Loading data...",
+    "@loading": {
+        "description": "Loading text"
+    },
+    "showingResult": "Showing results for Ticket ID",
+    "@showingResult": {
+        "description": "Showing results text"
+    },
+    "receipt": "Receipt",
+    "@receipt": {
+        "description": "Receipt text"
+    },
+    "invoice": "Invoice",
+    "@invoice": {
+        "description": "Invoice text"
+    },
+    "paymentMade": "Payment has been made",
+    "@paymentMade": {
+        "description": "Payment made text"
+    },
+    "paymentNotMade": "Payment has not been made",
+    "@paymentNotMade": {
+        "description": "Payment not made text"
+    },
+    "close": "Close",
+    "@close": {
+        "description": "Close text"
+    }
 }

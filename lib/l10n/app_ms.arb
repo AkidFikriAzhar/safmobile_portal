@@ -1,39 +1,73 @@
 {
-"@@locale": "ms",
-"language": "Bahasa Melayu",
-"@language": {
-    "description": "Pilih Bahasa"
-},
-"homeTitle" : "Lihat Invois atau Status Servis Order Anda",
-"@homeTitle": {},
-"search" : "Cari",
-"@search": {},
-"changeLanguage" : "Tukar Bahasa",
-"@changeLanguage": {},
-
-"enterTicketID" : "Masukkan Ticket ID",
-"@enterTicketID": {
-    "description": "Enter ticket ID text"
-},
-"scanQr" : "Imbas Kod QR",
-"@scanQr": {
-    "description": "Scan QR Code text"
-},
-
-"copyright" : "Assaff Enterprise 2025 © Hak Cipta Terpelihara",
-"@copyright": {
-    "description": "Copyright text"
-},
-"theme" : "Tema",
-"@theme": {
-    "description": "Theme text"
-},
-"more" : "Lagi",
-"@more": {
-    "description": "More text"
-},
-"errorTicketId" : "Sila masukkan Ticket ID yang betul!",
-"@errorTicketId": {
-    "description": "Mesej kesalahan untuk Ticket ID"
+    "@@locale": "ms",
+    "language": "Bahasa Melayu",
+    "@language": {
+        "description": "Pilih Bahasa"
+    },
+    "homeTitle": "Lihat Invois, Resit atau Status Servis Order Anda",
+    "@homeTitle": {},
+    "search": "Cari",
+    "@search": {},
+    "changeLanguage": "Tukar Bahasa",
+    "@changeLanguage": {},
+    "enterTicketID": "Masukkan Tiket ID",
+    "@enterTicketID": {
+        "description": "Enter ticket ID text"
+    },
+    "scanQr": "Imbas Kod QR",
+    "@scanQr": {
+        "description": "Scan QR Code text"
+    },
+    "copyright": "Assaff Enterprise 2025 © Hak Cipta Terpelihara",
+    "@copyright": {
+        "description": "Copyright text"
+    },
+    "theme": "Tema",
+    "@theme": {
+        "description": "Theme text"
+    },
+    "more": "Lagi",
+    "@more": {
+        "description": "More text"
+    },
+    "errorTicketId": "Sila masukkan Tiket ID yang betul!",
+    "@errorTicketId": {
+        "description": "Mesej kesalahan untuk Ticket ID"
+    },
+    "searchResult": "Hasil Carian",
+    "@searchResult": {
+        "description": "Teks hasil carian"
+    },
+    "noResult": "Tiada rekod dijumpai",
+    "@noResult": {
+        "description": "Teks tiada hasil"
+    },
+    "loading": "Memuatkan data...",
+    "@loading": {
+        "description": "Teks memuatkan"
+    },
+    "showingResult": "Menunjukkan hasil carian untuk Tiket ID",
+    "@showingResult": {
+        "description": "Teks menunjukkan hasil"
+    },
+    "receipt": "Resit",
+    "@receipt": {
+        "description": "Teks resit"
+    },
+    "invoice": "Invois",
+    "@invoice": {
+        "description": "Teks invois"
+    },
+    "paymentMade": "Bayaran telah dibuat",
+    "@paymentMade": {
+        "description": "Teks bayaran dibuat"
+    },
+    "paymentNotMade": "Bayaran belum dibuat",
+    "@paymentNotMade": {
+        "description": "Teks bayaran belum dibuat"
+    },
+    "close": "Tutup",
+    "@close": {
+        "description": "Tutup text"
+    }
 }
-} 

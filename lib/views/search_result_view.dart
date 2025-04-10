@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:jiffy/jiffy.dart';
 import 'package:provider/provider.dart';
 import 'package:safmobile_portal/controllers/search_provider.dart';
+import 'package:safmobile_portal/extensions/locale_extension.dart';
 import 'package:safmobile_portal/routes.dart';
 
 class ViewSearchResult extends StatefulWidget {
@@ -36,32 +38,55 @@ class _ViewSearchResultState extends State<ViewSearchResult> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Search Result'),
+        title: Text(context.localization.searchResult),
         leading: IconButton(
-          tooltip: 'Close',
+          tooltip: context.localization.close,
           onPressed: () {
             context.goNamed(Routes.home);
           },
           icon: const Icon(Icons.close),
         ),
       ),
+      bottomNavigationBar: BottomAppBar(
+        color: Colors.transparent,
+        height: 50,
+        child: Center(
+          child: Text(
+            '${context.localization.showingResult}: ${widget.ticketId}',
+            style: TextStyle(fontSize: 10, color: Colors.grey),
+          ),
+        ),
+      ),
       body: Padding(
-        padding: const EdgeInsets.all(12.0),
+        padding: const EdgeInsets.symmetric(vertical: 12.0),
         child: Consumer<SearchProvider>(builder: (context, provider, child) {
           if (provider.isLoading) {
-            return const Center(
+            return Center(
               child: Column(
+                spacing: 10,
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  CircularProgressIndicator.adaptive(),
-                  SizedBox(height: 15),
-                  Text("Loading data..."),
+                  const CircularProgressIndicator.adaptive(),
+                  Text(context.localization.loading),
                 ],
               ),
             );
           } else if (provider.results.isEmpty) {
-            return const Center(child: Text("No records found"));
+            return Center(
+              child: Column(
+                spacing: 10,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(Icons.search_off_outlined, size: 45, color: Colors.grey),
+                  Text(
+                    context.localization.noResult,
+                    style: TextStyle(color: Colors.grey),
+                  ),
+                ],
+              ),
+            );
           } else {
             return ListView.builder(
               itemCount: provider.results.length,
@@ -69,9 +94,39 @@ class _ViewSearchResultState extends State<ViewSearchResult> {
                 final item = provider.results[index];
 
                 return ListTile(
-                  title: Text(
-                    item.isInvoice ? "Invoice - ${item.invoice!.id}" : "Service Order - ${item.jobsheet!.ticketId}",
+                  visualDensity: const VisualDensity(horizontal: 4),
+                  leading: CircleAvatar(
+                    child: Icon(
+                      item.isInvoice ? Icons.receipt_long : Icons.assignment,
+                    ),
                   ),
+                  title: Text(
+                    item.isInvoice
+                        ? item.invoice!.isPay
+                            ? context.localization.receipt
+                            : context.localization.invoice
+                        : "Service Order",
+                  ),
+                  subtitle: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(item.isInvoice
+                          ? item.invoice!.isPay
+                              ? context.localization.paymentMade
+                              : context.localization.paymentNotMade
+                          : item.jobsheet!.modelName),
+                      const SizedBox(height: 2),
+                      Text(
+                        item.isInvoice
+                            ? Jiffy.parseFromDateTime(item.invoice!.lastUpdate.toDate()).format(pattern: "dd MMM yyyy")
+                            : Jiffy.parseFromDateTime(item.jobsheet!.pickupDate.toDate()).format(pattern: "dd MMM yyyy"),
+                        style: const TextStyle(fontSize: 12),
+                      ),
+                    ],
+                  ),
+                  trailing: Text('RM ${item.isInvoice ? item.invoice!.finalPrice.toStringAsFixed(2) : item.jobsheet!.estimatePrice.toStringAsFixed(2)}'),
+                  onTap: () {},
                 );
               },
             );

@@ -13,6 +13,7 @@ import 'package:safmobile_portal/l10n/stream_language.dart';
 import 'package:safmobile_portal/routes.dart';
 import 'package:safmobile_portal/controllers/theme_data.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:safmobile_portal/services/search_firestore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
@@ -30,7 +31,7 @@ void main() async {
       providers: [
         ChangeNotifierProvider.value(value: themeProvider),
         ChangeNotifierProvider(create: (_) => HomeProvider()),
-        ChangeNotifierProvider(create: (_) => SearchProvider()),
+        ChangeNotifierProvider(create: (_) => SearchProvider(SearchFirestore())),
       ],
       child: const MainApp(),
     ),

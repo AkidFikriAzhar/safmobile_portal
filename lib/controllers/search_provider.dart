@@ -1,30 +1,35 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:safmobile_portal/model/invoice.dart';
-import 'package:safmobile_portal/model/jobsheet.dart';
+import 'package:safmobile_portal/model/search_result.dart';
 import 'package:safmobile_portal/services/search_firestore.dart';
 
 class SearchProvider extends ChangeNotifier {
-  final SearchFirestore _searchFirestore = SearchFirestore();
+  final SearchFirestore _searchFirestore;
 
-  List<dynamic> _searchResult = [];
+  SearchProvider(this._searchFirestore);
+
+  List<SearchResult> _results = [];
   bool _isLoading = false;
 
   bool get isLoading => _isLoading;
-  List<dynamic> get searchResult => _searchResult;
+  List<SearchResult> get results => _results;
 
   Future<void> searchReference(String ticketId) async {
     _isLoading = true;
     notifyListeners();
-    _searchResult = await _searchFirestore.searchDocuments(ticketId);
+    _results = await _searchFirestore.searchByReference(int.parse(ticketId));
 
-    //sort the result by date
-    _searchResult.sort((a, b) {
-      Timestamp timeA = (a is Invoice) ? a.lastUpdate : (a as Jobsheet).pickupDate;
-      Timestamp timeB = (b is Invoice) ? b.lastUpdate : (b as Jobsheet).pickupDate;
-      return timeB.compareTo(timeA);
-    });
+    // //sort the result by date
+    // _results.sort((a, b) {
+    //   Timestamp timeA = (a is Invoice) ? a.lastUpdate : (a as Jobsheet).pickupDate;
+    //   Timestamp timeB = (b is Invoice) ? b.lastUpdate : (b as Jobsheet).pickupDate;
+    //   return timeB.compareTo(timeA);
+    // });
     _isLoading = false;
+    notifyListeners();
+  }
+
+  void clear() {
+    _results = [];
     notifyListeners();
   }
 }

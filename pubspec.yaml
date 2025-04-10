@@ -14,6 +14,8 @@ dependencies:
   flex_color_scheme: ^8.2.0
   go_transitions: ^0.8.0
   flutter_material_design_icons: ^1.1.7447
+  skeletonizer: ^1.4.3
+  animations: ^2.0.11
 
   # State Management
   go_router: ^14.8.1

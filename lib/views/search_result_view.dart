@@ -1,10 +1,13 @@
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:provider/provider.dart';
 import 'package:safmobile_portal/controllers/search_provider.dart';
 import 'package:safmobile_portal/extensions/locale_extension.dart';
+import 'package:safmobile_portal/extensions/route_extension.dart';
 import 'package:safmobile_portal/routes.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class ViewSearchResult extends StatefulWidget {
   final String? ticketId;
@@ -22,6 +25,7 @@ class _ViewSearchResultState extends State<ViewSearchResult> {
     super.didChangeDependencies();
     if (!_hasFetched) {
       final searchProvider = Provider.of<SearchProvider>(context, listen: false);
+      searchProvider.clear();
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (mounted) {
           // Check if the widget is still mounted
@@ -57,23 +61,40 @@ class _ViewSearchResultState extends State<ViewSearchResult> {
           ),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 12.0),
-        child: Consumer<SearchProvider>(builder: (context, provider, child) {
+      body: Consumer<SearchProvider>(
+        builder: (context, provider, child) {
+          Widget content;
           if (provider.isLoading) {
-            return Center(
-              child: Column(
-                spacing: 10,
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const CircularProgressIndicator.adaptive(),
-                  Text(context.localization.loading),
-                ],
+            content = Skeletonizer(
+              key: ValueKey('loading'),
+              child: ListView.builder(
+                itemCount: 2,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    visualDensity: const VisualDensity(horizontal: 4),
+                    leading: const Icon(Icons.search, size: 40),
+                    title: const Text("Service Order"),
+                    subtitle: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Yahaha'),
+                        const SizedBox(height: 2),
+                        Text(
+                          '23 Jan 2024',
+                          style: const TextStyle(fontSize: 12),
+                        ),
+                      ],
+                    ),
+                    trailing: Text('RM 450'),
+                    onTap: () {},
+                  );
+                },
               ),
             );
           } else if (provider.results.isEmpty) {
-            return Center(
+            content = Center(
+              key: ValueKey('empty'),
               child: Column(
                 spacing: 10,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -88,7 +109,8 @@ class _ViewSearchResultState extends State<ViewSearchResult> {
               ),
             );
           } else {
-            return ListView.builder(
+            content = ListView.builder(
+              key: const ValueKey('list'),
               itemCount: provider.results.length,
               itemBuilder: (context, index) {
                 final item = provider.results[index];
@@ -126,12 +148,32 @@ class _ViewSearchResultState extends State<ViewSearchResult> {
                     ],
                   ),
                   trailing: Text('RM ${item.isInvoice ? item.invoice!.finalPrice.toStringAsFixed(2) : item.jobsheet!.estimatePrice.toStringAsFixed(2)}'),
-                  onTap: () {},
+                  onTap: () {
+                    if (item.isInvoice) {
+                      context.goPush(Routes.invoices, pathParameters: {
+                        'uid': item.invoice!.ownerId,
+                        'ticketId': item.invoice!.id.toString(),
+                      });
+                    }
+                  },
                 );
               },
             );
           }
-        }),
+          return PageTransitionSwitcher(
+            duration: const Duration(milliseconds: 300),
+            reverse: false,
+            transitionBuilder: (child, animation, secondaryAnimation) {
+              return SharedAxisTransition(
+                animation: animation,
+                secondaryAnimation: secondaryAnimation,
+                transitionType: SharedAxisTransitionType.vertical,
+                child: child,
+              );
+            },
+            child: content,
+          );
+        },
       ),
     );
   }

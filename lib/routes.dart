@@ -21,9 +21,12 @@ class Routes {
         builder: (context, state) => const HomeView(),
       ),
       GoRoute(
-        path: '/$invoices',
+        path: '/$invoices/:uid/:ticketId',
         name: invoices,
-        builder: (context, state) => const ViewInvoices(),
+        builder: (context, state) => ViewInvoices(
+          uid: state.pathParameters['uid'] ?? '',
+          ticketId: state.pathParameters['ticketId'] ?? '',
+        ),
       ),
       GoRoute(
         path: '/$search',

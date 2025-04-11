@@ -31,7 +31,7 @@ class ThemeProvider extends ChangeNotifier {
   ).copyWith(
     pageTransitionsTheme: const PageTransitionsTheme(
       builders: {
-        TargetPlatform.android: GoTransitions.zoom,
+        TargetPlatform.android: ZoomPageTransitionsBuilder(allowEnterRouteSnapshotting: false),
         TargetPlatform.iOS: GoTransitions.zoom,
         TargetPlatform.windows: GoTransitions.zoom,
         TargetPlatform.macOS: GoTransitions.zoom,
@@ -78,7 +78,7 @@ class ThemeProvider extends ChangeNotifier {
   ).copyWith(
     pageTransitionsTheme: const PageTransitionsTheme(
       builders: {
-        TargetPlatform.android: GoTransitions.zoom,
+        TargetPlatform.android: ZoomPageTransitionsBuilder(allowEnterRouteSnapshotting: false),
         TargetPlatform.iOS: GoTransitions.zoom,
         TargetPlatform.windows: GoTransitions.zoom,
         TargetPlatform.macOS: GoTransitions.zoom,

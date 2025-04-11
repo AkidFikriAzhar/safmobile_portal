@@ -169,7 +169,7 @@ class _ViewSearchResultState extends State<ViewSearchResult> {
                           trailing: Text('RM ${item.isInvoice ? item.invoice!.finalPrice.toStringAsFixed(2) : item.jobsheet!.estimatePrice.toStringAsFixed(2)}'),
                           onTap: () {
                             if (item.isInvoice) {
-                              context.goPush(Routes.invoices, pathParameters: {
+                              context.goPush(Routes.docs, pathParameters: {
                                 'uid': item.invoice!.ownerId,
                                 'ticketId': item.invoice!.id.toString(),
                               });

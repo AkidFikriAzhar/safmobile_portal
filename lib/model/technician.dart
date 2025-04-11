@@ -8,6 +8,7 @@ class Technician {
   final String noIc;
   final String jawatan;
   final String branch;
+  final String branchText;
   final String photoUrl;
   final int totalRepair;
   final List<dynamic> token;
@@ -23,6 +24,7 @@ class Technician {
     required this.jawatan,
     required this.branch,
     required this.photoUrl,
+    required this.branchText,
     required this.totalRepair,
     required this.token,
     required this.rating,
@@ -43,6 +45,7 @@ class Technician {
       token: json['token'],
       rating: json['rating'] as double,
       timeStamp: json['timeStamp'] as Timestamp,
+      branchText: json['branchText'],
     );
   }
   Map<String, dynamic> toMap() {
@@ -58,6 +61,7 @@ class Technician {
       'totalRepair': totalRepair,
       'token': [],
       'rating': rating,
+      'brachText': branchText,
       'timeStamp': FieldValue.serverTimestamp(),
     };
   }

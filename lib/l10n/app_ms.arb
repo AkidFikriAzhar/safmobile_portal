@@ -4,7 +4,7 @@
     "@language": {
         "description": "Pilih Bahasa"
     },
-    "homeTitle": "Lihat Invois, Resit atau Status Servis Order Anda",
+    "homeTitle": "Lihat Invois, Resit atau Status Service Order Anda",
     "@homeTitle": {},
     "search": "Cari",
     "@search": {},

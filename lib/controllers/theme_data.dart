@@ -74,7 +74,7 @@ class ThemeProvider extends ChangeNotifier {
   );
   static ThemeData darkTheme = FlexThemeData.dark(
     useMaterial3: true,
-    scheme: FlexScheme.blueM3,
+    scheme: FlexScheme.cyanM3,
   ).copyWith(
     pageTransitionsTheme: const PageTransitionsTheme(
       builders: {

@@ -69,5 +69,70 @@
     "close": "Tutup",
     "@close": {
         "description": "Tutup text"
+    },
+    "billingItem": "{length} Item dalam Bil",
+    "@billingItem": {
+        "description": "Teks item dalam bil",
+        "placeholders": {
+            "length": {
+                "type": "int"
+            }
+        }
+    },
+    "paid": "Telah Dibayar",
+    "@paid": {
+        "description": "Teks telah dibayar"
+    },
+    "unpaid": "Belum Dibayar",
+    "@unpaid": {
+        "description": "Teks belum dibayar"
+    },
+    "customerInfo": "Maklumat Pelanggan",
+    "@customerInfo": {
+        "description": "Teks maklumat pelanggan"
+    },
+    "technicianInfo": "Maklumat Juruteknik",
+    "@technicianInfo": {
+        "description": "Teks maklumat juruteknik"
+    },
+    "issued": "Dikeluarkan",
+    "@issued": {
+        "description": "Teks dikeluarkan"
+    },
+    "due": "Tarikh Tamat",
+    "@due": {
+        "description": "Teks tarikh tamat"
+    },
+    "warranty": "Jaminan",
+    "@warranty": {
+        "description": "Teks jaminan"
+    },
+    "price": "Harga",
+    "@price": {
+        "description": "Teks harga"
+    },
+    "total": "Jumlah",
+    "@total": {
+        "description": "Teks jumlah"
+    },
+    "discount": "Diskaun",
+    "@discount": {
+        "description": "Teks diskaun"
+    },
+    "paymentMethod": "Kaedah Pembayaran",
+    "@paymentMethod": {
+        "description": "Payment method text"
+    },
+    "amount": "Amaun",
+    "@amount": {
+        "description": "Teks amaun"
+    },
+    "payNow": "Bayar Sekarang",
+    "@payNow": {
+        "description": "Teks bayar sekarang"
+    },
+    "downloadPdf": "Muat Turun PDF",
+    "@downloadPdf": {
+        "description": "Teks muat turun PDF"
     }
 }

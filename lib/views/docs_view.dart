@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:provider/provider.dart';
+import 'package:safmobile_portal/controllers/document_provider.dart';
 import 'package:safmobile_portal/controllers/theme_data.dart';
 import 'package:safmobile_portal/extensions/locale_extension.dart';
 import 'package:safmobile_portal/model/customer.dart';
@@ -48,7 +49,7 @@ class _ViewDocsState extends State<ViewDocs> {
                 final Invoice invoice = Invoice.fromMap(snapshot.data!);
                 return Skeletonizer(
                   enabled: isFetched,
-                  child: Text(invoice.isPay == false ? 'Invoice' : 'Receipt'),
+                  child: Text(invoice.isPay == false ? context.localization.invoice : context.localization.receipt),
                 );
               } else {
                 return Text('Documents');
@@ -121,9 +122,9 @@ class _ViewDocsState extends State<ViewDocs> {
               );
             } else {
               final Invoice invoice = Invoice.fromMap(snapshot.data!.data()!);
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                child: SingleChildScrollView(
+              return SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     spacing: 5,
@@ -133,7 +134,7 @@ class _ViewDocsState extends State<ViewDocs> {
                         children: [
                           const SizedBox(height: 20),
                           SizedBox(
-                            width: 500,
+                            width: 600,
                             child: Card.outlined(
                               surfaceTintColor: Theme.of(context).colorScheme.primaryContainer,
                               elevation: 2,
@@ -150,7 +151,10 @@ class _ViewDocsState extends State<ViewDocs> {
                                           mainAxisAlignment: MainAxisAlignment.center,
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            Text('Billing 1 Items'),
+                                            Consumer<DocumentProvider>(builder: (contex, provider, child) {
+                                              // return Text('Billing ${provider.totalBilling} Items');
+                                              return Text(context.localization.billingItem(provider.totalBilling));
+                                            }),
                                             Text(
                                               '#${widget.ticketId}',
                                               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
@@ -165,7 +169,7 @@ class _ViewDocsState extends State<ViewDocs> {
                                             color: invoice.isPay == true ? Colors.green.withValues(alpha: 0.1) : Colors.red.withValues(alpha: 0.1),
                                           ),
                                           child: Text(
-                                            invoice.isPay == true ? 'Paid' : 'Unpaid',
+                                            invoice.isPay == true ? context.localization.paid : context.localization.unpaid,
                                             style: TextStyle(color: invoice.isPay == true ? Colors.green : Colors.red),
                                           ),
                                         ),
@@ -175,7 +179,7 @@ class _ViewDocsState extends State<ViewDocs> {
                                     Align(
                                       alignment: Alignment.centerLeft,
                                       child: Text(
-                                        'Customer Information',
+                                        context.localization.customerInfo,
                                         style: TextStyle(color: Colors.grey),
                                       ),
                                     ),
@@ -224,7 +228,7 @@ class _ViewDocsState extends State<ViewDocs> {
                                     Align(
                                       alignment: Alignment.centerLeft,
                                       child: Text(
-                                        'Technician Information',
+                                        context.localization.technicianInfo,
                                         style: TextStyle(color: Colors.grey),
                                       ),
                                     ),
@@ -237,30 +241,40 @@ class _ViewDocsState extends State<ViewDocs> {
                                         borderRadius: BorderRadius.circular(20),
                                         color: Theme.of(context).colorScheme.surfaceContainerHigh,
                                       ),
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Text('Issued'),
-                                              Text(
-                                                Jiffy.parseFromDateTime(invoice.startDate.toDate()).format(pattern: 'dd/MM/yyyy'),
-                                                style: TextStyle(fontWeight: FontWeight.bold),
+                                      child: SizedBox(
+                                        width: double.infinity,
+                                        child: Wrap(
+                                          alignment: WrapAlignment.spaceBetween,
+                                          runAlignment: WrapAlignment.center,
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.all(8.0),
+                                              child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(context.localization.issued),
+                                                  Text(
+                                                    Jiffy.parseFromDateTime(invoice.startDate.toDate()).format(pattern: 'dd/MM/yyyy'),
+                                                    style: TextStyle(fontWeight: FontWeight.bold),
+                                                  ),
+                                                ],
                                               ),
-                                            ],
-                                          ),
-                                          Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Text('Due'),
-                                              Text(
-                                                Jiffy.parseFromDateTime(invoice.dueDate.toDate()).format(pattern: 'dd/MM/yyyy'),
-                                                style: TextStyle(fontWeight: FontWeight.bold),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.all(8.0),
+                                              child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(context.localization.due),
+                                                  Text(
+                                                    Jiffy.parseFromDateTime(invoice.dueDate.toDate()).format(pattern: 'dd/MM/yyyy'),
+                                                    style: TextStyle(fontWeight: FontWeight.bold),
+                                                  ),
+                                                ],
                                               ),
-                                            ],
-                                          ),
-                                        ],
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     )
                                   ],
@@ -290,6 +304,11 @@ class _ViewDocsState extends State<ViewDocs> {
                               return Container();
                             } else if (snapshotItem.hasData) {
                               final List<InvoiceItem> items = (snapshotItem.data as QuerySnapshot).docs.map((e) => InvoiceItem.fromJson(e.data() as Map<String, dynamic>)).toList();
+
+                              WidgetsBinding.instance.addPostFrameCallback((_) {
+                                Provider.of<DocumentProvider>(context, listen: false).incrementBilling(items.length);
+                              });
+
                               double total = 0;
                               for (var item in items) {
                                 total += item.itemPrice;
@@ -298,7 +317,7 @@ class _ViewDocsState extends State<ViewDocs> {
                                 }
                               }
                               return SizedBox(
-                                width: 900,
+                                width: 600,
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -317,22 +336,22 @@ class _ViewDocsState extends State<ViewDocs> {
                                                 2: FlexColumnWidth(0.7),
                                               },
                                               children: [
-                                                const TableRow(
+                                                TableRow(
                                                   children: [
                                                     TableCell(
                                                         child: Padding(
                                                       padding: EdgeInsets.symmetric(vertical: 8.0),
-                                                      child: Text('Items'),
+                                                      child: const Text('Item'),
                                                     )),
                                                     TableCell(
                                                         child: Padding(
                                                       padding: EdgeInsets.symmetric(vertical: 8.0),
-                                                      child: Text('Warranty'),
+                                                      child: Text(context.localization.warranty),
                                                     )),
                                                     TableCell(
                                                       child: Padding(
                                                         padding: EdgeInsets.symmetric(vertical: 8.0),
-                                                        child: Text('Price'),
+                                                        child: Text(context.localization.price),
                                                       ),
                                                     ),
                                                   ],
@@ -374,7 +393,7 @@ class _ViewDocsState extends State<ViewDocs> {
                                                   Row(
                                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                     children: [
-                                                      const Text('Total:', style: TextStyle(fontSize: 14)),
+                                                      Text(context.localization.total, style: TextStyle(fontSize: 14)),
                                                       Text(
                                                         'RM ${total.toStringAsFixed(2)}',
                                                         style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
@@ -385,7 +404,7 @@ class _ViewDocsState extends State<ViewDocs> {
                                                   Row(
                                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                     children: [
-                                                      const Text('Discount:', style: TextStyle(fontSize: 14)),
+                                                      Text(context.localization.discount, style: TextStyle(fontSize: 14)),
                                                       Text(
                                                         'RM ${invoice.discount.toStringAsFixed(2)}',
                                                         style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
@@ -399,7 +418,7 @@ class _ViewDocsState extends State<ViewDocs> {
                                                             Row(
                                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                               children: [
-                                                                const Text('Payment Method:', style: TextStyle(fontSize: 14)),
+                                                                Text(context.localization.paymentMethod, style: TextStyle(fontSize: 14)),
                                                                 Text(
                                                                   invoice.paymentMethod.displayName,
                                                                   style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
@@ -418,7 +437,7 @@ class _ViewDocsState extends State<ViewDocs> {
                                                     child: ListTile(
                                                       visualDensity: const VisualDensity(vertical: 1),
                                                       title: Text(
-                                                        'Amount:',
+                                                        context.localization.amount,
                                                         style: TextStyle(
                                                           color: Theme.of(context).colorScheme.onPrimaryContainer,
                                                         ),
@@ -448,19 +467,21 @@ class _ViewDocsState extends State<ViewDocs> {
                               return SizedBox();
                             }
                           }),
-                      const SizedBox(height: 15),
-                      Align(
-                        alignment: Alignment.center,
-                        child: SizedBox(
-                          width: 300,
-                          height: 60,
-                          child: FilledButton.icon(
-                            onPressed: () {},
-                            label: Text('Pay Now'),
-                            icon: Icon(Icons.payments),
-                          ),
-                        ),
-                      ),
+                      invoice.isPay == true ? const SizedBox() : const SizedBox(height: 10),
+                      invoice.isPay == true
+                          ? const SizedBox()
+                          : Align(
+                              alignment: Alignment.center,
+                              child: SizedBox(
+                                width: 300,
+                                height: 60,
+                                child: FilledButton.icon(
+                                  onPressed: () {},
+                                  label: Text(context.localization.payNow),
+                                  icon: Icon(Icons.payments),
+                                ),
+                              ),
+                            ),
                       const SizedBox(height: 1),
                       Align(
                         alignment: Alignment.center,
@@ -469,12 +490,12 @@ class _ViewDocsState extends State<ViewDocs> {
                           height: 60,
                           child: TextButton.icon(
                             onPressed: () {},
-                            label: Text('Download PDF'),
+                            label: Text(context.localization.downloadPdf),
                             icon: Icon(Icons.download),
                           ),
                         ),
                       ),
-                      const SizedBox(height: 20),
+                      const SizedBox(height: 40),
                     ],
                   ),
                 ),

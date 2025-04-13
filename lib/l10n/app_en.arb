@@ -75,5 +75,70 @@
     "close": "Close",
     "@close": {
         "description": "Close text"
+    },
+    "billingItem": "Billing {length} Item(s)",
+    "@billingItem": {
+        "description": "Billing item text",
+        "placeholders": {
+            "length": {
+                "type": "int"
+            }
+        }
+    },
+    "paid": "Paid",
+    "@paid": {
+        "description": "Paid text"
+    },
+    "unpaid": "Unpaid",
+    "@unpaid": {
+        "description": "Unpaid text"
+    },
+    "customerInfo": "Customer Information",
+    "@customerInfo": {
+        "description": "Customer information text"
+    },
+    "technicianInfo": "Technician Information",
+    "@technicianInfo": {
+        "description": "Technician information text"
+    },
+    "issued": "Issued",
+    "@issued": {
+        "description": "Issued text"
+    },
+    "due": "Due",
+    "@due": {
+        "description": "Due text"
+    },
+    "warranty": "Warranty",
+    "@warranty": {
+        "description": "Warranty text"
+    },
+    "price": "Price",
+    "@price": {
+        "description": "Price text"
+    },
+    "total": "Total",
+    "@total": {
+        "description": "Total text"
+    },
+    "discount": "Discount",
+    "@discount": {
+        "description": "Discount text"
+    },
+    "amount": "Amount",
+    "@amount": {
+        "description": "Amount text"
+    },
+    "paymentMethod": "Payment Method",
+    "@paymentMethod": {
+        "description": "Payment method text"
+    },
+    "payNow": "Pay Now",
+    "@payNow": {
+        "description": "Pay now text"
+    },
+    "downloadPdf": "Download PDF",
+    "@downloadPdf": {
+        "description": "Download PDF text"
     }
 }

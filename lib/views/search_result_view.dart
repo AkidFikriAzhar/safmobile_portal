@@ -173,6 +173,14 @@ class _ViewSearchResultState extends State<ViewSearchResult> {
                                 'uid': item.invoice!.ownerId,
                                 'ticketId': item.invoice!.id.toString(),
                               });
+                            } else {
+                              context.goPush(
+                                Routes.serviceOrder,
+                                pathParameters: {
+                                  'uid': item.jobsheet!.ownerID,
+                                  'ticketId': item.jobsheet!.ticketId.toString(),
+                                },
+                              );
                             }
                           },
                         ),

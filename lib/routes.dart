@@ -2,11 +2,12 @@ import 'package:go_router/go_router.dart';
 import 'package:safmobile_portal/views/home_view.dart';
 import 'package:safmobile_portal/views/docs_view.dart';
 import 'package:safmobile_portal/views/search_result_view.dart';
+import 'package:safmobile_portal/views/service_order_view.dart';
 
 class Routes {
   static const String home = 'home';
   static const String docs = 'docs';
-  static const String serviceOrder = 'service';
+  static const String serviceOrder = 'so';
   static const String search = 'search';
 
   static GoRouter router = GoRouter(
@@ -23,7 +24,7 @@ class Routes {
       GoRoute(
         path: '/$docs/:uid/:ticketId',
         name: docs,
-        builder: (context, state) => ViewDocs(
+        builder: (context, state) => DocsView(
           uid: state.pathParameters['uid'] ?? '',
           ticketId: state.pathParameters['ticketId'] ?? '',
         ),
@@ -33,6 +34,14 @@ class Routes {
         name: search,
         builder: (context, state) => ViewSearchResult(
           ticketId: state.uri.queryParameters['ticketId'] ?? '',
+        ),
+      ),
+      GoRoute(
+        path: '/$serviceOrder/:uid/:ticketId',
+        name: serviceOrder,
+        builder: (context, state) => ServiceOrderView(
+          ticketId: state.pathParameters['ticketId'] ?? '',
+          uid: state.pathParameters['uid'] ?? '',
         ),
       ),
     ],

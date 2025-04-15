@@ -9,21 +9,21 @@ import 'package:safmobile_portal/model/customer.dart';
 import 'package:safmobile_portal/model/invoice.dart';
 import 'package:safmobile_portal/model/payment_method.dart';
 import 'package:safmobile_portal/model/technician.dart';
-import 'package:safmobile_portal/services/invoice_firestore.dart';
-import 'package:safmobile_portal/services/pdf_invoice.dart';
+import 'package:safmobile_portal/services/docs_firestore.dart';
+import 'package:safmobile_portal/pdf/invoice_pdf.dart';
 import 'package:safmobile_portal/widgets/dialogs/change_language.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-class ViewDocs extends StatefulWidget {
+class DocsView extends StatefulWidget {
   final String? uid;
   final String? ticketId;
-  const ViewDocs({super.key, this.uid, this.ticketId});
+  const DocsView({super.key, this.uid, this.ticketId});
 
   @override
-  State<ViewDocs> createState() => _ViewDocsState();
+  State<DocsView> createState() => _DocsViewState();
 }
 
-class _ViewDocsState extends State<ViewDocs> {
+class _DocsViewState extends State<DocsView> {
   late Stream<DocumentSnapshot<Map<String, dynamic>>> _invoiceStream;
   late Stream<DocumentSnapshot<Map<String, dynamic>>> _customerStream;
   late Stream<QuerySnapshot<Map<String, dynamic>>> _invoiceItemStream;

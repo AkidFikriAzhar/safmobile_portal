@@ -1,14 +1,13 @@
 import 'dart:developer';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:jiffy/jiffy.dart';
 import 'package:provider/provider.dart';
 import 'package:safmobile_portal/controllers/document_provider.dart';
 import 'package:safmobile_portal/controllers/home_provider.dart';
 import 'package:safmobile_portal/controllers/search_provider.dart';
+import 'package:safmobile_portal/controllers/service_order_provider.dart';
 import 'package:safmobile_portal/firebase_options.dart';
 import 'package:safmobile_portal/l10n/l10n.dart';
 import 'package:safmobile_portal/l10n/stream_language.dart';
@@ -34,9 +33,8 @@ void main() async {
         ChangeNotifierProvider.value(value: themeProvider),
         ChangeNotifierProvider(create: (_) => HomeProvider()),
         ChangeNotifierProvider(create: (_) => SearchProvider(SearchFirestore())),
-        ChangeNotifierProvider(
-          create: (_) => DocumentProvider(),
-        )
+        ChangeNotifierProvider(create: (_) => DocumentProvider()),
+        ChangeNotifierProvider(create: (context) => ServiceOrderProvider())
       ],
       child: const MainApp(),
     ),
@@ -55,7 +53,6 @@ void initSetup() async {
   String language = prefs.getString('language') ?? 'ms';
 
   StreamLanguage.languageStream.add(Locale(language));
-  await Jiffy.setLocale(language);
 }
 
 class _MainAppState extends State<MainApp> {

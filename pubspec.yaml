@@ -17,6 +17,9 @@ dependencies:
   skeletonizer: ^1.4.3
   animations: ^2.0.11
   flutter_staggered_animations: ^1.1.1
+  easy_stepper: ^0.8.5+1
+  material_segmented_control: ^5.0.1
+  step_progress: ^2.4.0
 
   # State Management
   go_router: ^14.8.1
@@ -29,6 +32,7 @@ dependencies:
   file_saver: ^0.2.14
   pdf: ^3.11.3
   number_to_words_english: ^2.1.1
+  universal_html: ^2.2.4
 
   # Firebase
   firebase_core: ^3.13.0

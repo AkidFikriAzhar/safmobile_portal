@@ -14,5 +14,7 @@
 	<array>
 		<string>$(AppIdentifierPrefix)my.safmobile.portal</string>
 	</array>
+	<key>com.apple.security.files.downloads.read-write</key>
+<true/>
 </dict>
 </plist>

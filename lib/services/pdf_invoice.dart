@@ -1,3 +1,4 @@
+import 'package:file_saver/file_saver.dart';
 import 'package:flutter/services.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:number_to_words_english/number_to_words_english.dart';
@@ -16,7 +17,7 @@ class PdfInvoice {
     required List<InvoiceItem> invoiceItems,
   }) async {
     final pdf = pw.Document();
-    final imgLogo = await rootBundle.load('assets/images/logo_dark.png');
+    final imgLogo = await rootBundle.load('assets/images/logo_light.png');
     final safmobileLogo = imgLogo.buffer.asUint8List();
     final calculatedInvoiceDuration = Jiffy.parseFromDateTime(invoice.dueDate.toDate()).from(Jiffy.parseFromDateTime(invoice.startDate.toDate()), withPrefixAndSuffix: false);
     final totalPriceInWord = NumberToWordsEnglish.convert(invoice.finalPrice.toInt()).toUpperCase();
@@ -128,7 +129,7 @@ class PdfInvoice {
                         height: 60,
                         width: 60,
                         child: pw.BarcodeWidget(
-                          data: 'app.safmobile.my/ticket?',
+                          data: 'portal.safmobile.my/#/docs/${customer.uid}/${invoice.id.toString()}',
                           barcode: pw.Barcode.qrCode(),
                         ),
                       ),
@@ -445,5 +446,13 @@ class PdfInvoice {
       ),
     );
     return pdf.save();
+  }
+
+  static savePDF(Uint8List pdfFile, bool isPay, String ticketId) async {
+    await FileSaver.instance.saveFile(
+      name: isPay == false ? 'Invoice#$ticketId.pdf' : 'Receipt#$ticketId.pdf',
+      bytes: pdfFile,
+      mimeType: MimeType.pdf,
+    );
   }
 }

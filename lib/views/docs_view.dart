@@ -10,6 +10,7 @@ import 'package:safmobile_portal/model/invoice.dart';
 import 'package:safmobile_portal/model/payment_method.dart';
 import 'package:safmobile_portal/model/technician.dart';
 import 'package:safmobile_portal/services/invoice_firestore.dart';
+import 'package:safmobile_portal/services/pdf_invoice.dart';
 import 'package:safmobile_portal/widgets/dialogs/change_language.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
@@ -26,6 +27,9 @@ class _ViewDocsState extends State<ViewDocs> {
   late Stream<DocumentSnapshot<Map<String, dynamic>>> _invoiceStream;
   late Stream<DocumentSnapshot<Map<String, dynamic>>> _customerStream;
   late Stream<QuerySnapshot<Map<String, dynamic>>> _invoiceItemStream;
+  Customer? customerLate;
+  List<InvoiceItem>? invItems;
+  Technician? technicianLate;
 
   @override
   void initState() {
@@ -38,7 +42,7 @@ class _ViewDocsState extends State<ViewDocs> {
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
-
+    final docsProvider = Provider.of<DocumentProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: StreamBuilder<DocumentSnapshot>(
@@ -191,6 +195,7 @@ class _ViewDocsState extends State<ViewDocs> {
 
                                           if (snapshot.hasData) {
                                             final Customer customer = Customer.fromMap(snapshot.data!.data()!);
+                                            customerLate = customer;
                                             return Skeletonizer(
                                               enabled: isFetching,
                                               child: Row(
@@ -304,7 +309,7 @@ class _ViewDocsState extends State<ViewDocs> {
                               return Container();
                             } else if (snapshotItem.hasData) {
                               final List<InvoiceItem> items = (snapshotItem.data as QuerySnapshot).docs.map((e) => InvoiceItem.fromJson(e.data() as Map<String, dynamic>)).toList();
-
+                              invItems = items;
                               WidgetsBinding.instance.addPostFrameCallback((_) {
                                 Provider.of<DocumentProvider>(context, listen: false).incrementBilling(items.length);
                               });
@@ -489,7 +494,16 @@ class _ViewDocsState extends State<ViewDocs> {
                           width: 300,
                           height: 60,
                           child: TextButton.icon(
-                            onPressed: () {},
+                            onPressed: () async {
+                              final file = await PdfInvoice.generatePdf(
+                                customer: customerLate as Customer,
+                                invoice: invoice,
+                                technician: docsProvider.technicianLate as Technician,
+                                invoiceItems: invItems as List<InvoiceItem>,
+                              );
+
+                              PdfInvoice.savePDF(file, invoice.isPay, invoice.id.toString());
+                            },
                             label: Text(context.localization.downloadPdf),
                             icon: Icon(Icons.download),
                           ),
@@ -538,12 +552,14 @@ class _TechnicianInformationState extends State<TechnicianInformation> {
 
   @override
   Widget build(BuildContext context) {
+    final docsProvider = Provider.of<DocumentProvider>(context);
     return StreamBuilder<DocumentSnapshot>(
         stream: _technicianStream,
         builder: (context, snapshot) {
           final isFetched = snapshot.connectionState == ConnectionState.waiting;
           if (snapshot.hasData) {
             final Technician technician = Technician.fromMap(snapshot.data!);
+            docsProvider.technicianLate = technician;
             return Skeletonizer(
               enabled: isFetched,
               child: Row(

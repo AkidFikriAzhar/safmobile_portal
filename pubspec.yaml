@@ -20,7 +20,6 @@ dependencies:
   easy_stepper: ^0.8.5+1
   material_segmented_control: ^5.0.1
   timelines_plus: ^1.0.6
-  pattern_dots: ^1.0.0+1
 
   # State Management
   go_router: ^14.8.1

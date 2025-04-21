@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:jiffy/jiffy.dart';
-import 'package:pattern_dots/pattern_dots.dart';
+import 'package:safmobile_portal/extensions/locale_extension.dart';
 import 'package:safmobile_portal/model/firestore_references.dart';
 import 'package:safmobile_portal/model/jobsheet.dart';
 import 'package:safmobile_portal/widgets/cards/device_info_card.dart';
@@ -17,6 +17,16 @@ class DeviceInfoPageview extends StatefulWidget {
 }
 
 class _DeviceInfoPageviewState extends State<DeviceInfoPageview> {
+  late Stream _branchStream;
+  late Stream _technicianStream;
+
+  @override
+  void initState() {
+    _branchStream = FirebaseFirestore.instance.collection(FirestoreReferences.branch).doc(widget.jobsheet.branchID).snapshots();
+    _technicianStream = FirebaseFirestore.instance.collection(FirestoreReferences.technician).doc(widget.jobsheet.techID).snapshots();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final String pickupDate = Jiffy.parseFromDateTime(widget.jobsheet.pickupDate.toDate()).format(pattern: 'dd/MM/yyyy (HH:mm:ss)');
@@ -36,53 +46,53 @@ class _DeviceInfoPageviewState extends State<DeviceInfoPageview> {
                 children: [
                   TableRow(
                     children: [
-                      _info('Receive date: ', pickupDate),
-                      _info('Estiamte resolved: ', estimateDone),
+                      _info('${context.localization.receivedDate}: ', pickupDate),
+                      _info('${context.localization.estimatedDate}: ', estimateDone),
                     ],
                   ),
                   TableRow(
                     children: [
-                      _info('Device Model: ', widget.jobsheet.modelName),
-                      _info('Device Colour: ', widget.jobsheet.colour),
+                      _info('${context.localization.deviceModel}: ', widget.jobsheet.modelName),
+                      _info('${context.localization.deviceColour}: ', widget.jobsheet.colour),
                     ],
                   ),
                   TableRow(
                     children: [
-                      _info('Device\'s imei: ', widget.jobsheet.imei!),
+                      _info('${context.localization.deviceImei}: ', widget.jobsheet.imei!),
                       _info('Ticket ID: ', widget.jobsheet.ticketId.toString()),
                     ],
                   ),
                   TableRow(
                     children: [
                       StreamBuilder(
-                          stream: FirebaseFirestore.instance.collection(FirestoreReferences.customer).doc(widget.jobsheet.ownerID).snapshots(),
+                          stream: widget.customerStream,
                           builder: (context, snapshot) {
                             if (snapshot.connectionState == ConnectionState.waiting) {
                               return _info('Customer: ', 'Loading...');
                             }
-                            return _info('Customer: ', snapshot.data!['name']);
+                            return _info('${context.localization.customerInfo}: ', snapshot.data!['name']);
                           }),
                       StreamBuilder(
-                          stream: FirebaseFirestore.instance.collection(FirestoreReferences.technician).doc(widget.jobsheet.techID).snapshots(),
+                          stream: _technicianStream,
                           builder: (context, snapshot) {
                             if (snapshot.connectionState == ConnectionState.waiting) {
-                              return _info('Juruteknik: ', 'Memuatkan data...');
+                              return _info('${context.localization.technicianInfo}: ', 'Memuatkan data...');
                             }
-                            return _info('Juruteknik: ', snapshot.data!['name']);
+                            return _info('${context.localization.technicianInfo}: ', snapshot.data!['name']);
                           }),
                     ],
                   ),
                   TableRow(
                     children: [
                       StreamBuilder(
-                          stream: FirebaseFirestore.instance.collection(FirestoreReferences.branch).doc(widget.jobsheet.branchID).snapshots(),
+                          stream: _branchStream,
                           builder: (context, snapshot) {
                             if (snapshot.connectionState == ConnectionState.waiting) {
-                              return _info('Drop-off branch: ', 'Loading data...');
+                              return _info('${context.localization.dropOffBranch}: ', 'Loading data...');
                             }
-                            return _info('Drop-off branch: ', snapshot.data!['name']);
+                            return _info('${context.localization.dropOffBranch}: ', snapshot.data!['name']);
                           }),
-                      _info('Return Reason: ', widget.jobsheet.returnReason!),
+                      _info('${context.localization.returnReason}: ', widget.jobsheet.returnReason!),
                     ],
                   ),
                 ],

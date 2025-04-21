@@ -125,8 +125,8 @@ class _ServiceOrderViewState extends State<ServiceOrderView> {
                         );
                       },
                       children: {
-                        0: Text('General Information'),
-                        1: Text('Repair Status'),
+                        0: Text(context.localization.generalInformation),
+                        1: Text(context.localization.repairStatus),
                       },
                     ),
                   ),

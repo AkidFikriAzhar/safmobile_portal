@@ -140,5 +140,89 @@
     "downloadPdf": "Download PDF",
     "@downloadPdf": {
         "description": "Download PDF text"
+    },
+    "generalInformation": "General Information",
+    "@generalInformation": {
+        "description": "General information text"
+    },
+    "repairStatus": "Repair Status",
+    "@repairStatus": {
+        "description": "Repair status text"
+    },
+    "receivedDate": "Received Date",
+    "@receivedDate": {
+        "description": "Received date text"
+    },
+    "estimatedDate": "Estimated Done",
+    "@estimatedDate": {
+        "description": "Estimated date text"
+    },
+    "deviceModel": "Device Model",
+    "@deviceModel": {
+        "description": "Teks model peranti"
+    },
+    "deviceColour": "Device Colour",
+    "@deviceColour": {
+        "description": "Device colour text"
+    },
+    "deviceImei": "Device IMEI",
+    "@deviceImei": {
+        "description": "Device IMEI text"
+    },
+    "dropOffBranch": "Drop Off Branch",
+    "@dropOffBranch": {
+        "description": "Drop off branch text"
+    },
+    "returnReason": "Return Reason",
+    "@returnReason": {
+        "description": "Return reason text"
+    },
+    "pending": "Pending",
+    "@pending": {
+        "description": "Pending text"
+    },
+    "pendingDescription": "Your device has been successfully received and is currently in queue for technical inspection.",
+    "@pendingDescription": {
+        "description": "Pending description text"
+    },
+    "diagnose": "Diagnose",
+    "@diagnose": {
+        "description": "Diagnose text"
+    },
+    "diagnoseDescription": "Our technician is performning a detailed inspection to identify the root cause of the  issue with your device.",
+    "@diagnoseDescription": {
+        "description": "Diagnose description text"
+    },
+    "repair": "Repair",
+    "@repair": {
+        "description": "Repair text"
+    },
+    "repairDescription": "The repair process is underway based on the diagnosis. Components will be replaced if necessary to restore your device's functionality.",
+    "@repairDescription": {
+        "description": "Repair description text"
+    },
+    "checking": "Checking",
+    "@checking": {
+        "description": "Checking text"
+    },
+    "checkingDescription": "The device has been repaired and is now undergoing a final qualiy check to ensure all functions are working properly.",
+    "@checkingDescription": {
+        "description": "Checking description text"
+    },
+    "done": "Done",
+    "@done": {
+        "description": "Done text"
+    },
+    "doneDescription": "Your device has been successfully repaired and is ready for pickup.",
+    "@doneDescription": {
+        "description": "Done description text"
+    },
+    "returnDevice": "Device cannot be repaired",
+    "@returnDevice": {
+        "description": "Device cannot be repaired text"
+    },
+    "reason": "Reason",
+    "@reason": {
+        "description": "Reason text"
     }
 }

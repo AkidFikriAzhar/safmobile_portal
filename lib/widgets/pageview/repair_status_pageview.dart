@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:safmobile_portal/extensions/locale_extension.dart';
 import 'package:safmobile_portal/model/jobsheet.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:timelines_plus/timelines_plus.dart';
@@ -12,23 +13,6 @@ class RepairStatusPageview extends StatefulWidget {
 }
 
 class _RepairStatusPageviewState extends State<RepairStatusPageview> {
-  List<String> title = [
-    'Pending',
-    'Diagnose',
-    'Repair',
-    'Checking',
-    'Done',
-    'yahah',
-  ];
-
-  List<String> subtitle = [
-    'Your device has been successfully received and is currently in queue for technical inspection.',
-    'Our technician is performing a detailed inspection to identify the root cause of the issue with your device.',
-    'The repair process is underway based on the diagnosis. Components will be replaced if necessary to restore your device’s functionality.',
-    'The device has been repaired and is now undergoing a final check to ensure all functions are working properly.',
-    'Your device is fully repaired and ready for collection',
-    'yahaha',
-  ];
   List<IconData> iconsSuccess = [
     Icons.watch_later_outlined,
     Icons.search_outlined,
@@ -41,6 +25,23 @@ class _RepairStatusPageviewState extends State<RepairStatusPageview> {
   @override
   Widget build(BuildContext context) {
     final jobsheet = widget.jobsheet;
+    List<String> title = [
+      context.localization.pending,
+      context.localization.diagnose,
+      context.localization.repair,
+      context.localization.checking,
+      context.localization.done,
+      'yahah',
+    ];
+
+    List<String> subtitle = [
+      context.localization.pendingDescription,
+      context.localization.diagnoseDescription,
+      context.localization.repairDescription,
+      context.localization.checkingDescription,
+      context.localization.doneDescription,
+      'yahaha',
+    ];
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Timeline.tileBuilder(
@@ -99,7 +100,7 @@ class _RepairStatusPageviewState extends State<RepairStatusPageview> {
                       ),
                       const SizedBox(height: 10),
                       Text(
-                        isError == true && jobsheet.returnPosition == index - 1 ? 'Device cannot be repaired' : title[index],
+                        isError == true && jobsheet.returnPosition == index - 1 ? context.localization.returnReason : title[index],
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
@@ -107,7 +108,7 @@ class _RepairStatusPageviewState extends State<RepairStatusPageview> {
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        isError == true && jobsheet.returnPosition == index - 1 ? 'Reason: ${jobsheet.returnReason}' : subtitle[index],
+                        isError == true && jobsheet.returnPosition == index - 1 ? '${context.localization.reason}: ${jobsheet.returnReason}' : subtitle[index],
                         style: const TextStyle(fontSize: 14),
                       ),
                     ],

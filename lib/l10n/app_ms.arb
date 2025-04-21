@@ -134,5 +134,89 @@
     "downloadPdf": "Muat Turun PDF",
     "@downloadPdf": {
         "description": "Teks muat turun PDF"
+    },
+    "generalInformation": "Maklumat Umum",
+    "@generalInformation": {
+        "description": "Teks maklumat umum"
+    },
+    "repairStatus": "Status Pembaikan",
+    "@repairStatus": {
+        "description": "Teks status pembaikan"
+    },
+    "receivedDate": "Tarikh Diterima",
+    "@receivedDate": {
+        "description": "Teks tarikh diterima"
+    },
+    "estimatedDate": "Anggaran Siap",
+    "@estimatedDate": {
+        "description": "Teks tarikh anggaran siap"
+    },
+    "deviceModel": "Model Peranti",
+    "@deviceModel": {
+        "description": "Teks model peranti"
+    },
+    "deviceColour": "Warna Peranti",
+    "@deviceColour": {
+        "description": "Teks warna peranti"
+    },
+    "deviceImei": "IMEI Peranti",
+    "@deviceImei": {
+        "description": "Teks IMEI peranti"
+    },
+    "dropOffBranch": "Cawangan Serahan",
+    "@dropOffBranch": {
+        "description": "Teks cawangan serahan"
+    },
+    "returnReason": "Sebab Pemulangan",
+    "@returnReason": {
+        "description": "Teks sebab pemulangan"
+    },
+    "pending": "Menunggu",
+    "@pending": {
+        "description": "Teks menunggu"
+    },
+    "pendingDescription": "Peranti anda telah berjaya diterima dan sedang menunggu giliran untuk pemeriksaan teknikal.",
+    "@pendingDescription": {
+        "description": "Teks penerangan status menunggu"
+    },
+    "diagnose": "Diagnosis",
+    "@diagnose": {
+        "description": "Teks diagnosa"
+    },
+    "diagnoseDescription": "Juruteknik kami sedang menjalankan pemeriksaan terperinci untuk mengenalpasti punca masalah pada peranti anda.",
+    "@diagnoseDescription": {
+        "description": "Teks penerangan status diagnosa"
+    },
+    "repair": "Pembaikan",
+    "@repair": {
+        "description": "Teks pembaikan"
+    },
+    "repairDescription": "Proses pembaikan sedang dijalankan berdasarkan hasil diagnosa. Komponen akan diganti jika perlu untuk memulihkan fungsi peranti anda.",
+    "@repairDescription": {
+        "description": "Teks penerangan status pembaikan"
+    },
+    "checking": "Pemeriksaan",
+    "@checking": {
+        "description": "Teks pemeriksaan"
+    },
+    "checkingDescription": "Peranti telah dibaiki dan kini menjalani pemeriksaan akhir kualiti untuk memastikan semua fungsi beroperasi dengan baik.",
+    "@checkingDescription": {
+        "description": "Teks penerangan status pemeriksaan akhir"
+    },
+    "done": "Selesai",
+    "@done": {
+        "description": "Teks selesai"
+    },
+    "doneDescription": "Peranti anda telah berjaya dibaiki dan sedia untuk diambil.",
+    "@doneDescription": {
+        "description": "Teks penerangan status selesai"
+    },
+    "returnDevice": "Peranti tidak dapat diperbaiki",
+    "@returnDevice": {
+        "description": "Device cannot be repaired text"
+    },
+    "reason": "Alasan",
+    "@reason": {
+        "description": "Reason text"
     }
 }

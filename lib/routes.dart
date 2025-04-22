@@ -1,6 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:safmobile_portal/views/home_view.dart';
 import 'package:safmobile_portal/views/docs_view.dart';
+import 'package:safmobile_portal/views/qr_scan_view.dart';
 import 'package:safmobile_portal/views/search_result_view.dart';
 import 'package:safmobile_portal/views/service_order_view.dart';
 
@@ -9,6 +10,7 @@ class Routes {
   static const String docs = 'docs';
   static const String serviceOrder = 'so';
   static const String search = 'search';
+  static const String qrScan = 'scan';
 
   static GoRouter router = GoRouter(
     initialLocation: '/',
@@ -43,6 +45,11 @@ class Routes {
           ticketId: state.pathParameters['ticketId'] ?? '',
           uid: state.pathParameters['uid'] ?? '',
         ),
+      ),
+      GoRoute(
+        path: '/$qrScan',
+        name: qrScan,
+        builder: (context, state) => QrScanView(),
       ),
     ],
   );

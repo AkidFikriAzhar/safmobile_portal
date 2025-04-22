@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:safmobile_portal/controllers/home_provider.dart';
 import 'package:safmobile_portal/extensions/locale_extension.dart';
 import 'package:safmobile_portal/controllers/theme_data.dart';
+import 'package:safmobile_portal/extensions/route_extension.dart';
+import 'package:safmobile_portal/routes.dart';
 import 'package:safmobile_portal/widgets/dialogs/change_language.dart';
 
 class HomeView extends StatefulWidget {
@@ -129,7 +131,7 @@ class _HomeViewState extends State<HomeView> {
                       height: 45,
                       width: 200,
                       child: TextButton.icon(
-                        onPressed: () {},
+                        onPressed: () => context.goPush(Routes.qrScan),
                         label: Text(context.localization.scanQr),
                         icon: const Icon(Icons.qr_code_scanner),
                       ),

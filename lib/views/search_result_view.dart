@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:provider/provider.dart';
-import 'package:safmobile_portal/controllers/search_provider.dart';
+import 'package:safmobile_portal/provider/search_provider.dart';
 import 'package:safmobile_portal/extensions/locale_extension.dart';
 import 'package:safmobile_portal/extensions/route_extension.dart';
 import 'package:safmobile_portal/routes.dart';

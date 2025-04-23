@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:safmobile_portal/controllers/home_provider.dart';
+import 'package:safmobile_portal/provider/home_provider.dart';
 import 'package:safmobile_portal/extensions/locale_extension.dart';
-import 'package:safmobile_portal/controllers/theme_data.dart';
+import 'package:safmobile_portal/provider/theme_data.dart';
 import 'package:safmobile_portal/extensions/route_extension.dart';
 import 'package:safmobile_portal/routes.dart';
 import 'package:safmobile_portal/widgets/dialogs/change_language.dart';

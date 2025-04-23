@@ -4,15 +4,16 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
-import 'package:safmobile_portal/controllers/document_provider.dart';
-import 'package:safmobile_portal/controllers/home_provider.dart';
-import 'package:safmobile_portal/controllers/search_provider.dart';
-import 'package:safmobile_portal/controllers/service_order_provider.dart';
+import 'package:safmobile_portal/provider/document_provider.dart';
+import 'package:safmobile_portal/provider/home_provider.dart';
+import 'package:safmobile_portal/provider/payment_provider.dart';
+import 'package:safmobile_portal/provider/search_provider.dart';
+import 'package:safmobile_portal/provider/service_order_provider.dart';
 import 'package:safmobile_portal/firebase_options.dart';
 import 'package:safmobile_portal/l10n/l10n.dart';
 import 'package:safmobile_portal/l10n/stream_language.dart';
 import 'package:safmobile_portal/routes.dart';
-import 'package:safmobile_portal/controllers/theme_data.dart';
+import 'package:safmobile_portal/provider/theme_data.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:safmobile_portal/services/search_firestore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -34,7 +35,8 @@ void main() async {
         ChangeNotifierProvider(create: (_) => HomeProvider()),
         ChangeNotifierProvider(create: (_) => SearchProvider(SearchFirestore())),
         ChangeNotifierProvider(create: (_) => DocumentProvider()),
-        ChangeNotifierProvider(create: (context) => ServiceOrderProvider())
+        ChangeNotifierProvider(create: (context) => ServiceOrderProvider()),
+        ChangeNotifierProvider(create: (context) => PaymentProvider())
       ],
       child: const MainApp(),
     ),

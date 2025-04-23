@@ -1,14 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:provider/provider.dart';
-import 'package:safmobile_portal/controllers/document_provider.dart';
-import 'package:safmobile_portal/controllers/theme_data.dart';
+import 'package:safmobile_portal/provider/document_provider.dart';
+import 'package:safmobile_portal/provider/theme_data.dart';
 import 'package:safmobile_portal/extensions/locale_extension.dart';
+import 'package:safmobile_portal/extensions/route_extension.dart';
 import 'package:safmobile_portal/model/customer.dart';
 import 'package:safmobile_portal/model/invoice.dart';
 import 'package:safmobile_portal/model/payment_method.dart';
 import 'package:safmobile_portal/model/technician.dart';
+import 'package:safmobile_portal/routes.dart';
 import 'package:safmobile_portal/services/docs_firestore.dart';
 import 'package:safmobile_portal/pdf/invoice_pdf.dart';
 import 'package:safmobile_portal/widgets/dialogs/change_language.dart';
@@ -481,7 +484,10 @@ class _DocsViewState extends State<DocsView> {
                                 width: 300,
                                 height: 60,
                                 child: FilledButton.icon(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    final query = GoRouterState.of(context).pathParameters;
+                                    context.goPush(Routes.payment, pathParameters: query);
+                                  },
                                   label: Text(context.localization.payNow),
                                   icon: Icon(Icons.payments),
                                 ),

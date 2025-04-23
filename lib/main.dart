@@ -6,7 +6,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:safmobile_portal/provider/document_provider.dart';
 import 'package:safmobile_portal/provider/home_provider.dart';
-import 'package:safmobile_portal/provider/payment_provider.dart';
+
 import 'package:safmobile_portal/provider/search_provider.dart';
 import 'package:safmobile_portal/provider/service_order_provider.dart';
 import 'package:safmobile_portal/firebase_options.dart';
@@ -36,7 +36,6 @@ void main() async {
         ChangeNotifierProvider(create: (_) => SearchProvider(SearchFirestore())),
         ChangeNotifierProvider(create: (_) => DocumentProvider()),
         ChangeNotifierProvider(create: (context) => ServiceOrderProvider()),
-        ChangeNotifierProvider(create: (context) => PaymentProvider())
       ],
       child: const MainApp(),
     ),

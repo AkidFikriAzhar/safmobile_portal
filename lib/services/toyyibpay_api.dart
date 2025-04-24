@@ -7,18 +7,29 @@ import 'package:safmobile_portal/model/firestore_references.dart';
 class ToyyibpayApi {
   final _firestore = FirebaseFirestore.instance;
 
-  Future<DocumentSnapshot<Map<String, dynamic>>> getInvoice(String uid, String ticketId) async {
-    final getInvoice = await _firestore.collection(FirestoreReferences.customer).doc(uid).collection(FirestoreReferences.invoices).doc(ticketId).get();
+  Future<DocumentSnapshot<Map<String, dynamic>>> getInvoice(
+      String uid, String ticketId) async {
+    final getInvoice = await _firestore
+        .collection(FirestoreReferences.customer)
+        .doc(uid)
+        .collection(FirestoreReferences.invoices)
+        .doc(ticketId)
+        .get();
     return getInvoice;
   }
 
   Future<DocumentSnapshot<Map<String, dynamic>>> getCustomer(String uid) async {
-    final getCustomer = await _firestore.collection(FirestoreReferences.customer).doc(uid).get();
+    final getCustomer = await _firestore
+        .collection(FirestoreReferences.customer)
+        .doc(uid)
+        .get();
     return getCustomer;
   }
 
-  Future<void> createToyyibPayCategory(String categoryName, String categoryDescription) async {
-    final uri = Uri.parse('https://dev.toyyibpay.com/index.php/api/createCategory');
+  Future<void> createToyyibPayCategory(
+      String categoryName, String categoryDescription) async {
+    final uri =
+        Uri.parse('https://dev.toyyibpay.com/index.php/api/createCategory');
     final response = await http.post(
       uri,
       headers: {
@@ -35,7 +46,9 @@ class ToyyibpayApi {
 
       try {
         final decoded = jsonDecode(response.body);
-        if (decoded is List && decoded.isNotEmpty && decoded[0]['CategoryCode'] != null) {
+        if (decoded is List &&
+            decoded.isNotEmpty &&
+            decoded[0]['CategoryCode'] != null) {
           final categoryCode = decoded[0]['CategoryCode'];
           log('Kategori berjaya dicipta. Code: $categoryCode');
         } else {

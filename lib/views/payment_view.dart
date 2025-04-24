@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:safmobile_portal/model/customer.dart';
@@ -18,6 +20,7 @@ class _PaymentViewState extends State<PaymentView> {
   bool _isChecked = false;
   bool _isFetchingInvoice = true;
   bool _isFetchingCustomer = true;
+  final _formkey = GlobalKey<FormState>();
 
   late Future _fetchInvoice;
   late Future _fetchCustomer;
@@ -69,20 +72,31 @@ class _PaymentViewState extends State<PaymentView> {
                             children: [
                               Text(
                                 'Total amount',
-                                style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold),
+                                style: TextStyle(
+                                    color: Colors.grey,
+                                    fontWeight: FontWeight.bold),
                               ),
                               Text(
-                                _isFetchingInvoice == true ? 'RM 450.00' : 'RM ${invoice!.finalPrice.toStringAsFixed(2)}',
-                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+                                _isFetchingInvoice == true
+                                    ? 'RM 450.00'
+                                    : 'RM ${invoice!.finalPrice.toStringAsFixed(2)}',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 30),
                               ),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 spacing: 5,
                                 children: [
-                                  Icon(Icons.lock_rounded, size: 18, color: Theme.of(context).colorScheme.primary),
+                                  Icon(Icons.lock_rounded,
+                                      size: 18,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .primary),
                                   Text(
                                     'Secure Payment',
-                                    style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold),
+                                    style: TextStyle(
+                                        color: Colors.grey,
+                                        fontWeight: FontWeight.bold),
                                   ),
                                 ],
                               ),
@@ -106,16 +120,20 @@ class _PaymentViewState extends State<PaymentView> {
                       child: FutureBuilder(
                           future: _fetchCustomer,
                           builder: (context, snapshot) {
-                            if (snapshot.connectionState == ConnectionState.waiting) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
                               _isFetchingCustomer = true;
                             } else if (snapshot.hasData) {
-                              customer = Customer.fromMap(snapshot.data!);
-                              _nameInput.text = customer!.name;
-                              _phoneInput.text = customer!.phoneNumber;
-                              if (customer!.email.contains(customer!.phoneNumber)) {
-                                _emailInput.text = '';
-                              } else {
-                                _emailInput.text = customer!.email;
+                              if (_isFetchingCustomer == true) {
+                                customer = Customer.fromMap(snapshot.data!);
+                                _nameInput.text = customer!.name;
+                                _phoneInput.text = customer!.phoneNumber;
+                                if (customer!.email
+                                    .contains(customer!.phoneNumber)) {
+                                  _emailInput.text = '';
+                                } else {
+                                  _emailInput.text = customer!.email;
+                                }
                               }
 
                               _isFetchingCustomer = false;
@@ -123,12 +141,16 @@ class _PaymentViewState extends State<PaymentView> {
                             return Skeletonizer(
                               enabled: _isFetchingCustomer,
                               child: SingleChildScrollView(
-                                keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+                                keyboardDismissBehavior:
+                                    ScrollViewKeyboardDismissBehavior.onDrag,
                                 child: Form(
+                                  key: _formkey,
                                   child: Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 20.0),
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       spacing: 10,
                                       children: [
                                         const SizedBox(height: 20),
@@ -137,7 +159,15 @@ class _PaymentViewState extends State<PaymentView> {
                                           keyboardType: TextInputType.name,
                                           textInputAction: TextInputAction.next,
                                           focusNode: _nameFocusNode,
-                                          onTapOutside: (event) => _nameFocusNode.unfocus(),
+                                          onTapOutside: (event) =>
+                                              _nameFocusNode.unfocus(),
+                                          validator: (value) {
+                                            if (value == null ||
+                                                value.isEmpty) {
+                                              return 'Please enter your name';
+                                            }
+                                            return null;
+                                          },
                                           decoration: InputDecoration(
                                             labelText: 'Name',
                                             hintText: 'Abdullah',
@@ -150,7 +180,15 @@ class _PaymentViewState extends State<PaymentView> {
                                           keyboardType: TextInputType.phone,
                                           textInputAction: TextInputAction.next,
                                           focusNode: _phoneFocusNode,
-                                          onTapOutside: (event) => _phoneFocusNode.unfocus(),
+                                          onTapOutside: (event) =>
+                                              _phoneFocusNode.unfocus(),
+                                          validator: (value) {
+                                            if (value == null ||
+                                                value.isEmpty) {
+                                              return 'Please enter your phone number';
+                                            }
+                                            return null;
+                                          },
                                           decoration: InputDecoration(
                                             labelText: 'Phone Number',
                                             hintText: '0123456789',
@@ -160,10 +198,19 @@ class _PaymentViewState extends State<PaymentView> {
                                         const SizedBox(height: 5),
                                         TextFormField(
                                           controller: _emailInput,
-                                          keyboardType: TextInputType.emailAddress,
+                                          keyboardType:
+                                              TextInputType.emailAddress,
                                           textInputAction: TextInputAction.done,
                                           focusNode: _emailFocusNode,
-                                          onTapOutside: (event) => _emailFocusNode.unfocus(),
+                                          onTapOutside: (event) =>
+                                              _emailFocusNode.unfocus(),
+                                          validator: (value) {
+                                            if (value == null ||
+                                                value.isEmpty) {
+                                              return 'Please enter your email';
+                                            }
+                                            return null;
+                                          },
                                           decoration: InputDecoration(
                                             labelText: 'Email',
                                             hintText: 'abdullah@email.com',
@@ -173,12 +220,30 @@ class _PaymentViewState extends State<PaymentView> {
                                         const SizedBox(height: 10),
                                         Center(
                                           child: Padding(
-                                            padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 12.0),
                                             child: SizedBox(
                                               width: 400,
                                               height: 60,
                                               child: FilledButton(
-                                                onPressed: () {},
+                                                onPressed: () {
+                                                  if (_formkey.currentState!
+                                                      .validate()) {
+                                                    if (_isChecked) {
+                                                      log('initiate Api Payment Gateway');
+                                                    } else {
+                                                      ScaffoldMessenger.of(
+                                                              context)
+                                                          .showSnackBar(
+                                                        SnackBar(
+                                                          content: Text(
+                                                            'Please agree to the terms and conditions',
+                                                          ),
+                                                        ),
+                                                      );
+                                                    }
+                                                  }
+                                                },
                                                 child: Text('Continue'),
                                               ),
                                             ),
@@ -186,7 +251,8 @@ class _PaymentViewState extends State<PaymentView> {
                                         ),
                                         Center(
                                           child: Padding(
-                                            padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 12.0),
                                             child: SizedBox(
                                               width: 400,
                                               height: 60,
@@ -195,8 +261,16 @@ class _PaymentViewState extends State<PaymentView> {
                                                   context.pop();
                                                 },
                                                 style: ButtonStyle(
-                                                  backgroundColor: WidgetStateProperty.all(Theme.of(context).colorScheme.surfaceContainer),
-                                                  foregroundColor: WidgetStateProperty.all(Theme.of(context).colorScheme.onSurface),
+                                                  backgroundColor:
+                                                      WidgetStateProperty.all(
+                                                          Theme.of(context)
+                                                              .colorScheme
+                                                              .surfaceContainer),
+                                                  foregroundColor:
+                                                      WidgetStateProperty.all(
+                                                          Theme.of(context)
+                                                              .colorScheme
+                                                              .onSurface),
                                                 ),
                                                 child: Text('Cancel'),
                                               ),
@@ -207,10 +281,13 @@ class _PaymentViewState extends State<PaymentView> {
                                           child: SizedBox(
                                             width: 600,
                                             child: Padding(
-                                              padding: const EdgeInsets.all(12.0),
+                                              padding:
+                                                  const EdgeInsets.all(12.0),
                                               child: Row(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
                                                 spacing: 15,
                                                 children: [
                                                   Checkbox(
@@ -224,7 +301,8 @@ class _PaymentViewState extends State<PaymentView> {
                                                   Expanded(
                                                     child: Text(
                                                       'By clicking the \'Continue\', you confirm that you have read and agree to our Terms & Conditions',
-                                                      style: TextStyle(color: Colors.grey),
+                                                      style: TextStyle(
+                                                          color: Colors.grey),
                                                     ),
                                                   ),
                                                 ],

@@ -61,31 +61,33 @@ class _PaymentViewState extends State<PaymentView> {
                     child: Center(
                       child: Skeletonizer(
                         enabled: _isFetchingInvoice,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          spacing: 10,
-                          children: [
-                            Text(
-                              'Total amount',
-                              style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold),
-                            ),
-                            Text(
-                              _isFetchingInvoice == true ? 'RM 450.00' : 'RM ${invoice!.finalPrice.toStringAsFixed(2)}',
-                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              spacing: 5,
-                              children: [
-                                Icon(Icons.lock_rounded, size: 18, color: Theme.of(context).colorScheme.primary),
-                                Text(
-                                  'Secure Payment',
-                                  style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold),
-                                ),
-                              ],
-                            ),
-                          ],
+                        child: FittedBox(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            spacing: 10,
+                            children: [
+                              Text(
+                                'Total amount',
+                                style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                _isFetchingInvoice == true ? 'RM 450.00' : 'RM ${invoice!.finalPrice.toStringAsFixed(2)}',
+                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                spacing: 5,
+                                children: [
+                                  Icon(Icons.lock_rounded, size: 18, color: Theme.of(context).colorScheme.primary),
+                                  Text(
+                                    'Secure Payment',
+                                    style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -120,11 +122,11 @@ class _PaymentViewState extends State<PaymentView> {
                             }
                             return Skeletonizer(
                               enabled: _isFetchingCustomer,
-                              child: Form(
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                                  child: SingleChildScrollView(
-                                    keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+                              child: SingleChildScrollView(
+                                keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+                                child: Form(
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       spacing: 10,
@@ -142,6 +144,7 @@ class _PaymentViewState extends State<PaymentView> {
                                             prefixIcon: Icon(Icons.person),
                                           ),
                                         ),
+                                        const SizedBox(height: 5),
                                         TextFormField(
                                           controller: _phoneInput,
                                           keyboardType: TextInputType.phone,
@@ -154,6 +157,7 @@ class _PaymentViewState extends State<PaymentView> {
                                             prefixIcon: Icon(Icons.phone),
                                           ),
                                         ),
+                                        const SizedBox(height: 5),
                                         TextFormField(
                                           controller: _emailInput,
                                           keyboardType: TextInputType.emailAddress,

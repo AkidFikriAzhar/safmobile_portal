@@ -5,8 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:safmobile_portal/provider/document_provider.dart';
-import 'package:safmobile_portal/provider/home_provider.dart';
-
+import 'package:safmobile_portal/provider/home_provider.dart'; 
 import 'package:safmobile_portal/provider/search_provider.dart';
 import 'package:safmobile_portal/provider/service_order_provider.dart';
 import 'package:safmobile_portal/firebase_options.dart';
@@ -33,7 +32,8 @@ void main() async {
       providers: [
         ChangeNotifierProvider.value(value: themeProvider),
         ChangeNotifierProvider(create: (_) => HomeProvider()),
-        ChangeNotifierProvider(create: (_) => SearchProvider(SearchFirestore())),
+        ChangeNotifierProvider(
+            create: (_) => SearchProvider(SearchFirestore())),
         ChangeNotifierProvider(create: (_) => DocumentProvider()),
         ChangeNotifierProvider(create: (context) => ServiceOrderProvider()),
       ],
@@ -89,7 +89,8 @@ class _MainAppState extends State<MainApp> {
             routerConfig: Routes.router,
             theme: ThemeProvider.lightTheme,
             darkTheme: ThemeProvider.darkTheme,
-            themeMode: themeProvider.isDarkMode ? ThemeMode.dark : ThemeMode.light,
+            themeMode:
+                themeProvider.isDarkMode ? ThemeMode.dark : ThemeMode.light,
           );
         });
   }

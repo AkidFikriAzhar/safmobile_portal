@@ -32,12 +32,12 @@ class PaymentSetupFirestore {
   static Future<void> updateInvoice({
     required String uid,
     required String ticketId,
-    required String billCode,
+    required String paymentId,
   }) async {
     final firestore = FirebaseFirestore.instance;
     await firestore.collection(FirestoreReferences.customer).doc(uid).collection(FirestoreReferences.invoices).doc(ticketId).update(
       {
-        'billCode': billCode,
+        'paymentID': paymentId,
         'paymentStatus': 'Pending',
         'isPay': false,
       },

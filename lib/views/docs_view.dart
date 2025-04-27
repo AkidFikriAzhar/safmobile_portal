@@ -129,395 +129,393 @@ class _DocsViewState extends State<DocsView> {
               );
             } else {
               final Invoice invoice = Invoice.fromMap(snapshot.data!.data()!);
-              return SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    spacing: 5,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const SizedBox(height: 20),
-                          SizedBox(
-                            width: 600,
-                            child: Card.outlined(
-                              surfaceTintColor: Theme.of(context).colorScheme.primaryContainer,
-                              elevation: 2,
-                              shadowColor: Colors.transparent,
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 35, horizontal: 20),
-                                child: Column(
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: [
-                                        Column(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Consumer<DocumentProvider>(builder: (contex, provider, child) {
-                                              // return Text('Billing ${provider.totalBilling} Items');
-                                              return Text(context.localization.billingItem(provider.totalBilling));
-                                            }),
-                                            Text(
-                                              '#${widget.ticketId}',
-                                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                                            ),
-                                            const SizedBox(height: 10),
-                                          ],
-                                        ),
-                                        Container(
-                                          padding: const EdgeInsets.all(10),
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(10),
-                                            color: invoice.isPay == true ? Colors.green.withValues(alpha: 0.1) : Colors.red.withValues(alpha: 0.1),
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                child: ListView(
+                  // crossAxisAlignment: CrossAxisAlignment.center,
+                  // spacing: 5,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(height: 20),
+                        SizedBox(
+                          width: 600,
+                          child: Card.outlined(
+                            surfaceTintColor: Theme.of(context).colorScheme.primaryContainer,
+                            elevation: 2,
+                            shadowColor: Colors.transparent,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 35, horizontal: 20),
+                              child: Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Consumer<DocumentProvider>(builder: (contex, provider, child) {
+                                            // return Text('Billing ${provider.totalBilling} Items');
+                                            return Text(context.localization.billingItem(provider.totalBilling));
+                                          }),
+                                          Text(
+                                            '#${widget.ticketId}',
+                                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                                           ),
-                                          child: Text(
-                                            invoice.isPay == true ? context.localization.paid : context.localization.unpaid,
-                                            style: TextStyle(color: invoice.isPay == true ? Colors.green : Colors.red),
-                                          ),
+                                          const SizedBox(height: 10),
+                                        ],
+                                      ),
+                                      Container(
+                                        padding: const EdgeInsets.all(10),
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(10),
+                                          color: invoice.isPay == true ? Colors.green.withValues(alpha: 0.1) : Colors.red.withValues(alpha: 0.1),
                                         ),
-                                      ],
+                                        child: Text(
+                                          invoice.isPay == true ? context.localization.paid : context.localization.unpaid,
+                                          style: TextStyle(color: invoice.isPay == true ? Colors.green : Colors.red),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      context.localization.customerInfo,
+                                      style: TextStyle(color: Colors.grey),
                                     ),
-                                    const SizedBox(height: 10),
-                                    Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Text(
-                                        context.localization.customerInfo,
-                                        style: TextStyle(color: Colors.grey),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  StreamBuilder<DocumentSnapshot>(
+                                      stream: _customerStream,
+                                      builder: (context, snapshot) {
+                                        bool isFetching = snapshot.connectionState == ConnectionState.waiting;
+
+                                        if (snapshot.hasData) {
+                                          final Customer customer = Customer.fromMap(snapshot.data!.data()!);
+                                          customerLate = customer;
+                                          return Skeletonizer(
+                                            enabled: isFetching,
+                                            child: Row(
+                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                              children: [
+                                                CircleAvatar(
+                                                  radius: 28,
+                                                  child: Icon(Icons.person_outline_outlined),
+                                                ),
+                                                const SizedBox(width: 20),
+                                                Expanded(
+                                                  child: Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                      Text(
+                                                        isFetching ? 'Muhammad Aqif Syafi' : customer.name,
+                                                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                                                      ),
+                                                      Text(
+                                                        isFetching ? '01111796421' : customer.phoneNumber,
+                                                      ),
+                                                      Text(
+                                                        isFetching ? 'Kajang' : customer.location,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          );
+                                        }
+                                        return Container();
+                                      }),
+                                  const SizedBox(height: 25),
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      context.localization.technicianInfo,
+                                      style: TextStyle(color: Colors.grey),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  TechnicianInformation(techId: invoice.techId),
+                                  const SizedBox(height: 25),
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 50),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: Theme.of(context).colorScheme.surfaceContainerHigh,
+                                    ),
+                                    child: SizedBox(
+                                      width: double.infinity,
+                                      child: Wrap(
+                                        alignment: WrapAlignment.spaceBetween,
+                                        runAlignment: WrapAlignment.center,
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Text(context.localization.issued),
+                                                Text(
+                                                  Jiffy.parseFromDateTime(invoice.startDate.toDate()).format(pattern: 'dd/MM/yyyy'),
+                                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Text(context.localization.due),
+                                                Text(
+                                                  Jiffy.parseFromDateTime(invoice.dueDate.toDate()).format(pattern: 'dd/MM/yyyy'),
+                                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
-                                    const SizedBox(height: 10),
-                                    StreamBuilder<DocumentSnapshot>(
-                                        stream: _customerStream,
-                                        builder: (context, snapshot) {
-                                          bool isFetching = snapshot.connectionState == ConnectionState.waiting;
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    StreamBuilder<QuerySnapshot>(
+                        stream: _invoiceItemStream,
+                        builder: (context, snapshotItem) {
+                          if (snapshotItem.connectionState == ConnectionState.waiting) {
+                            return Center(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const CircularProgressIndicator.adaptive(),
+                                  const SizedBox(height: 10),
+                                  Text(context.localization.loading),
+                                ],
+                              ),
+                            );
+                          } else if (snapshotItem.data == null) {
+                            return Container();
+                          } else if (snapshotItem.hasData) {
+                            final List<InvoiceItem> items = (snapshotItem.data as QuerySnapshot).docs.map((e) => InvoiceItem.fromJson(e.data() as Map<String, dynamic>)).toList();
+                            invItems = items;
+                            WidgetsBinding.instance.addPostFrameCallback((_) {
+                              Provider.of<DocumentProvider>(context, listen: false).incrementBilling(items.length);
+                            });
 
-                                          if (snapshot.hasData) {
-                                            final Customer customer = Customer.fromMap(snapshot.data!.data()!);
-                                            customerLate = customer;
-                                            return Skeletonizer(
-                                              enabled: isFetching,
-                                              child: Row(
-                                                crossAxisAlignment: CrossAxisAlignment.center,
+                            double total = 0;
+                            for (var item in items) {
+                              total += item.itemPrice;
+                              if (item.itemName == 'Discount') {
+                                total -= item.itemPrice;
+                              }
+                            }
+                            return SizedBox(
+                              width: 600,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Card.outlined(
+                                    surfaceTintColor: Theme.of(context).colorScheme.primaryContainer,
+                                    elevation: 2,
+                                    shadowColor: Colors.transparent,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Column(
+                                        children: [
+                                          Table(
+                                            columnWidths: const {
+                                              0: FlexColumnWidth(2),
+                                              1: FlexColumnWidth(0.9),
+                                              2: FlexColumnWidth(0.7),
+                                            },
+                                            children: [
+                                              TableRow(
                                                 children: [
-                                                  CircleAvatar(
-                                                    radius: 28,
-                                                    child: Icon(Icons.person_outline_outlined),
-                                                  ),
-                                                  const SizedBox(width: 20),
-                                                  Expanded(
-                                                    child: Column(
-                                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                                      children: [
-                                                        Text(
-                                                          isFetching ? 'Muhammad Aqif Syafi' : customer.name,
-                                                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                                                        ),
-                                                        Text(
-                                                          isFetching ? '01111796421' : customer.phoneNumber,
-                                                        ),
-                                                        Text(
-                                                          isFetching ? 'Kajang' : customer.location,
-                                                        ),
-                                                      ],
+                                                  TableCell(
+                                                      child: Padding(
+                                                    padding: EdgeInsets.symmetric(vertical: 8.0),
+                                                    child: const Text('Item'),
+                                                  )),
+                                                  TableCell(
+                                                      child: Padding(
+                                                    padding: EdgeInsets.symmetric(vertical: 8.0),
+                                                    child: Text(context.localization.warranty),
+                                                  )),
+                                                  TableCell(
+                                                    child: Padding(
+                                                      padding: EdgeInsets.symmetric(vertical: 8.0),
+                                                      child: Text(context.localization.price),
                                                     ),
                                                   ),
                                                 ],
                                               ),
-                                            );
-                                          }
-                                          return Container();
-                                        }),
-                                    const SizedBox(height: 25),
-                                    Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Text(
-                                        context.localization.technicianInfo,
-                                        style: TextStyle(color: Colors.grey),
-                                      ),
-                                    ),
-                                    const SizedBox(height: 10),
-                                    TechnicianInformation(techId: invoice.techId),
-                                    const SizedBox(height: 25),
-                                    Container(
-                                      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 50),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(20),
-                                        color: Theme.of(context).colorScheme.surfaceContainerHigh,
-                                      ),
-                                      child: SizedBox(
-                                        width: double.infinity,
-                                        child: Wrap(
-                                          alignment: WrapAlignment.spaceBetween,
-                                          runAlignment: WrapAlignment.center,
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets.all(8.0),
-                                              child: Column(
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(context.localization.issued),
-                                                  Text(
-                                                    Jiffy.parseFromDateTime(invoice.startDate.toDate()).format(pattern: 'dd/MM/yyyy'),
-                                                    style: TextStyle(fontWeight: FontWeight.bold),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsets.all(8.0),
-                                              child: Column(
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(context.localization.due),
-                                                  Text(
-                                                    Jiffy.parseFromDateTime(invoice.dueDate.toDate()).format(pattern: 'dd/MM/yyyy'),
-                                                    style: TextStyle(fontWeight: FontWeight.bold),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 10),
-                      StreamBuilder<QuerySnapshot>(
-                          stream: _invoiceItemStream,
-                          builder: (context, snapshotItem) {
-                            if (snapshotItem.connectionState == ConnectionState.waiting) {
-                              return Center(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const CircularProgressIndicator.adaptive(),
-                                    const SizedBox(height: 10),
-                                    Text(context.localization.loading),
-                                  ],
-                                ),
-                              );
-                            } else if (snapshotItem.data == null) {
-                              return Container();
-                            } else if (snapshotItem.hasData) {
-                              final List<InvoiceItem> items = (snapshotItem.data as QuerySnapshot).docs.map((e) => InvoiceItem.fromJson(e.data() as Map<String, dynamic>)).toList();
-                              invItems = items;
-                              WidgetsBinding.instance.addPostFrameCallback((_) {
-                                Provider.of<DocumentProvider>(context, listen: false).incrementBilling(items.length);
-                              });
-
-                              double total = 0;
-                              for (var item in items) {
-                                total += item.itemPrice;
-                                if (item.itemName == 'Discount') {
-                                  total -= item.itemPrice;
-                                }
-                              }
-                              return SizedBox(
-                                width: 600,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Card.outlined(
-                                      surfaceTintColor: Theme.of(context).colorScheme.primaryContainer,
-                                      elevation: 2,
-                                      shadowColor: Colors.transparent,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(10.0),
-                                        child: Column(
-                                          children: [
-                                            Table(
-                                              columnWidths: const {
-                                                0: FlexColumnWidth(2),
-                                                1: FlexColumnWidth(0.9),
-                                                2: FlexColumnWidth(0.7),
-                                              },
-                                              children: [
+                                              for (var item in items)
                                                 TableRow(
                                                   children: [
                                                     TableCell(
-                                                        child: Padding(
-                                                      padding: EdgeInsets.symmetric(vertical: 8.0),
-                                                      child: const Text('Item'),
-                                                    )),
-                                                    TableCell(
-                                                        child: Padding(
-                                                      padding: EdgeInsets.symmetric(vertical: 8.0),
-                                                      child: Text(context.localization.warranty),
-                                                    )),
+                                                      child: Padding(
+                                                        padding: const EdgeInsets.symmetric(vertical: 5.0),
+                                                        child: Text(item.itemName, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+                                                      ),
+                                                    ),
                                                     TableCell(
                                                       child: Padding(
-                                                        padding: EdgeInsets.symmetric(vertical: 8.0),
-                                                        child: Text(context.localization.price),
+                                                        padding: const EdgeInsets.symmetric(vertical: 5.0),
+                                                        child: Text(warrantyDur(item), style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
                                                       ),
+                                                    ),
+                                                    TableCell(
+                                                        child: Padding(
+                                                      padding: const EdgeInsets.symmetric(vertical: 5.0),
+                                                      child: Text(item.itemPrice.toStringAsFixed(2), style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+                                                    )),
+                                                  ],
+                                                ),
+                                            ],
+                                          ),
+                                          const SizedBox(height: 10),
+                                          Container(
+                                            padding: const EdgeInsets.all(12),
+                                            margin: const EdgeInsets.all(5),
+                                            decoration: BoxDecoration(
+                                              color: Colors.grey.withValues(alpha: 0.1),
+                                              borderRadius: BorderRadius.circular(20),
+                                            ),
+                                            child: Column(
+                                              children: [
+                                                Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  children: [
+                                                    Text(context.localization.total, style: TextStyle(fontSize: 14)),
+                                                    Text(
+                                                      'RM ${total.toStringAsFixed(2)}',
+                                                      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
                                                     ),
                                                   ],
                                                 ),
-                                                for (var item in items)
-                                                  TableRow(
-                                                    children: [
-                                                      TableCell(
-                                                        child: Padding(
-                                                          padding: const EdgeInsets.symmetric(vertical: 5.0),
-                                                          child: Text(item.itemName, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-                                                        ),
-                                                      ),
-                                                      TableCell(
-                                                        child: Padding(
-                                                          padding: const EdgeInsets.symmetric(vertical: 5.0),
-                                                          child: Text(warrantyDur(item), style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-                                                        ),
-                                                      ),
-                                                      TableCell(
-                                                          child: Padding(
-                                                        padding: const EdgeInsets.symmetric(vertical: 5.0),
-                                                        child: Text(item.itemPrice.toStringAsFixed(2), style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-                                                      )),
-                                                    ],
+                                                const SizedBox(height: 5),
+                                                Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  children: [
+                                                    Text(context.localization.discount, style: TextStyle(fontSize: 14)),
+                                                    Text(
+                                                      'RM ${invoice.discount.toStringAsFixed(2)}',
+                                                      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                                                    ),
+                                                  ],
+                                                ),
+                                                invoice.isPay == true
+                                                    ? Column(
+                                                        children: [
+                                                          const SizedBox(height: 5),
+                                                          Row(
+                                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                            children: [
+                                                              Text(context.localization.paymentMethod, style: TextStyle(fontSize: 14)),
+                                                              Text(
+                                                                invoice.paymentMethod.displayName,
+                                                                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ],
+                                                      )
+                                                    : const SizedBox(),
+                                                const SizedBox(height: 15),
+                                                Container(
+                                                  decoration: BoxDecoration(
+                                                    color: Theme.of(context).colorScheme.primaryContainer,
+                                                    borderRadius: BorderRadius.circular(20),
                                                   ),
+                                                  child: ListTile(
+                                                    visualDensity: const VisualDensity(vertical: 1),
+                                                    title: Text(
+                                                      context.localization.amount,
+                                                      style: TextStyle(
+                                                        color: Theme.of(context).colorScheme.onPrimaryContainer,
+                                                      ),
+                                                    ),
+                                                    trailing: Text(
+                                                      'RM ${invoice.finalPrice.toStringAsFixed(2)}',
+                                                      style: TextStyle(
+                                                        fontWeight: FontWeight.bold,
+                                                        fontSize: 16,
+                                                        color: Theme.of(context).colorScheme.onPrimaryContainer,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
                                               ],
                                             ),
-                                            const SizedBox(height: 10),
-                                            Container(
-                                              padding: const EdgeInsets.all(12),
-                                              margin: const EdgeInsets.all(5),
-                                              decoration: BoxDecoration(
-                                                color: Colors.grey.withValues(alpha: 0.1),
-                                                borderRadius: BorderRadius.circular(20),
-                                              ),
-                                              child: Column(
-                                                children: [
-                                                  Row(
-                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                    children: [
-                                                      Text(context.localization.total, style: TextStyle(fontSize: 14)),
-                                                      Text(
-                                                        'RM ${total.toStringAsFixed(2)}',
-                                                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  const SizedBox(height: 5),
-                                                  Row(
-                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                    children: [
-                                                      Text(context.localization.discount, style: TextStyle(fontSize: 14)),
-                                                      Text(
-                                                        'RM ${invoice.discount.toStringAsFixed(2)}',
-                                                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  invoice.isPay == true
-                                                      ? Column(
-                                                          children: [
-                                                            const SizedBox(height: 5),
-                                                            Row(
-                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                              children: [
-                                                                Text(context.localization.paymentMethod, style: TextStyle(fontSize: 14)),
-                                                                Text(
-                                                                  invoice.paymentMethod.displayName,
-                                                                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ],
-                                                        )
-                                                      : const SizedBox(),
-                                                  const SizedBox(height: 15),
-                                                  Container(
-                                                    decoration: BoxDecoration(
-                                                      color: Theme.of(context).colorScheme.primaryContainer,
-                                                      borderRadius: BorderRadius.circular(20),
-                                                    ),
-                                                    child: ListTile(
-                                                      visualDensity: const VisualDensity(vertical: 1),
-                                                      title: Text(
-                                                        context.localization.amount,
-                                                        style: TextStyle(
-                                                          color: Theme.of(context).colorScheme.onPrimaryContainer,
-                                                        ),
-                                                      ),
-                                                      trailing: Text(
-                                                        'RM ${invoice.finalPrice.toStringAsFixed(2)}',
-                                                        style: TextStyle(
-                                                          fontWeight: FontWeight.bold,
-                                                          fontSize: 16,
-                                                          color: Theme.of(context).colorScheme.onPrimaryContainer,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            const SizedBox(height: 20),
-                                          ],
-                                        ),
+                                          ),
+                                          const SizedBox(height: 20),
+                                        ],
                                       ),
                                     ),
-                                  ],
-                                ),
-                              );
-                            } else {
-                              return SizedBox();
-                            }
-                          }),
-                      invoice.isPay == true ? const SizedBox() : const SizedBox(height: 10),
-                      invoice.isPay == true
-                          ? const SizedBox()
-                          : Align(
-                              alignment: Alignment.center,
-                              child: SizedBox(
-                                width: 300,
-                                height: 60,
-                                child: FilledButton.icon(
-                                  onPressed: () {
-                                    final query = GoRouterState.of(context).pathParameters;
-                                    context.goPush(Routes.payment, pathParameters: query);
-                                  },
-                                  label: Text(context.localization.payNow),
-                                  icon: Icon(Icons.payments),
-                                ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          } else {
+                            return SizedBox();
+                          }
+                        }),
+                    const SizedBox(height: 20),
+                    invoice.isPay == true
+                        ? const SizedBox()
+                        : Align(
+                            alignment: Alignment.center,
+                            child: SizedBox(
+                              width: 300,
+                              height: 60,
+                              child: FilledButton.icon(
+                                onPressed: () {
+                                  final query = GoRouterState.of(context).pathParameters;
+                                  context.goPush(Routes.payment, pathParameters: query);
+                                },
+                                label: Text(context.localization.payNow),
+                                icon: Icon(Icons.payments),
                               ),
                             ),
-                      const SizedBox(height: 1),
-                      Align(
-                        alignment: Alignment.center,
-                        child: SizedBox(
-                          width: 300,
-                          height: 60,
-                          child: TextButton.icon(
-                            onPressed: () async {
-                              final file = await PdfInvoice.generatePdf(
-                                customer: customerLate as Customer,
-                                invoice: invoice,
-                                technician: docsProvider.technicianLate as Technician,
-                                invoiceItems: invItems as List<InvoiceItem>,
-                              );
-
-                              PdfInvoice.savePDF(file, invoice.isPay, invoice.id.toString());
-                            },
-                            label: Text(context.localization.downloadPdf),
-                            icon: Icon(Icons.download),
                           ),
+                    const SizedBox(height: 10),
+                    Align(
+                      alignment: Alignment.center,
+                      child: SizedBox(
+                        width: 300,
+                        height: 60,
+                        child: TextButton.icon(
+                          onPressed: () async {
+                            final file = await PdfInvoice.generatePdf(
+                              customer: customerLate as Customer,
+                              invoice: invoice,
+                              technician: docsProvider.technicianLate as Technician,
+                              invoiceItems: invItems as List<InvoiceItem>,
+                            );
+
+                            PdfInvoice.savePDF(file, invoice.isPay, invoice.id.toString());
+                          },
+                          label: Text(context.localization.downloadPdf),
+                          icon: Icon(Icons.download),
                         ),
                       ),
-                      const SizedBox(height: 40),
-                    ],
-                  ),
+                    ),
+                    const SizedBox(height: 40),
+                  ],
                 ),
               );
             }

@@ -20,6 +20,7 @@ dependencies:
   easy_stepper: ^0.8.5+1
   material_segmented_control: ^5.0.1
   timelines_plus: ^1.0.6
+  lottie: ^3.3.1
 
   # State Management
   go_router: ^14.8.1
@@ -128,4 +129,5 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+    - assets/lottie/
   #   - images/a_dot_ham.jpeg

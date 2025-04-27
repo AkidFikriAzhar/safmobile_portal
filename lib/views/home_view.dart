@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import 'package:safmobile_portal/provider/home_provider.dart';
 import 'package:safmobile_portal/extensions/locale_extension.dart';
 import 'package:safmobile_portal/provider/theme_data.dart';
@@ -28,6 +29,7 @@ class _HomeViewState extends State<HomeView> {
         child: Center(
           child: Text(
             context.localization.copyright,
+            textAlign: TextAlign.center,
             style: TextStyle(color: Colors.grey, fontSize: 10),
           ),
         ),
@@ -136,6 +138,25 @@ class _HomeViewState extends State<HomeView> {
                         icon: const Icon(Icons.qr_code_scanner),
                       ),
                     ),
+                    // const SizedBox(height: 10),
+                    // SizedBox(
+                    //   height: 45,
+                    //   width: 200,
+                    //   child: TextButton.icon(
+                    //     onPressed: () async {
+                    //       try {
+                    //         List<FpxBank> banks = await BayarcashApi().getFpxBanks();
+                    //         for (var bank in banks) {
+                    //           log('${bank.bankDisplayName} - ${bank.bankCode} : ${bank.bankAvailability}');
+                    //         }
+                    //       } catch (e) {
+                    //         log('Error: $e');
+                    //       }
+                    //     },
+                    //     label: Text('Test API'),
+                    //     icon: const Icon(Icons.network_check),
+                    //   ),
+                    // ),
                   ],
                 ),
               ),

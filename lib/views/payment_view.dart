@@ -1,10 +1,11 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:safmobile_portal/model/customer.dart';
 import 'package:safmobile_portal/model/invoice.dart';
-import 'package:safmobile_portal/services/toyyibpay_api.dart';
+import 'package:safmobile_portal/routes.dart';
+import 'package:safmobile_portal/services/payment_setup_firestore.dart';
+// import 'package:safmobile_portal/services/toyyibpay_api.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class PaymentView extends StatefulWidget {
@@ -35,12 +36,12 @@ class _PaymentViewState extends State<PaymentView> {
   final _emailFocusNode = FocusNode();
   final _phoneFocusNode = FocusNode();
 
-  final ToyyibpayApi _toyyibpayApi = ToyyibpayApi();
+  // final ToyyibpayApi _toyyibpayApi = ToyyibpayApi();
 
   @override
   void initState() {
-    _fetchInvoice = _toyyibpayApi.getInvoice(widget.uid, widget.ticketId);
-    _fetchCustomer = _toyyibpayApi.getCustomer(widget.uid);
+    _fetchInvoice = PaymentSetupFirestore.getInvoice(widget.uid, widget.ticketId);
+    _fetchCustomer = PaymentSetupFirestore.getCustomer(widget.uid);
     super.initState();
   }
 
@@ -205,7 +206,7 @@ class _PaymentViewState extends State<PaymentView> {
                                               child: FilledButton(
                                                 onPressed: _isLoadingApi == true
                                                     ? null
-                                                    : () {
+                                                    : () async {
                                                         if (_formkey.currentState!.validate()) {
                                                           if (_isChecked) {
                                                             log('initiate Api Payment Gateway');
@@ -213,24 +214,52 @@ class _PaymentViewState extends State<PaymentView> {
                                                             setState(() {
                                                               _isLoadingApi = true;
                                                             });
-                                                            showDialog(
-                                                                context: context,
-                                                                // barrierDismissible: false,
-                                                                builder: (context) {
-                                                                  return AlertDialog(
-                                                                    content: Column(
-                                                                      mainAxisSize: MainAxisSize.min,
-                                                                      children: [
-                                                                        CircularProgressIndicator(),
-                                                                        SizedBox(height: 15),
-                                                                        Text(
-                                                                          'Please wait while we process your payment...',
-                                                                          textAlign: TextAlign.center,
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  );
-                                                                });
+
+                                                            if (context.mounted) {
+                                                              showDialog(
+                                                                  context: context,
+                                                                  // barrierDismissible: false,
+                                                                  builder: (context) {
+                                                                    return AlertDialog(
+                                                                      content: Column(
+                                                                        mainAxisSize: MainAxisSize.min,
+                                                                        children: [
+                                                                          CircularProgressIndicator(),
+                                                                          SizedBox(height: 15),
+                                                                          Text(
+                                                                            'Please wait while we process your payment...',
+                                                                            textAlign: TextAlign.center,
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    );
+                                                                  });
+
+                                                              // await PaymentSetupFirestore.updateCustomer(
+                                                              //   uid: widget.uid,
+                                                              //   ticketId: widget.ticketId,
+                                                              //   name: _nameInput.text,
+                                                              //   phoneNumber: _phoneInput.text,
+                                                              //   email: _emailInput.text,
+                                                              // );
+                                                              await Future.delayed(const Duration(seconds: 1));
+
+                                                              if (context.mounted) {
+                                                                context.pop();
+                                                                context.pushReplacementNamed(
+                                                                  Routes.pending,
+                                                                  pathParameters: {
+                                                                    'uid': widget.uid,
+                                                                    'ticketId': widget.ticketId,
+                                                                  },
+                                                                  queryParameters: {'billCode': '23131'},
+                                                                );
+                                                              } else {
+                                                                return;
+                                                              }
+                                                            } else {
+                                                              return;
+                                                            }
                                                           } else {
                                                             ScaffoldMessenger.of(context).showSnackBar(
                                                               SnackBar(

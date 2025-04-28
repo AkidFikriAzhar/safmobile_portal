@@ -18,7 +18,6 @@ class PaymentView extends StatefulWidget {
 }
 
 class _PaymentViewState extends State<PaymentView> {
-  bool _isChecked = false;
   bool _isFetchingInvoice = true;
   bool _isFetchingCustomer = true;
 
@@ -235,35 +234,35 @@ class _PaymentViewState extends State<PaymentView> {
                                             ),
                                           ),
                                         ),
-                                        Center(
-                                          child: SizedBox(
-                                            width: 600,
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(12.0),
-                                              child: Row(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                crossAxisAlignment: CrossAxisAlignment.center,
-                                                spacing: 15,
-                                                children: [
-                                                  Checkbox(
-                                                    value: _isChecked,
-                                                    onChanged: (bool? value) {
-                                                      setState(() {
-                                                        _isChecked = value!;
-                                                      });
-                                                    },
-                                                  ),
-                                                  Expanded(
-                                                    child: Text(
-                                                      'I have read and agree to the terms and conditions',
-                                                      style: TextStyle(color: Colors.grey),
+                                        Consumer<PaymentProvider>(builder: (context, paymentProvider, child) {
+                                          return Center(
+                                            child: SizedBox(
+                                              width: 600,
+                                              child: Padding(
+                                                padding: const EdgeInsets.all(12.0),
+                                                child: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                                  spacing: 15,
+                                                  children: [
+                                                    Checkbox(
+                                                      value: paymentProvider.isAgree,
+                                                      onChanged: (bool? value) {
+                                                        paymentProvider.setAgree(value!);
+                                                      },
                                                     ),
-                                                  ),
-                                                ],
+                                                    Expanded(
+                                                      child: Text(
+                                                        'Proceeding with payment indicates your agreement to our Terms & Conditions.',
+                                                        style: TextStyle(color: Colors.grey),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                        ),
+                                          );
+                                        }),
                                         const SizedBox(height: 30),
                                       ],
                                     ),

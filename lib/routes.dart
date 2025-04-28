@@ -1,4 +1,6 @@
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+import 'package:safmobile_portal/provider/payment_provider.dart';
 import 'package:safmobile_portal/views/home_view.dart';
 import 'package:safmobile_portal/views/docs_view.dart';
 import 'package:safmobile_portal/views/payment_view.dart';
@@ -38,9 +40,12 @@ class Routes {
           GoRoute(
             path: payment,
             name: payment,
-            builder: (context, state) => PaymentView(
-              uid: state.pathParameters['uid'] ?? '',
-              ticketId: state.pathParameters['ticketId'] ?? '',
+            builder: (context, state) => ChangeNotifierProvider(
+              create: (_) => PaymentProvider(),
+              child: PaymentView(
+                uid: state.pathParameters['uid'] ?? '',
+                ticketId: state.pathParameters['ticketId'] ?? '',
+              ),
             ),
           ),
           GoRoute(

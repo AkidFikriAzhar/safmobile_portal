@@ -1,11 +1,11 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+import 'package:safmobile_portal/helpers/payment_helper.dart';
 import 'package:safmobile_portal/model/customer.dart';
 import 'package:safmobile_portal/model/invoice.dart';
-import 'package:safmobile_portal/routes.dart';
+import 'package:safmobile_portal/provider/payment_provider.dart';
 import 'package:safmobile_portal/services/payment_setup_firestore.dart';
-// import 'package:safmobile_portal/services/toyyibpay_api.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class PaymentView extends StatefulWidget {
@@ -21,7 +21,7 @@ class _PaymentViewState extends State<PaymentView> {
   bool _isChecked = false;
   bool _isFetchingInvoice = true;
   bool _isFetchingCustomer = true;
-  bool _isLoadingApi = false;
+
   final _formkey = GlobalKey<FormState>();
 
   late Future _fetchInvoice;
@@ -35,8 +35,6 @@ class _PaymentViewState extends State<PaymentView> {
   final _nameFocusNode = FocusNode();
   final _emailFocusNode = FocusNode();
   final _phoneFocusNode = FocusNode();
-
-  // final ToyyibpayApi _toyyibpayApi = ToyyibpayApi();
 
   @override
   void initState() {
@@ -197,84 +195,29 @@ class _PaymentViewState extends State<PaymentView> {
                                           ),
                                         ),
                                         const SizedBox(height: 10),
-                                        Center(
-                                          child: Padding(
-                                            padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                                            child: SizedBox(
-                                              width: 400,
-                                              height: 60,
-                                              child: FilledButton(
-                                                onPressed: _isLoadingApi == true
-                                                    ? null
-                                                    : () async {
-                                                        if (_formkey.currentState!.validate()) {
-                                                          if (_isChecked) {
-                                                            log('initiate Api Payment Gateway');
-
-                                                            setState(() {
-                                                              _isLoadingApi = true;
-                                                            });
-
-                                                            if (context.mounted) {
-                                                              showDialog(
-                                                                  context: context,
-                                                                  // barrierDismissible: false,
-                                                                  builder: (context) {
-                                                                    return AlertDialog(
-                                                                      content: Column(
-                                                                        mainAxisSize: MainAxisSize.min,
-                                                                        children: [
-                                                                          CircularProgressIndicator(),
-                                                                          SizedBox(height: 15),
-                                                                          Text(
-                                                                            'Please wait while we process your payment...',
-                                                                            textAlign: TextAlign.center,
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                    );
-                                                                  });
-
-                                                              // await PaymentSetupFirestore.updateCustomer(
-                                                              //   uid: widget.uid,
-                                                              //   ticketId: widget.ticketId,
-                                                              //   name: _nameInput.text,
-                                                              //   phoneNumber: _phoneInput.text,
-                                                              //   email: _emailInput.text,
-                                                              // );
-                                                              await Future.delayed(const Duration(seconds: 1));
-
-                                                              if (context.mounted) {
-                                                                context.pop();
-                                                                context.pushReplacementNamed(
-                                                                  Routes.pending,
-                                                                  pathParameters: {
-                                                                    'uid': widget.uid,
-                                                                    'ticketId': widget.ticketId,
-                                                                  },
-                                                                  queryParameters: {'billCode': '23131'},
-                                                                );
-                                                              } else {
-                                                                return;
-                                                              }
-                                                            } else {
-                                                              return;
-                                                            }
-                                                          } else {
-                                                            ScaffoldMessenger.of(context).showSnackBar(
-                                                              SnackBar(
-                                                                  content: Text(
-                                                                'Please agree to the terms and conditions',
-                                                              )),
-                                                            );
-                                                          }
-                                                        }
-                                                      },
-                                                child: Text('Continue'),
+                                        Consumer<PaymentProvider>(builder: (context, paymentProvider, child) {
+                                          return Center(
+                                            child: Padding(
+                                              padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                                              child: SizedBox(
+                                                width: 400,
+                                                height: 60,
+                                                child: FilledButton(
+                                                  onPressed: paymentProvider.isLoadingApi == true
+                                                      ? null
+                                                      : () async => PaymentHelper().choosePaymentMethod(
+                                                            context: context,
+                                                            formKey: _formkey,
+                                                            paymentProvider: paymentProvider,
+                                                            ticketId: widget.ticketId,
+                                                            uid: widget.uid,
+                                                          ),
+                                                  child: Text('Choose Payment Method'),
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                        ),
+                                          );
+                                        }),
                                         Center(
                                           child: Padding(
                                             padding: const EdgeInsets.symmetric(horizontal: 12.0),
@@ -282,9 +225,7 @@ class _PaymentViewState extends State<PaymentView> {
                                               width: 400,
                                               height: 60,
                                               child: FilledButton(
-                                                onPressed: () {
-                                                  context.pop();
-                                                },
+                                                onPressed: () => context.pop(),
                                                 style: ButtonStyle(
                                                   backgroundColor: WidgetStateProperty.all(Theme.of(context).colorScheme.surfaceContainer),
                                                   foregroundColor: WidgetStateProperty.all(Theme.of(context).colorScheme.onSurface),
@@ -314,7 +255,7 @@ class _PaymentViewState extends State<PaymentView> {
                                                   ),
                                                   Expanded(
                                                     child: Text(
-                                                      'By clicking the \'Continue\', you confirm that you have read and agree to our Terms & Conditions',
+                                                      'I have read and agree to the terms and conditions',
                                                       style: TextStyle(color: Colors.grey),
                                                     ),
                                                   ),

@@ -34,21 +34,51 @@ class _ChoosePaymentMethodBottomsheetState extends State<ChoosePaymentMethodBott
               RadioListTile<int>(
                 visualDensity: VisualDensity(vertical: 3),
                 value: 1,
-                title: Text('Bank Transfer via FPX'),
+                title: Row(
+                  children: [
+                    Text('Bank Transfer via FPX'),
+                    const Spacer(),
+                    Image.asset(
+                      'assets/images/fpx.png',
+                      width: 45,
+                      height: 45,
+                    ),
+                  ],
+                ),
                 groupValue: paymentProvider.currentPaymentMethod,
                 onChanged: (value) => paymentProvider.setCurrentPaymentMethod(value!.toInt()),
               ),
               RadioListTile<int>(
                 visualDensity: VisualDensity(vertical: 3),
                 value: 3,
-                title: Text('Debit Card'),
+                title: Row(
+                  children: [
+                    Text('Debit Card'),
+                    const Spacer(),
+                    Image.asset(
+                      'assets/images/visa.png',
+                      width: 45,
+                      height: 45,
+                    ),
+                  ],
+                ),
                 groupValue: paymentProvider.currentPaymentMethod,
                 onChanged: (value) => paymentProvider.setCurrentPaymentMethod(value!.toInt()),
               ),
               RadioListTile<int>(
                 visualDensity: VisualDensity(vertical: 3),
                 value: 4,
-                title: Text('Credit Card'),
+                title: Row(
+                  children: [
+                    Text('Credit Card'),
+                    const Spacer(),
+                    Image.asset(
+                      'assets/images/visa.png',
+                      width: 45,
+                      height: 45,
+                    ),
+                  ],
+                ),
                 groupValue: paymentProvider.currentPaymentMethod,
                 onChanged: (value) => paymentProvider.setCurrentPaymentMethod(value!.toInt()),
               ),

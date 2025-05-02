@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -210,6 +211,10 @@ class _PaymentViewState extends State<PaymentView> {
                                                             paymentProvider: paymentProvider,
                                                             ticketId: widget.ticketId,
                                                             uid: widget.uid,
+                                                            name: _nameInput.text,
+                                                            phone: _phoneInput.text,
+                                                            email: _emailInput.text,
+                                                            amount: invoice?.finalPrice ?? 0,
                                                           ),
                                                   child: Text('Choose Payment Method'),
                                                 ),
@@ -252,9 +257,27 @@ class _PaymentViewState extends State<PaymentView> {
                                                       },
                                                     ),
                                                     Expanded(
-                                                      child: Text(
-                                                        'Proceeding with payment indicates your agreement to our Terms & Conditions.',
-                                                        style: TextStyle(color: Colors.grey),
+                                                      // child: Text(
+                                                      //   'Proceeding with payment indicates your agreement to our Terms & Conditions.',
+                                                      //   style: TextStyle(color: Colors.grey),
+                                                      // ),
+                                                      child: Text.rich(
+                                                        TextSpan(
+                                                          children: [
+                                                            TextSpan(
+                                                              text: 'Proceeding with payment indicates your agreement to our ',
+                                                              style: TextStyle(color: Colors.grey),
+                                                            ),
+                                                            TextSpan(
+                                                              text: 'Terms & Conditions.',
+                                                              style: TextStyle(color: Theme.of(context).colorScheme.primary),
+                                                              recognizer: TapGestureRecognizer()
+                                                                ..onTap = () {
+                                                                  // TODO: Open Terms & Conditions
+                                                                },
+                                                            ),
+                                                          ],
+                                                        ),
                                                       ),
                                                     ),
                                                   ],

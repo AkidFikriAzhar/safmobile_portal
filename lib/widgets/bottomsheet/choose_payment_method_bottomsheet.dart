@@ -39,7 +39,7 @@ class _ChoosePaymentMethodBottomsheetState extends State<ChoosePaymentMethodBott
                     Text('Bank Transfer via FPX'),
                     const Spacer(),
                     Image.asset(
-                      'assets/images/fpx.png',
+                      Theme.of(context).brightness == Brightness.light ? 'assets/images/fpx_light.png' : 'assets/images/fpx_dark.png',
                       width: 45,
                       height: 45,
                     ),
@@ -55,10 +55,20 @@ class _ChoosePaymentMethodBottomsheetState extends State<ChoosePaymentMethodBott
                   children: [
                     Text('Debit Card'),
                     const Spacer(),
-                    Image.asset(
-                      'assets/images/visa.png',
-                      width: 45,
-                      height: 45,
+                    Row(
+                      spacing: 5,
+                      children: [
+                        Image.asset(
+                          'assets/images/visa.png',
+                          width: 45,
+                          height: 45,
+                        ),
+                        Image.asset(
+                          'assets/images/mastercard.png',
+                          width: 45,
+                          height: 45,
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -72,10 +82,20 @@ class _ChoosePaymentMethodBottomsheetState extends State<ChoosePaymentMethodBott
                   children: [
                     Text('Credit Card'),
                     const Spacer(),
-                    Image.asset(
-                      'assets/images/visa.png',
-                      width: 45,
-                      height: 45,
+                    Row(
+                      spacing: 5,
+                      children: [
+                        Image.asset(
+                          'assets/images/visa.png',
+                          width: 45,
+                          height: 45,
+                        ),
+                        Image.asset(
+                          'assets/images/mastercard.png',
+                          width: 45,
+                          height: 45,
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -85,14 +105,53 @@ class _ChoosePaymentMethodBottomsheetState extends State<ChoosePaymentMethodBott
               RadioListTile<int>(
                 visualDensity: VisualDensity(vertical: 3),
                 value: 5,
-                title: Text('eWallet'),
+                title: Row(
+                  children: [
+                    Text('eWallet'),
+                    const Spacer(),
+                    Row(
+                      spacing: 5,
+                      children: [
+                        Image.asset(
+                          'assets/images/boost.png',
+                          width: 35,
+                          height: 35,
+                        ),
+                        Image.asset(
+                          'assets/images/tng.png',
+                          width: 40,
+                          height: 40,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
                 groupValue: paymentProvider.currentPaymentMethod,
                 onChanged: (value) => paymentProvider.setCurrentPaymentMethod(value!.toInt()),
               ),
               RadioListTile<int>(
                 visualDensity: VisualDensity(vertical: 3),
                 value: 8,
-                title: Text('Boost PayFlex'),
+                title: Row(
+                  children: [
+                    Text('Boost PayFlex'),
+                    const Spacer(),
+                    Row(
+                      spacing: 5,
+                      children: [
+                        Image.asset(
+                          'assets/images/boost.png',
+                          width: 35,
+                          height: 35,
+                        ),
+                        Text(
+                          'PayFlex',
+                          style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
                 groupValue: paymentProvider.currentPaymentMethod,
                 onChanged: (value) => paymentProvider.setCurrentPaymentMethod(value!.toInt()),
               ),
@@ -102,7 +161,6 @@ class _ChoosePaymentMethodBottomsheetState extends State<ChoosePaymentMethodBott
                   height: 55,
                   child: FilledButton(
                     onPressed: () {
-                      print(paymentProvider.currentPaymentMethod);
                       context.pop(
                         paymentProvider.currentPaymentMethod,
                       );

@@ -38,7 +38,8 @@ class BayarcashApi {
     required int paymentMethod,
   }) async {
     // final corsProxy = 'https://proxy.corsfix.com/?';
-    final apiUrl = Uri.parse('https://api.console.bayarcash-sandbox.com/v3/payment-intents');
+    // final x2u = 'https://go.x2u.in/proxy?email=akidfikriazhar@gmail.com&apiKey=8967b944&url=https://www.bbc.com';
+    final apiUrl = Uri.parse('https://go.x2u.in/proxy?email=akidfikriazhar@gmail.com&apiKey=8967b944&url=https://api.console.bayarcash-sandbox.com/v3/payment-intents');
     final sandboxPortal = '779cd699e9e59a84c4581a68fd7e0130';
 
     final response = await http.post(
@@ -66,7 +67,7 @@ class BayarcashApi {
     if (response.statusCode == 201) {
       final json = jsonDecode(response.body);
       log('$paymentIntentUrlSandbox${json['id']}');
-      return '$paymentIntentUrlSandbox${json['id']}'; // Pulangkan hanya ID
+      return '${json['id']}'; // Pulangkan hanya ID
     } else {
       throw Exception('Gagal cipta bayaran: ${response.body}');
     }

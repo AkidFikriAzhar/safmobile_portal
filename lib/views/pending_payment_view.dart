@@ -22,7 +22,13 @@ class _PendingPaymentViewState extends State<PendingPaymentView> with SingleTick
   @override
   void initState() {
     super.initState();
+    final url = '${BayarcashApi.paymentIntentUrlSandbox}${widget.billCode}';
     _controller = AnimationController(vsync: this);
+    if (!kIsWeb) {
+      launchUrl(Uri.parse(url));
+    } else {
+      html.window.open(url, '_blank');
+    }
   }
 
   @override

@@ -54,7 +54,7 @@ class Routes {
             builder: (context, state) => PendingPaymentView(
               uid: state.pathParameters['uid'] ?? '',
               ticketId: state.pathParameters['ticketId'] ?? '',
-              billCode: state.uri.queryParameters['billCode'] ?? '',
+              billCode: state.uri.queryParameters['paymentId'] ?? '',
             ),
           ),
         ],

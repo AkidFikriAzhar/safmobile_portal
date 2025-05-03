@@ -22,13 +22,11 @@ class _PendingPaymentViewState extends State<PendingPaymentView> with SingleTick
   @override
   void initState() {
     super.initState();
-    final url = '${BayarcashApi.paymentIntentUrlSandbox}${widget.billCode}';
+
     _controller = AnimationController(vsync: this);
-    if (!kIsWeb) {
-      launchUrl(Uri.parse(url));
-    } else {
-      html.window.open(url, '_blank');
-    }
+    // Future.delayed(const Duration(seconds: 2), () {
+
+    // });
   }
 
   @override
@@ -78,11 +76,19 @@ class _PendingPaymentViewState extends State<PendingPaymentView> with SingleTick
                           ),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
+                              // context.goPush(
+                              //   Routes.paymentGateway,
+                              //   pathParameters: {
+                              //     'uid': widget.uid,
+                              //     'ticketId': widget.ticketId,
+                              //   },
+                              //   queryParameters: {'paymentId': widget.billCode},
+                              // );
                               final url = '${BayarcashApi.paymentIntentUrlSandbox}${widget.billCode}';
                               if (!kIsWeb) {
                                 launchUrl(Uri.parse(url));
                               } else {
-                                html.window.open(url, '_blank');
+                                html.window.location.assign(url);
                               }
                             }),
                     ],

@@ -10,6 +10,8 @@ import 'package:safmobile_portal/services/bayarcash_api.dart';
 import 'package:safmobile_portal/widgets/bottomsheet/choose_payment_method_bottomsheet.dart';
 import 'package:universal_html/html.dart' as html;
 import 'package:url_launcher/url_launcher.dart';
+// import 'package:universal_html/html.dart' as html;
+// import 'package:url_launcher/url_launcher.dart';
 
 class PaymentHelper {
   Future<void> choosePaymentMethod({
@@ -42,36 +44,36 @@ class PaymentHelper {
 
           if (currentPaymentMethod != null) {
             if (context.mounted) {
-              // showDialog(
-              //     context: context,
-              //     // barrierDismissible: false,
-              //     builder: (context) {
-              //       return AlertDialog(
-              //         content: Column(
-              //           mainAxisSize: MainAxisSize.min,
-              //           children: [
-              //             CircularProgressIndicator(),
-              //             SizedBox(height: 15),
-              //             Text(
-              //               'Please wait while we process your payment...',
-              //               textAlign: TextAlign.center,
-              //             ),
-              //           ],
-              //         ),
-              //       );
-              //     });
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  backgroundColor: Colors.black.withValues(alpha: 0.7),
-                  content: Row(
-                    children: [
-                      CircularProgressIndicator(),
-                      SizedBox(width: 10),
-                      Text('Processing payment...'),
-                    ],
-                  ),
-                ),
-              );
+              showDialog(
+                  context: context,
+                  // barrierDismissible: false,
+                  builder: (context) {
+                    return AlertDialog(
+                      content: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          CircularProgressIndicator(),
+                          SizedBox(height: 15),
+                          Text(
+                            'Please wait while we process your payment...',
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      ),
+                    );
+                  });
+              // ScaffoldMessenger.of(context).showSnackBar(
+              //   SnackBar(
+              //     backgroundColor: Colors.black.withValues(alpha: 0.7),
+              //     content: Row(
+              //       children: [
+              //         CircularProgressIndicator(),
+              //         SizedBox(width: 10),
+              //         Text('Processing payment...'),
+              //       ],
+              //     ),
+              //   ),
+              // );
 
               final paymentId = await BayarcashApi().createBayarCashPaymentIntent(
                 name: name,
@@ -81,17 +83,15 @@ class PaymentHelper {
                 ticketId: ticketId,
                 paymentMethod: currentPaymentMethod,
               );
-              final url = '${BayarcashApi.paymentIntentUrlSandbox}$paymentId';
-
-              if (!kIsWeb) {
-                launchUrl(Uri.parse(url));
-              } else {
-                html.window.open(url, '_blank');
-              }
 
               if (context.mounted) {
                 context.pop();
-
+                final url = '${BayarcashApi.paymentIntentUrlSandbox}$paymentId';
+                if (!kIsWeb) {
+                  launchUrl(Uri.parse(url));
+                } else {
+                  html.window.location.assign(url);
+                }
                 context.goPush(
                   Routes.pending,
                   pathParameters: {

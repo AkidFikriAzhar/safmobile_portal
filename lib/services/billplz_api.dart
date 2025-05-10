@@ -5,9 +5,12 @@ import 'package:http/http.dart' as http;
 
 class BillPlizApi {
   static const sandboxBaseUrl = 'https://www.billplz-sandbox.com/bills/';
-  static const _sandboxBillApiUrl = 'https://www.billplz-sandbox.com/api/v3/bills';
-  static const _sandboxApiKey = 'bd261a8b-8109-4937-9639-5ced435ced20'; //save it in .env file
+  static const _sandboxBillApiUrl =
+      'https://www.billplz-sandbox.com/api/v3/bills';
+  static const _sandboxApiKey =
+      'bd261a8b-8109-4937-9639-5ced435ced20'; //save it in .env file
   static const _sandboxCollectionId = '1ds1p46e';
+  static const _callbackUrl = 'https://billplzcallback-77vl7rkrqq-uc.a.run.app';
   static const proxyServer = 'https://cors-anywhere.herokuapp.com/';
 
   static int _toSen(double ringgit) {
@@ -27,7 +30,8 @@ class BillPlizApi {
     final response = await http.post(
       url,
       headers: {
-        'Authorization': 'Basic ${base64Encode(utf8.encode('$_sandboxApiKey:'))}',
+        'Authorization':
+            'Basic ${base64Encode(utf8.encode('$_sandboxApiKey:'))}',
       },
       body: {
         'collection_id': _sandboxCollectionId,
@@ -35,9 +39,10 @@ class BillPlizApi {
         'name': name,
         'mobile': mobile,
         'amount': _toSen(amount).toString(),
-        'callback_url': 'https://safmobile.my',
-        'redirect_url': 'https://portal.safmobile.my/#/docs/$ticketId/$userId/',
-        'description': 'Invoices#$ticketId - Computer and Smartphones Repair Service',
+        'callback_url': _callbackUrl,
+        'redirect_url': 'https://portal.safmobile.my/#/docs/$userId/$ticketId/',
+        'description':
+            'Invoices#$ticketId - Computer and Smartphones Repair Service',
       },
     );
     if (response.statusCode == 200 || response.statusCode == 201) {

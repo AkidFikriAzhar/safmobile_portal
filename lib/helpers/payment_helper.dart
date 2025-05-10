@@ -1,7 +1,9 @@
 import 'dart:developer';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:safmobile_portal/model/firestore_references.dart';
 import 'package:safmobile_portal/provider/payment_provider.dart';
 import 'package:safmobile_portal/services/billplz_api.dart';
 import 'package:universal_html/html.dart' as html;
@@ -59,6 +61,7 @@ class PaymentHelper {
 
           // if (currentPaymentMethod != null) {
           //   if (context.mounted) {
+
           final paymentId = await BillPlizApi.createInvoice(
             name: name,
             email: email,
@@ -67,7 +70,13 @@ class PaymentHelper {
             ticketId: ticketId,
             userId: uid,
           );
-
+          final ref = FirebaseFirestore.instance.collection(FirestoreReferences.customer).doc(uid).collection(FirestoreReferences.invoices).doc(ticketId);
+          await ref.update(
+            {
+              'payment_id': paymentId,
+              'paymentMethod': 'paymentGateway',
+            },
+          );
           // final paymentId = await BayarcashApi().createBayarCashPaymentIntent(
           //   name: name,
           //   email: email,

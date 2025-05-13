@@ -1,4 +1,3 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -216,7 +215,7 @@ class _PaymentViewState extends State<PaymentView> {
                                                             email: _emailInput.text,
                                                             amount: invoice?.finalPrice ?? 0,
                                                           ),
-                                                  child: Text('Choose Payment Method'),
+                                                  child: Text('Continue'),
                                                 ),
                                               ),
                                             ),
@@ -239,53 +238,6 @@ class _PaymentViewState extends State<PaymentView> {
                                             ),
                                           ),
                                         ),
-                                        Consumer<PaymentProvider>(builder: (context, paymentProvider, child) {
-                                          return Center(
-                                            child: SizedBox(
-                                              width: 600,
-                                              child: Padding(
-                                                padding: const EdgeInsets.all(12.0),
-                                                child: Row(
-                                                  mainAxisAlignment: MainAxisAlignment.center,
-                                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                                  spacing: 15,
-                                                  children: [
-                                                    Checkbox(
-                                                      value: paymentProvider.isAgree,
-                                                      onChanged: (bool? value) {
-                                                        paymentProvider.setAgree(value!);
-                                                      },
-                                                    ),
-                                                    Expanded(
-                                                      // child: Text(
-                                                      //   'Proceeding with payment indicates your agreement to our Terms & Conditions.',
-                                                      //   style: TextStyle(color: Colors.grey),
-                                                      // ),
-                                                      child: Text.rich(
-                                                        TextSpan(
-                                                          children: [
-                                                            TextSpan(
-                                                              text: 'Proceeding with payment indicates your agreement to our ',
-                                                              style: TextStyle(color: Colors.grey),
-                                                            ),
-                                                            TextSpan(
-                                                              text: 'Terms & Conditions.',
-                                                              style: TextStyle(color: Theme.of(context).colorScheme.primary),
-                                                              recognizer: TapGestureRecognizer()
-                                                                ..onTap = () {
-                                                                  // TODO: Open Terms & Conditions
-                                                                },
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          );
-                                        }),
                                         const SizedBox(height: 30),
                                       ],
                                     ),

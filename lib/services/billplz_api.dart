@@ -37,7 +37,6 @@ class BillPlizApi {
         'mobile': mobile,
         'amount': _toSen(amount).toString(),
         'callback_url': _callbackUrl,
-        'redirect_url': 'https://portal.safmobile.my/#/docs/$userId/$ticketId/',
         'description': 'Invoices#$ticketId - Computers and Smartphones Repair Service',
       },
     );
@@ -47,7 +46,7 @@ class BillPlizApi {
       return data['id']; // Link invois
     } else {
       log(response.statusCode.toString());
-      throw ('Gagal cipta invois: ${response.body}');
+      throw Exception('Gagal cipta invois: ${response.body}');
       // return null;
     }
   }

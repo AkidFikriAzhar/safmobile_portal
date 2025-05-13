@@ -66,11 +66,9 @@ class _DocsViewState extends State<DocsView> {
           IconButton(
             tooltip: context.localization.theme,
             onPressed: () async {
-              final ref = FirebaseFirestore.instance.collectionGroup('Invoice').where('payment_id', isEqualTo: 'e4a20dee9e77601b').get();
-              print(ref);
-              // setState(() {
-              //   themeProvider.toggleTheme();
-              // });
+              setState(() {
+                themeProvider.toggleTheme();
+              });
             },
             icon: Icon(
               Icons.dark_mode,

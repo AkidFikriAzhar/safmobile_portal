@@ -11,8 +11,6 @@ import 'package:safmobile_portal/routes.dart';
 import 'package:safmobile_portal/services/billplz_api.dart';
 import 'package:universal_html/html.dart' as html;
 import 'package:url_launcher/url_launcher.dart';
-// import 'package:universal_html/html.dart' as html;
-// import 'package:url_launcher/url_launcher.dart';
 
 class PaymentHelper {
   Future<void> choosePaymentMethod({
@@ -72,7 +70,11 @@ class PaymentHelper {
           ticketId: ticketId,
           userId: uid,
         );
-        final ref = FirebaseFirestore.instance.collection(FirestoreReferences.customer).doc(uid).collection(FirestoreReferences.invoices).doc(ticketId);
+        final ref = FirebaseFirestore.instance
+            .collection(FirestoreReferences.customer)
+            .doc(uid)
+            .collection(FirestoreReferences.invoices)
+            .doc(ticketId);
         await ref.update(
           {
             'payment_id': paymentId,
@@ -100,14 +102,22 @@ class PaymentHelper {
                     TextSpan(
                       children: [
                         TextSpan(
-                          text: 'You will be redirect to the Billplz payment page. By proceeding, you agree to our ',
+                          text:
+                              'You will be redirect to the Billplz payment page. By proceeding, you agree to our ',
                         ),
                         TextSpan(
                           text: 'Terms & Conditions.',
-                          style: TextStyle(color: Theme.of(context).colorScheme.primary),
+                          style: TextStyle(
+                              color: Theme.of(context).colorScheme.primary),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
-                              // TODO: Open Terms & Conditions
+                              // Open the terms and conditions page
+                              final url = 'https://safmobile.my/terms/';
+                              if (!kIsWeb) {
+                                launchUrl(Uri.parse(url));
+                              } else {
+                                html.window.open(url, '_blank');
+                              }
                             },
                         ),
                       ],
@@ -118,7 +128,9 @@ class PaymentHelper {
                       onPressed: () {
                         context.pop();
                       },
-                      child: Text('Cancel', style: TextStyle(color: Theme.of(context).colorScheme.error)),
+                      child: Text('Cancel',
+                          style: TextStyle(
+                              color: Theme.of(context).colorScheme.error)),
                     ),
                     TextButton(
                       onPressed: () async {

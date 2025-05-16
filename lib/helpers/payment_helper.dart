@@ -11,8 +11,6 @@ import 'package:safmobile_portal/routes.dart';
 import 'package:safmobile_portal/services/billplz_api.dart';
 import 'package:universal_html/html.dart' as html;
 import 'package:url_launcher/url_launcher.dart';
-// import 'package:universal_html/html.dart' as html;
-// import 'package:url_launcher/url_launcher.dart';
 
 class PaymentHelper {
   Future<void> choosePaymentMethod({

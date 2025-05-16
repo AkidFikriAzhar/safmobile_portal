@@ -64,14 +64,23 @@ class PaymentHelper {
         // if (currentPaymentMethod != null) {
         //   if (context.mounted) {
 
-        final paymentId = await BillPlizApi.createInvoice(
-          name: name,
-          email: email,
-          amount: amount,
-          mobile: phone,
-          ticketId: ticketId,
-          userId: uid,
-        );
+        final paymentId = kIsWeb
+            ? await BillPlizApi.createInvoiceFromFunctions(
+                name: name,
+                email: email,
+                amount: amount,
+                mobile: phone,
+                ticketId: ticketId,
+                userId: uid,
+              )
+            : await BillPlizApi.createInvoice(
+                name: name,
+                email: email,
+                amount: amount,
+                mobile: phone,
+                ticketId: ticketId,
+                userId: uid,
+              );
         final ref = FirebaseFirestore.instance.collection(FirestoreReferences.customer).doc(uid).collection(FirestoreReferences.invoices).doc(ticketId);
         await ref.update(
           {
@@ -107,7 +116,12 @@ class PaymentHelper {
                           style: TextStyle(color: Theme.of(context).colorScheme.primary),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
-                              // TODO: Open Terms & Conditions
+                              final url = 'https://safmobile.my/terms/';
+                              if (!kIsWeb) {
+                                launchUrl(Uri.parse(url));
+                              } else {
+                                html.window.open(url, '_blank');
+                              }
                             },
                         ),
                       ],

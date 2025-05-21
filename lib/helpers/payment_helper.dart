@@ -24,6 +24,7 @@ class PaymentHelper {
     required String email,
     required String phone,
   }) async {
+    final firestore = FirebaseFirestore.instance;
     try {
       if (formKey.currentState!.validate()) {
         log('initiate Api Payment Gateway');
@@ -79,13 +80,21 @@ class PaymentHelper {
                 ticketId: ticketId,
                 userId: uid,
               );
-        final ref = FirebaseFirestore.instance.collection(FirestoreReferences.customer).doc(uid).collection(FirestoreReferences.invoices).doc(ticketId);
-        await ref.update(
+        final invoiceRef = firestore.collection(FirestoreReferences.customer).doc(uid).collection(FirestoreReferences.invoices).doc(ticketId);
+        await invoiceRef.update(
           {
             'payment_id': paymentId,
             'paymentMethod': 'Billplz',
           },
         );
+        final paymentIDRef = firestore.collection(FirestoreReferences.paymentId).doc(paymentId);
+
+        await paymentIDRef.set({
+          'uid': uid,
+          'ticketId': ticketId,
+          'paymentId': paymentId,
+          'createAt': Timestamp.now(),
+        });
         // final paymentId = await BayarcashApi().createBayarCashPaymentIntent(
         //   name: name,
         //   email: email,

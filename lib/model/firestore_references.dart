@@ -4,4 +4,5 @@ class FirestoreReferences {
   static final serviceOrders = 'Service Order';
   static final technician = 'Technician';
   static final branch = 'Branch';
+  static final paymentId = 'Payment-Id';
 }

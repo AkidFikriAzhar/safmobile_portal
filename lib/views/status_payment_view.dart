@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 import 'package:safmobile_portal/model/firestore_references.dart';
 import 'package:safmobile_portal/model/invoice.dart';
@@ -19,20 +20,28 @@ class PendingPaymentView extends StatefulWidget {
   State<PendingPaymentView> createState() => _PendingPaymentViewState();
 }
 
-class _PendingPaymentViewState extends State<PendingPaymentView> with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
+class _PendingPaymentViewState extends State<PendingPaymentView> with TickerProviderStateMixin {
+  late AnimationController _controllerLottiePending;
+  late AnimationController _controllerLottieCompleted;
   late Stream _billStream;
 
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(vsync: this);
+    _controllerLottiePending = AnimationController(vsync: this);
+    _controllerLottieCompleted = AnimationController(vsync: this);
+    _controllerLottieCompleted.addListener(() {
+      if (_controllerLottieCompleted.isCompleted) {
+        _controllerLottieCompleted.stop();
+      }
+    });
     _billStream = FirebaseFirestore.instance.collection(FirestoreReferences.customer).doc(widget.uid).collection(FirestoreReferences.invoices).doc(widget.ticketId).snapshots();
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _controllerLottiePending.dispose();
+    _controllerLottieCompleted.dispose();
     super.dispose();
   }
 
@@ -56,7 +65,42 @@ class _PendingPaymentViewState extends State<PendingPaymentView> with SingleTick
               final invoice = Invoice.fromMap(snapshot.data!.data()!);
 
               if (invoice.isPay == true) {
-                return const Center(child: Text('Payment Confirmed'));
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Lottie.asset(
+                      'assets/lottie/payment_completed.json',
+                      width: 200,
+                      height: 200,
+                      controller: _controllerLottieCompleted,
+                      onLoaded: (composition) {
+                        _controllerLottieCompleted
+                          ..duration = composition.duration
+                          ..forward();
+                      },
+                    ),
+                    const Text(
+                      'Payment Completed',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                    ),
+                    const SizedBox(height: 20),
+                    Text('We have successfully received your payment. You may have safely return to receipt page', textAlign: TextAlign.center),
+                    const SizedBox(height: 30),
+                    SizedBox(
+                      width: 350,
+                      height: 40,
+                      child: FilledButton(
+                        onPressed: () {
+                          context.pop();
+                          context.pop();
+                        },
+                        child: Text('Return to receipt page'),
+                      ),
+                    ),
+                  ],
+                );
               }
               return Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -66,9 +110,9 @@ class _PendingPaymentViewState extends State<PendingPaymentView> with SingleTick
                     'assets/lottie/pending_payment.json',
                     width: 200,
                     height: 200,
-                    controller: _controller,
+                    controller: _controllerLottiePending,
                     onLoaded: (composition) {
-                      _controller
+                      _controllerLottiePending
                         ..duration = composition.duration * 1.8
                         ..repeat();
                     },

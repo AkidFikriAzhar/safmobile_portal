@@ -14,13 +14,18 @@ class PendingPaymentView extends StatefulWidget {
   final String uid;
   final String ticketId;
   final String billCode;
-  const PendingPaymentView({super.key, required this.uid, required this.ticketId, required this.billCode});
+  const PendingPaymentView(
+      {super.key,
+      required this.uid,
+      required this.ticketId,
+      required this.billCode});
 
   @override
   State<PendingPaymentView> createState() => _PendingPaymentViewState();
 }
 
-class _PendingPaymentViewState extends State<PendingPaymentView> with TickerProviderStateMixin {
+class _PendingPaymentViewState extends State<PendingPaymentView>
+    with TickerProviderStateMixin {
   late AnimationController _controllerLottiePending;
   late AnimationController _controllerLottieCompleted;
   late Stream _billStream;
@@ -35,7 +40,12 @@ class _PendingPaymentViewState extends State<PendingPaymentView> with TickerProv
         _controllerLottieCompleted.stop();
       }
     });
-    _billStream = FirebaseFirestore.instance.collection(FirestoreReferences.customer).doc(widget.uid).collection(FirestoreReferences.invoices).doc(widget.ticketId).snapshots();
+    _billStream = FirebaseFirestore.instance
+        .collection(FirestoreReferences.customer)
+        .doc(widget.uid)
+        .collection(FirestoreReferences.invoices)
+        .doc(widget.ticketId)
+        .snapshots();
   }
 
   @override
@@ -83,10 +93,13 @@ class _PendingPaymentViewState extends State<PendingPaymentView> with TickerProv
                     const Text(
                       'Payment Completed',
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                     ),
                     const SizedBox(height: 20),
-                    Text('We have successfully received your payment. You may have safely return to receipt page', textAlign: TextAlign.center),
+                    Text(
+                        'We have successfully received your payment. You may have safely return to receipt page',
+                        textAlign: TextAlign.center),
                     const SizedBox(height: 30),
                     SizedBox(
                       width: 350,
@@ -118,7 +131,7 @@ class _PendingPaymentViewState extends State<PendingPaymentView> with TickerProv
                     },
                   ),
                   const Text(
-                    'Waiting For Payment Confimation',
+                    'Your Payment Has Been Processed',
                     textAlign: TextAlign.center,
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                   ),
@@ -127,7 +140,8 @@ class _PendingPaymentViewState extends State<PendingPaymentView> with TickerProv
                     TextSpan(
                       children: [
                         TextSpan(
-                          text: 'Please do not close this tab or reload the page while your payment is being processed\n\n',
+                          text:
+                              'If your payment is successfull, it will be automatically reflected in our system.\n\n',
                         ),
                         TextSpan(
                             text: 'Reopen Payment Page',
@@ -144,7 +158,8 @@ class _PendingPaymentViewState extends State<PendingPaymentView> with TickerProv
                                 //   },
                                 //   queryParameters: {'paymentId': widget.billCode},
                                 // );
-                                final url = '${BillPlizApi.sandboxBaseUrl}${widget.billCode}';
+                                final url =
+                                    '${BillPlizApi.sandboxBaseUrl}${widget.billCode}';
                                 if (!kIsWeb) {
                                   launchUrl(Uri.parse(url));
                                 } else {

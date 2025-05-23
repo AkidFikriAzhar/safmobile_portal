@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
@@ -14,25 +16,24 @@ class PendingPaymentView extends StatefulWidget {
   final String uid;
   final String ticketId;
   final String billCode;
-  const PendingPaymentView(
-      {super.key,
-      required this.uid,
-      required this.ticketId,
-      required this.billCode});
+  const PendingPaymentView({super.key, required this.uid, required this.ticketId, required this.billCode});
 
   @override
   State<PendingPaymentView> createState() => _PendingPaymentViewState();
 }
 
-class _PendingPaymentViewState extends State<PendingPaymentView>
-    with TickerProviderStateMixin {
+class _PendingPaymentViewState extends State<PendingPaymentView> with TickerProviderStateMixin {
   late AnimationController _controllerLottiePending;
   late AnimationController _controllerLottieCompleted;
   late Stream _billStream;
+  int _countdown = 60;
+  late Timer _timer;
+  bool _isButtonEnabled = false;
 
   @override
   void initState() {
     super.initState();
+    _startCountdown();
     _controllerLottiePending = AnimationController(vsync: this);
     _controllerLottieCompleted = AnimationController(vsync: this);
     _controllerLottieCompleted.addListener(() {
@@ -40,12 +41,7 @@ class _PendingPaymentViewState extends State<PendingPaymentView>
         _controllerLottieCompleted.stop();
       }
     });
-    _billStream = FirebaseFirestore.instance
-        .collection(FirestoreReferences.customer)
-        .doc(widget.uid)
-        .collection(FirestoreReferences.invoices)
-        .doc(widget.ticketId)
-        .snapshots();
+    _billStream = FirebaseFirestore.instance.collection(FirestoreReferences.customer).doc(widget.uid).collection(FirestoreReferences.invoices).doc(widget.ticketId).snapshots();
   }
 
   @override
@@ -55,27 +51,38 @@ class _PendingPaymentViewState extends State<PendingPaymentView>
     super.dispose();
   }
 
+  void _startCountdown() {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (_countdown > 0) {
+        setState(() => _countdown--);
+      } else {
+        setState(() => _isButtonEnabled = true);
+        _timer.cancel();
+      }
+    });
+  }
+
   //debug only = /#/docs/JjgBq7I1ZpdEFKES6lPwP5n9aA03/116507/pending?paymentId=9e6516abc5560e3a
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         // appBar: AppBar(),
-        body: Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Center(
-        child: StreamBuilder(
-            stream: _billStream,
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(child: CircularProgressIndicator());
-              } else if (snapshot.hasError) {
-                return const Center(child: Text('An error has occurred'));
-              }
+        body: Center(
+      child: StreamBuilder(
+          stream: _billStream,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return const Center(child: Text('An error has occurred'));
+            }
 
-              final invoice = Invoice.fromMap(snapshot.data!.data()!);
+            final invoice = Invoice.fromMap(snapshot.data!.data()!);
 
-              if (invoice.isPay == true) {
-                return Column(
+            if (invoice.isPay == true) {
+              return Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -93,13 +100,10 @@ class _PendingPaymentViewState extends State<PendingPaymentView>
                     const Text(
                       'Payment Completed',
                       textAlign: TextAlign.center,
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                     ),
                     const SizedBox(height: 20),
-                    Text(
-                        'We have successfully received your payment. You may have safely return to receipt page',
-                        textAlign: TextAlign.center),
+                    Text('We have successfully received your payment. You may have safely return to receipt page', textAlign: TextAlign.center),
                     const SizedBox(height: 30),
                     SizedBox(
                       width: 350,
@@ -113,67 +117,84 @@ class _PendingPaymentViewState extends State<PendingPaymentView>
                       ),
                     ),
                   ],
-                );
-              }
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Lottie.asset(
-                    'assets/lottie/pending_payment.json',
-                    width: 200,
-                    height: 200,
-                    controller: _controllerLottiePending,
-                    onLoaded: (composition) {
-                      _controllerLottiePending
-                        ..duration = composition.duration * 1.8
-                        ..repeat();
-                    },
-                  ),
-                  const Text(
-                    'Your Payment Has Been Processed',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                  ),
-                  const SizedBox(height: 10),
-                  Text.rich(
-                    TextSpan(
+                ),
+              );
+            }
+            return LayoutBuilder(
+              builder: (context, constraints) {
+                final width = constraints.maxWidth;
+                final height = constraints.maxHeight;
+
+                return SingleChildScrollView(
+                  child: Container(
+                    padding: const EdgeInsets.all(20),
+                    width: width,
+                    constraints: BoxConstraints(
+                      minHeight: height,
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        TextSpan(
-                          text:
-                              'If your payment is successfull, it will be automatically reflected in our system.\n\n',
-                        ),
-                        TextSpan(
-                            text: 'Reopen Payment Page',
-                            style: TextStyle(
-                              color: Colors.blue,
+                        const SizedBox(height: 20),
+                        Column(
+                          children: [
+                            Lottie.asset(
+                              'assets/lottie/pending_payment.json',
+                              width: 200,
+                              height: 200,
+                              controller: _controllerLottiePending,
+                              onLoaded: (composition) {
+                                _controllerLottiePending
+                                  ..duration = composition.duration * 1.8
+                                  ..repeat();
+                              },
                             ),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () {
-                                // context.goPush(
-                                //   Routes.paymentGateway,
-                                //   pathParameters: {
-                                //     'uid': widget.uid,
-                                //     'ticketId': widget.ticketId,
-                                //   },
-                                //   queryParameters: {'paymentId': widget.billCode},
-                                // );
-                                final url =
-                                    '${BillPlizApi.sandboxBaseUrl}${widget.billCode}';
+                            const SizedBox(height: 20),
+                            const Text(
+                              'Your Payment Has Been Processed',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                            ),
+                            const SizedBox(height: 12),
+                            const Text(
+                              'If your payment is successful, it will be automatically reflected in our system. You can return to main portal to check your payment status',
+                              textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(height: 12),
+                            TextButton(
+                              onPressed: () {
+                                final url = '${BillPlizApi.sandboxBaseUrl}${widget.billCode}';
                                 if (!kIsWeb) {
                                   launchUrl(Uri.parse(url));
                                 } else {
                                   html.window.open(url, '_blank');
                                 }
-                              }),
+                              },
+                              child: const Text('Reopen Payment Page'),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 20),
+                        SizedBox(
+                          width: 350,
+                          height: 45,
+                          child: FilledButton(
+                            onPressed: _isButtonEnabled
+                                ? () {
+                                    context.pop();
+                                    context.pop();
+                                  }
+                                : null,
+                            child: _isButtonEnabled ? const Text('Return to main portal') : Text('Return to main portal (${_countdown}s)'),
+                          ),
+                        ),
                       ],
                     ),
-                    textAlign: TextAlign.center,
                   ),
-                ],
-              );
-            }),
-      ),
+                );
+              },
+            );
+          }),
     ));
   }
 }

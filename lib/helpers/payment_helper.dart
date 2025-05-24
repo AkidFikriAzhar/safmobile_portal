@@ -154,11 +154,6 @@ class PaymentHelper {
                       onPressed: () async {
                         context.pop();
                         final url = '${BillPlizApi.sandboxBaseUrl}$paymentId';
-                        if (!kIsWeb) {
-                          launchUrl(Uri.parse(url));
-                        } else {
-                          html.window.open(url, '_blank');
-                        }
                         context.goPush(
                           Routes.pending,
                           pathParameters: {
@@ -167,6 +162,11 @@ class PaymentHelper {
                           },
                           queryParameters: {'paymentId': paymentId},
                         );
+                        if (!kIsWeb) {
+                          launchUrl(Uri.parse(url));
+                        } else {
+                          html.window.open(url, '_blank');
+                        }
                       },
                       child: Text('Agree & Continue'),
                     ),

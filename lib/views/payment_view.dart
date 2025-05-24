@@ -21,6 +21,8 @@ class PaymentView extends StatefulWidget {
 class _PaymentViewState extends State<PaymentView> {
   bool _isFetchingInvoice = true;
   bool _isFetchingCustomer = true;
+  bool _isDialogShown = false; // Flag untuk tracking dialog
+  bool _isScreenActive = true; // Flag untuk tracking screen status
 
   final _formkey = GlobalKey<FormState>();
 
@@ -56,13 +58,18 @@ class _PaymentViewState extends State<PaymentView> {
     _paymentStatusSubscription = PaymentSetupFirestore
         .getPaymentStatusStream(widget.uid, widget.ticketId)
         .listen((isPay) {
-      if (isPay == true) {
+      // Hanya show dialog jika screen masih aktif dan dialog belum pernah ditunjukkan
+      if (isPay == true && _isScreenActive && !_isDialogShown && mounted) {
         _showPaymentSuccessDialog();
       }
     });
   }
 
   void _showPaymentSuccessDialog() {
+    if (!mounted || _isDialogShown) return; // Double check sebelum show dialog
+    
+    _isDialogShown = true; // Set flag untuk prevent duplicate dialog
+    
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -74,7 +81,9 @@ class _PaymentViewState extends State<PaymentView> {
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop(); // Close dialog
-                context.pop(); // Navigate back
+                if (mounted) {
+                  context.pop(); // Navigate back
+                }
               },
               child: Text('Close'),
             ),
@@ -86,6 +95,9 @@ class _PaymentViewState extends State<PaymentView> {
 
   @override
   void dispose() {
+    // Set screen sebagai tidak aktif
+    _isScreenActive = false;
+    
     // Cancel stream subscription
     _paymentStatusSubscription.cancel();
     

@@ -17,6 +17,10 @@ import 'package:safmobile_portal/provider/theme_data.dart';
 import 'package:safmobile_portal/services/search_firestore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+
+//code untuk run di web server
+//flutter run -d web-server --web-port=8080 --web-hostname=0.0.0.0
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final themeProvider = ThemeProvider();

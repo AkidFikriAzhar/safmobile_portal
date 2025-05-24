@@ -7,6 +7,7 @@ import 'package:safmobile_portal/model/invoice.dart';
 import 'package:safmobile_portal/provider/payment_provider.dart';
 import 'package:safmobile_portal/services/payment_setup_firestore.dart';
 import 'package:skeletonizer/skeletonizer.dart';
+import 'dart:async';
 
 class PaymentView extends StatefulWidget {
   final String uid;
@@ -28,6 +29,9 @@ class _PaymentViewState extends State<PaymentView> {
   Invoice? invoice;
   Customer? customer;
 
+  // Stream untuk isPay
+  late StreamSubscription<bool> _paymentStatusSubscription;
+
   final _nameInput = TextEditingController();
   final _emailInput = TextEditingController();
   final _phoneInput = TextEditingController();
@@ -39,7 +43,61 @@ class _PaymentViewState extends State<PaymentView> {
   void initState() {
     _fetchInvoice = PaymentSetupFirestore.getInvoice(widget.uid, widget.ticketId);
     _fetchCustomer = PaymentSetupFirestore.getCustomer(widget.uid);
+    
+    // Setup stream listener untuk isPay
+    _setupPaymentStatusListener();
+    
     super.initState();
+  }
+
+  void _setupPaymentStatusListener() {
+    // Assuming you have a stream method in PaymentSetupFirestore
+    // Replace this with your actual stream method
+    _paymentStatusSubscription = PaymentSetupFirestore
+        .getPaymentStatusStream(widget.uid, widget.ticketId)
+        .listen((isPay) {
+      if (isPay == true) {
+        _showPaymentSuccessDialog();
+      }
+    });
+  }
+
+  void _showPaymentSuccessDialog() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Payment Successful'),
+          content: Text('This payment has been made'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close dialog
+                context.pop(); // Navigate back
+              },
+              child: Text('Close'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    // Cancel stream subscription
+    _paymentStatusSubscription.cancel();
+    
+    // Dispose controllers and focus nodes
+    _nameInput.dispose();
+    _emailInput.dispose();
+    _phoneInput.dispose();
+    _nameFocusNode.dispose();
+    _emailFocusNode.dispose();
+    _phoneFocusNode.dispose();
+    
+    super.dispose();
   }
 
   @override

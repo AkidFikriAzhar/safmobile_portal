@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:safmobile_portal/l10n/app_localizations.dart';
 import 'package:safmobile_portal/provider/document_provider.dart';
 import 'package:safmobile_portal/provider/home_provider.dart';
 import 'package:safmobile_portal/provider/search_provider.dart';
@@ -13,7 +14,6 @@ import 'package:safmobile_portal/l10n/l10n.dart';
 import 'package:safmobile_portal/l10n/stream_language.dart';
 import 'package:safmobile_portal/routes.dart';
 import 'package:safmobile_portal/provider/theme_data.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:safmobile_portal/services/search_firestore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

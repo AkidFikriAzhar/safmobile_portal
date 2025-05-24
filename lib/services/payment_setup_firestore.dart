@@ -14,6 +14,22 @@ class PaymentSetupFirestore {
     return getCustomer;
   }
 
+  static Stream<bool> getPaymentStatusStream(String uid, String ticketId) {
+      final firestore = FirebaseFirestore.instance;
+  return firestore
+      .collection(FirestoreReferences.customer)
+      .doc(uid)
+      .collection(FirestoreReferences.invoices)
+      .doc(ticketId)
+      .snapshots()
+      .map((doc) {
+    if (doc.exists) {
+      return doc.data()?['isPay'] ?? false;
+    }
+    return false;
+  });
+}
+
   static Future<void> updateCustomer({
     required String uid,
     required String ticketId,

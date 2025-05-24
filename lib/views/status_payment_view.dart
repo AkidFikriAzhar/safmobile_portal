@@ -1,8 +1,6 @@
 import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
@@ -16,13 +14,18 @@ class PendingPaymentView extends StatefulWidget {
   final String uid;
   final String ticketId;
   final String billCode;
-  const PendingPaymentView({super.key, required this.uid, required this.ticketId, required this.billCode});
+  const PendingPaymentView(
+      {super.key,
+      required this.uid,
+      required this.ticketId,
+      required this.billCode});
 
   @override
   State<PendingPaymentView> createState() => _PendingPaymentViewState();
 }
 
-class _PendingPaymentViewState extends State<PendingPaymentView> with TickerProviderStateMixin {
+class _PendingPaymentViewState extends State<PendingPaymentView>
+    with TickerProviderStateMixin {
   late AnimationController _controllerLottiePending;
   late AnimationController _controllerLottieCompleted;
   late Stream _billStream;
@@ -41,7 +44,12 @@ class _PendingPaymentViewState extends State<PendingPaymentView> with TickerProv
         _controllerLottieCompleted.stop();
       }
     });
-    _billStream = FirebaseFirestore.instance.collection(FirestoreReferences.customer).doc(widget.uid).collection(FirestoreReferences.invoices).doc(widget.ticketId).snapshots();
+    _billStream = FirebaseFirestore.instance
+        .collection(FirestoreReferences.customer)
+        .doc(widget.uid)
+        .collection(FirestoreReferences.invoices)
+        .doc(widget.ticketId)
+        .snapshots();
   }
 
   @override
@@ -100,10 +108,13 @@ class _PendingPaymentViewState extends State<PendingPaymentView> with TickerProv
                     const Text(
                       'Payment Completed',
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                     ),
                     const SizedBox(height: 20),
-                    Text('We have successfully received your payment. You may have safely return to receipt page', textAlign: TextAlign.center),
+                    Text(
+                        'We have successfully received your payment. You may have safely return to receipt page',
+                        textAlign: TextAlign.center),
                     const SizedBox(height: 30),
                     SizedBox(
                       width: 350,
@@ -153,7 +164,8 @@ class _PendingPaymentViewState extends State<PendingPaymentView> with TickerProv
                             const Text(
                               'Your Payment Has Been Processed',
                               textAlign: TextAlign.center,
-                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 20),
                             ),
                             const SizedBox(height: 12),
                             const Text(
@@ -163,7 +175,8 @@ class _PendingPaymentViewState extends State<PendingPaymentView> with TickerProv
                             const SizedBox(height: 12),
                             TextButton(
                               onPressed: () {
-                                final url = '${BillPlizApi.sandboxBaseUrl}${widget.billCode}';
+                                final url =
+                                    '${BillPlizApi.sandboxBaseUrl}${widget.billCode}';
                                 if (!kIsWeb) {
                                   launchUrl(Uri.parse(url));
                                 } else {
@@ -185,7 +198,10 @@ class _PendingPaymentViewState extends State<PendingPaymentView> with TickerProv
                                     context.pop();
                                   }
                                 : null,
-                            child: _isButtonEnabled ? const Text('Return to main portal') : Text('Return to main portal (${_countdown}s)'),
+                            child: _isButtonEnabled
+                                ? const Text('Return to main portal')
+                                : Text(
+                                    'Return to main portal (${_countdown}s)'),
                           ),
                         ),
                       ],

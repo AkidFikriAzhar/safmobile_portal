@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:safmobile_portal/extensions/locale_extension.dart';
 import 'package:safmobile_portal/extensions/route_extension.dart';
 import 'package:safmobile_portal/model/firestore_references.dart';
 import 'package:safmobile_portal/provider/payment_provider.dart';
@@ -52,7 +53,7 @@ class PaymentHelper {
                     CircularProgressIndicator(),
                     SizedBox(height: 15),
                     Text(
-                      'Please wait while we process your payment...',
+                      context.localization.pleaseWaitCreatingBill,
                       textAlign: TextAlign.center,
                     ),
                   ],
@@ -80,19 +81,14 @@ class PaymentHelper {
                 ticketId: ticketId,
                 userId: uid,
               );
-        final invoiceRef = firestore
-            .collection(FirestoreReferences.customer)
-            .doc(uid)
-            .collection(FirestoreReferences.invoices)
-            .doc(ticketId);
+        final invoiceRef = firestore.collection(FirestoreReferences.customer).doc(uid).collection(FirestoreReferences.invoices).doc(ticketId);
         await invoiceRef.update(
           {
             'payment_id': paymentId,
             'paymentMethod': 'Billplz',
           },
         );
-        final paymentIDRef =
-            firestore.collection(FirestoreReferences.paymentId).doc(paymentId);
+        final paymentIDRef = firestore.collection(FirestoreReferences.paymentId).doc(paymentId);
 
         await paymentIDRef.set({
           'uid': uid,
@@ -116,18 +112,16 @@ class PaymentHelper {
               // barrierDismissible: false,
               builder: (context) {
                 return AlertDialog(
-                  title: Text('Confirm Payment'),
+                  title: Text(context.localization.confirmPayment),
                   content: Text.rich(
                     TextSpan(
                       children: [
                         TextSpan(
-                          text:
-                              'You will be redirect to the Billplz payment page. By proceeding, you agree to our ',
+                          text: '${context.localization.confirmPaymentDescription} ',
                         ),
                         TextSpan(
-                          text: 'Terms & Conditions.',
-                          style: TextStyle(
-                              color: Theme.of(context).colorScheme.primary),
+                          text: context.localization.termsAndConditions,
+                          style: TextStyle(color: Theme.of(context).colorScheme.primary),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
                               final url = 'https://safmobile.my/terms/';
@@ -146,9 +140,7 @@ class PaymentHelper {
                       onPressed: () {
                         context.pop();
                       },
-                      child: Text('Cancel',
-                          style: TextStyle(
-                              color: Theme.of(context).colorScheme.error)),
+                      child: Text(context.localization.cancel, style: TextStyle(color: Theme.of(context).colorScheme.error)),
                     ),
                     TextButton(
                       onPressed: () async {
@@ -168,7 +160,7 @@ class PaymentHelper {
                           html.window.open(url, '_blank');
                         }
                       },
-                      child: Text('Agree & Continue'),
+                      child: Text(context.localization.agreeContinue),
                     ),
                   ],
                 );

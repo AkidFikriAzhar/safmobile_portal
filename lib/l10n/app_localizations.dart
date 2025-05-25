@@ -427,6 +427,138 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Reason'**
   String get reason;
+
+  /// Total amount text
+  ///
+  /// In en, this message translates to:
+  /// **'Total Amount'**
+  String get totalAmount;
+
+  /// Secure payment text
+  ///
+  /// In en, this message translates to:
+  /// **'Secure Payment'**
+  String get securePayment;
+
+  /// Name text
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get name;
+
+  /// Name error text
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your name'**
+  String get nameError;
+
+  /// Phone number text
+  ///
+  /// In en, this message translates to:
+  /// **'Phone Number'**
+  String get phoneNumber;
+
+  /// Phone number error text
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your phone number'**
+  String get phoneNumberError;
+
+  /// Email error text
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your email'**
+  String get emailError;
+
+  /// Continue text
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get continueText;
+
+  /// Cancel text
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
+  /// Loading creating payment text
+  ///
+  /// In en, this message translates to:
+  /// **'Please wait while we processing your payment...'**
+  String get pleaseWaitCreatingBill;
+
+  /// Confirm payment text
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Payment'**
+  String get confirmPayment;
+
+  /// Confirm payment description text
+  ///
+  /// In en, this message translates to:
+  /// **'You will redirect to the Billplz payment page. By proceeding, you agree to our'**
+  String get confirmPaymentDescription;
+
+  /// Terms and conditions text
+  ///
+  /// In en, this message translates to:
+  /// **'Terms and Conditions'**
+  String get termsAndConditions;
+
+  /// Agree and continue text
+  ///
+  /// In en, this message translates to:
+  /// **'I agree and continue'**
+  String get agreeContinue;
+
+  /// Payment success text
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Success'**
+  String get paymentSuccess;
+
+  /// Payment success dialog description text
+  ///
+  /// In en, this message translates to:
+  /// **'This invoice has been paid successfully.'**
+  String get paymentSuccessDialogDescription;
+
+  /// Payment processing text
+  ///
+  /// In en, this message translates to:
+  /// **'Your Payment Has Been Processed'**
+  String get paymentProcessing;
+
+  /// Payment processing description text
+  ///
+  /// In en, this message translates to:
+  /// **'If your payment is successful, it will be automatically reflected in our system. You can return to main portal to check your payment status'**
+  String get paymentProcessingDescription;
+
+  /// Reopen payment page text
+  ///
+  /// In en, this message translates to:
+  /// **'Reopen Payment Page'**
+  String get reopenPaymentPage;
+
+  /// Return to main portal text
+  ///
+  /// In en, this message translates to:
+  /// **'Return to Main Portal'**
+  String get returnToMainPortal;
+
+  /// Payment completed text
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Completed'**
+  String get paymentCompleted;
+
+  /// Payment completed description text
+  ///
+  /// In en, this message translates to:
+  /// **'We have successfully received your payment. You may have safely return to our portal to check your payment status.'**
+  String get paymentCompletedDescription;
 }
 
 class _AppLocalizationsDelegate

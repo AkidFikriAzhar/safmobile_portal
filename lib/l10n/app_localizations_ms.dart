@@ -180,4 +180,75 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get reason => 'Alasan';
+
+  @override
+  String get totalAmount => 'Jumlah Keseluruhan';
+
+  @override
+  String get securePayment => 'Pembayaran Terjamin';
+
+  @override
+  String get name => 'Nama';
+
+  @override
+  String get nameError => 'Sila masukkan nama anda';
+
+  @override
+  String get phoneNumber => 'Nombor Telefon';
+
+  @override
+  String get phoneNumberError => 'Sila masukkan nombor telefon anda';
+
+  @override
+  String get emailError => 'Sila massukkan alamat email anda';
+
+  @override
+  String get continueText => 'Teruskan';
+
+  @override
+  String get cancel => 'Batal';
+
+  @override
+  String get pleaseWaitCreatingBill =>
+      'Sila tunggu sementara kami memproses bayaran anda...';
+
+  @override
+  String get confirmPayment => 'Pembayaran';
+
+  @override
+  String get confirmPaymentDescription =>
+      'Anda akan dibawa ke halaman pembayaran Billplz. Dengan meneruskan, anda bersetuju dengan';
+
+  @override
+  String get termsAndConditions => 'Terma dan Syarat';
+
+  @override
+  String get agreeContinue => 'Saya setuju dan teruskan';
+
+  @override
+  String get paymentSuccess => 'Pembayaran Berjaya';
+
+  @override
+  String get paymentSuccessDialogDescription =>
+      'Invois ini telah berjaya dibayar';
+
+  @override
+  String get paymentProcessing => 'Pembayaran Sedang Diproses';
+
+  @override
+  String get paymentProcessingDescription =>
+      'Jika pembayaran anda berjaya, status akan dikemaskini secara automatik dalam sistem kami. Anda boleh kembali ke portal utama untuk menyemak status pembayaran.';
+
+  @override
+  String get reopenPaymentPage => 'Buka Semula Halaman Pembayaran';
+
+  @override
+  String get returnToMainPortal => 'Kembali ke Portal Utama';
+
+  @override
+  String get paymentCompleted => 'Pembayaran Selesai';
+
+  @override
+  String get paymentCompletedDescription =>
+      'Kami telah menerima pembayaran anda dengan berjaya. Anda boleh kembali ke halaman portal utama untuk menyemak status pembayaran.';
 }

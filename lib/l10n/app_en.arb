@@ -224,5 +224,93 @@
     "reason": "Reason",
     "@reason": {
         "description": "Reason text"
+    },
+    "totalAmount": "Total Amount",
+    "@totalAmount": {
+        "description": "Total amount text"
+    },
+    "securePayment": "Secure Payment",
+    "@securePayment": {
+        "description": "Secure payment text"
+    },
+    "name": "Name",
+    "@name": {
+        "description": "Name text"
+    },
+    "nameError": "Please enter your name",
+    "@nameError": {
+        "description": "Name error text"
+    },
+    "phoneNumber": "Phone Number",
+    "@phoneNumber": {
+        "description": "Phone number text"
+    },
+    "phoneNumberError": "Please enter your phone number",
+    "@phoneNumberError": {
+        "description": "Phone number error text"
+    },
+    "emailError": "Please enter your email",
+    "@emailError": {
+        "description": "Email error text"
+    },
+    "continueText": "Continue",
+    "@continueText": {
+        "description": "Continue text"
+    },
+    "cancel": "Cancel",
+    "@cancel": {
+        "description": "Cancel text"
+    },
+    "pleaseWaitCreatingBill": "Please wait while we processing your payment...",
+    "@pleaseWaitCreatingBill": {
+        "description": "Loading creating payment text"
+    },
+    "confirmPayment": "Confirm Payment",
+    "@confirmPayment": {
+        "description": "Confirm payment text"
+    },
+    "confirmPaymentDescription": "You will redirect to the Billplz payment page. By proceeding, you agree to our",
+    "@confirmPaymentDescription": {
+        "description": "Confirm payment description text"
+    },
+    "termsAndConditions": "Terms and Conditions",
+    "@termsAndConditions": {
+        "description": "Terms and conditions text"
+    },
+    "agreeContinue": "I agree and continue",
+    "@agreeContinue": {
+        "description": "Agree and continue text"
+    },
+    "paymentSuccess": "Payment Success",
+    "@paymentSuccess": {
+        "description": "Payment success text"
+    },
+    "paymentSuccessDialogDescription": "This invoice has been paid successfully.",
+    "@paymentSuccessDialogDescription": {
+        "description": "Payment success dialog description text"
+    },
+    "paymentProcessing": "Your Payment Has Been Processed",
+    "@paymentProcessing": {
+        "description": "Payment processing text"
+    },
+    "paymentProcessingDescription": "If your payment is successful, it will be automatically reflected in our system. You can return to main portal to check your payment status",
+    "@paymentProcessingDescription": {
+        "description": "Payment processing description text"
+    },
+    "reopenPaymentPage": "Reopen Payment Page",
+    "@reopenPaymentPage": {
+        "description": "Reopen payment page text"
+    },
+    "returnToMainPortal": "Return to Main Portal",
+    "@returnToMainPortal": {
+        "description": "Return to main portal text"
+    },
+    "paymentCompleted": "Payment Completed",
+    "@paymentCompleted": {
+        "description": "Payment completed text"
+    },
+    "paymentCompletedDescription": "We have successfully received your payment. You may have safely return to our portal to check your payment status.",
+    "@paymentCompletedDescription": {
+        "description": "Payment completed description text"
     }
 }

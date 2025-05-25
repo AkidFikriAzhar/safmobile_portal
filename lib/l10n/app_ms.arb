@@ -218,5 +218,93 @@
     "reason": "Alasan",
     "@reason": {
         "description": "Reason text"
+    },
+    "totalAmount": "Jumlah Keseluruhan",
+    "@totalAmount": {
+        "description": "Teks jumlah keseluruhan"
+    },
+    "securePayment": "Pembayaran Terjamin",
+    "@securePayment": {
+        "description": "Teks bayaran selamat"
+    },
+    "name": "Nama",
+    "@name": {
+        "description": "Teks nama"
+    },
+    "nameError": "Sila masukkan nama anda",
+    "@nameError": {
+        "description": "Name error text"
+    },
+    "phoneNumber": "Nombor Telefon",
+    "@phoneNumber": {
+        "description": "Teks nombor telefon"
+    },
+    "phoneNumberError": "Sila masukkan nombor telefon anda",
+    "@phoneNumberError": {
+        "description": "Phone number error text"
+    },
+    "emailError": "Sila massukkan alamat email anda",
+    "@emailError": {
+        "description": "Email error text"
+    },
+    "continueText": "Teruskan",
+    "@continueText": {
+        "description": "Teks teruskan"
+    },
+    "cancel": "Batal",
+    "@cancel": {
+        "description": "Teks batal"
+    },
+    "pleaseWaitCreatingBill": "Sila tunggu sementara kami memproses bayaran anda...",
+    "@pleaseWaitCreatingBill": {
+        "description": "Teks pemprosesan bayaran"
+    },
+    "confirmPayment": "Pembayaran",
+    "@confirmPayment": {
+        "description": "Confirm payment text"
+    },
+    "confirmPaymentDescription": "Anda akan dibawa ke halaman pembayaran Billplz. Dengan meneruskan, anda bersetuju dengan",
+    "@confirmPaymentDescription": {
+        "description": "Teks keterangan untuk pengesahan pembayaran"
+    },
+    "termsAndConditions": "Terma dan Syarat",
+    "@termsAndConditions": {
+        "description": "Teks terma dan syarat"
+    },
+    "agreeContinue": "Saya setuju dan teruskan",
+    "@agreeContinue": {
+        "description": "Teks setuju dan teruskan"
+    },
+    "paymentSuccess": "Pembayaran Berjaya",
+    "@paymentSuccess": {
+        "description": "Payment success text"
+    },
+    "paymentSuccessDialogDescription": "Invois ini telah berjaya dibayar",
+    "@paymentSuccessDialogDescription": {
+        "description": "Payment success dialog description text"
+    },
+    "paymentProcessing": "Pembayaran Sedang Diproses",
+    "@paymentProcessing": {
+        "description": "Teks pemprosesan pembayaran"
+    },
+    "paymentProcessingDescription": "Jika pembayaran anda berjaya, status akan dikemaskini secara automatik dalam sistem kami. Anda boleh kembali ke portal utama untuk menyemak status pembayaran.",
+    "@paymentProcessingDescription": {
+        "description": "Teks keterangan pemprosesan pembayaran"
+    },
+    "reopenPaymentPage": "Buka Semula Halaman Pembayaran",
+    "@reopenPaymentPage": {
+        "description": "Teks buka semula halaman pembayaran"
+    },
+    "returnToMainPortal": "Kembali ke Portal Utama",
+    "@returnToMainPortal": {
+        "description": "Teks kembali ke portal utama"
+    },
+    "paymentCompleted": "Pembayaran Selesai",
+    "@paymentCompleted": {
+        "description": "Teks pembayaran selesai"
+    },
+    "paymentCompletedDescription": "Kami telah menerima pembayaran anda dengan berjaya. Anda boleh kembali ke halaman portal utama untuk menyemak status pembayaran.",
+    "@paymentCompletedDescription": {
+        "description": "Teks keterangan pembayaran selesai"
     }
 }

@@ -180,4 +180,75 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get reason => 'Reason';
+
+  @override
+  String get totalAmount => 'Total Amount';
+
+  @override
+  String get securePayment => 'Secure Payment';
+
+  @override
+  String get name => 'Name';
+
+  @override
+  String get nameError => 'Please enter your name';
+
+  @override
+  String get phoneNumber => 'Phone Number';
+
+  @override
+  String get phoneNumberError => 'Please enter your phone number';
+
+  @override
+  String get emailError => 'Please enter your email';
+
+  @override
+  String get continueText => 'Continue';
+
+  @override
+  String get cancel => 'Cancel';
+
+  @override
+  String get pleaseWaitCreatingBill =>
+      'Please wait while we processing your payment...';
+
+  @override
+  String get confirmPayment => 'Confirm Payment';
+
+  @override
+  String get confirmPaymentDescription =>
+      'You will redirect to the Billplz payment page. By proceeding, you agree to our';
+
+  @override
+  String get termsAndConditions => 'Terms and Conditions';
+
+  @override
+  String get agreeContinue => 'I agree and continue';
+
+  @override
+  String get paymentSuccess => 'Payment Success';
+
+  @override
+  String get paymentSuccessDialogDescription =>
+      'This invoice has been paid successfully.';
+
+  @override
+  String get paymentProcessing => 'Your Payment Has Been Processed';
+
+  @override
+  String get paymentProcessingDescription =>
+      'If your payment is successful, it will be automatically reflected in our system. You can return to main portal to check your payment status';
+
+  @override
+  String get reopenPaymentPage => 'Reopen Payment Page';
+
+  @override
+  String get returnToMainPortal => 'Return to Main Portal';
+
+  @override
+  String get paymentCompleted => 'Payment Completed';
+
+  @override
+  String get paymentCompletedDescription =>
+      'We have successfully received your payment. You may have safely return to our portal to check your payment status.';
 }

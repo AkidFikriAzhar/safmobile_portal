@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
+import 'package:safmobile_portal/extensions/locale_extension.dart';
 import 'package:safmobile_portal/model/firestore_references.dart';
 import 'package:safmobile_portal/model/invoice.dart';
 import 'package:safmobile_portal/services/billplz_api.dart';
@@ -14,18 +15,13 @@ class PendingPaymentView extends StatefulWidget {
   final String uid;
   final String ticketId;
   final String billCode;
-  const PendingPaymentView(
-      {super.key,
-      required this.uid,
-      required this.ticketId,
-      required this.billCode});
+  const PendingPaymentView({super.key, required this.uid, required this.ticketId, required this.billCode});
 
   @override
   State<PendingPaymentView> createState() => _PendingPaymentViewState();
 }
 
-class _PendingPaymentViewState extends State<PendingPaymentView>
-    with TickerProviderStateMixin {
+class _PendingPaymentViewState extends State<PendingPaymentView> with TickerProviderStateMixin {
   late AnimationController _controllerLottiePending;
   late AnimationController _controllerLottieCompleted;
   late Stream _billStream;
@@ -44,12 +40,7 @@ class _PendingPaymentViewState extends State<PendingPaymentView>
         _controllerLottieCompleted.stop();
       }
     });
-    _billStream = FirebaseFirestore.instance
-        .collection(FirestoreReferences.customer)
-        .doc(widget.uid)
-        .collection(FirestoreReferences.invoices)
-        .doc(widget.ticketId)
-        .snapshots();
+    _billStream = FirebaseFirestore.instance.collection(FirestoreReferences.customer).doc(widget.uid).collection(FirestoreReferences.invoices).doc(widget.ticketId).snapshots();
   }
 
   @override
@@ -105,16 +96,13 @@ class _PendingPaymentViewState extends State<PendingPaymentView>
                           ..forward();
                       },
                     ),
-                    const Text(
-                      'Payment Completed',
+                    Text(
+                      context.localization.paymentCompleted,
                       textAlign: TextAlign.center,
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                     ),
                     const SizedBox(height: 20),
-                    Text(
-                        'We have successfully received your payment. You may have safely return to receipt page',
-                        textAlign: TextAlign.center),
+                    Text(context.localization.paymentCompletedDescription, textAlign: TextAlign.center),
                     const SizedBox(height: 30),
                     SizedBox(
                       width: 350,
@@ -124,7 +112,7 @@ class _PendingPaymentViewState extends State<PendingPaymentView>
                           context.pop();
                           context.pop();
                         },
-                        child: Text('Return to receipt page'),
+                        child: Text(context.localization.returnToMainPortal),
                       ),
                     ),
                   ],
@@ -161,29 +149,27 @@ class _PendingPaymentViewState extends State<PendingPaymentView>
                               },
                             ),
                             const SizedBox(height: 20),
-                            const Text(
-                              'Your Payment Has Been Processed',
+                            Text(
+                              context.localization.paymentProcessing,
                               textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 20),
+                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                             ),
                             const SizedBox(height: 12),
-                            const Text(
-                              'If your payment is successful, it will be automatically reflected in our system. You can return to main portal to check your payment status',
+                            Text(
+                              context.localization.paymentProcessingDescription,
                               textAlign: TextAlign.center,
                             ),
                             const SizedBox(height: 12),
                             TextButton(
                               onPressed: () {
-                                final url =
-                                    '${BillPlizApi.sandboxBaseUrl}${widget.billCode}';
+                                final url = '${BillPlizApi.sandboxBaseUrl}${widget.billCode}';
                                 if (!kIsWeb) {
                                   launchUrl(Uri.parse(url));
                                 } else {
                                   html.window.open(url, '_blank');
                                 }
                               },
-                              child: const Text('Reopen Payment Page'),
+                              child: Text(context.localization.reopenPaymentPage),
                             ),
                           ],
                         ),
@@ -198,10 +184,7 @@ class _PendingPaymentViewState extends State<PendingPaymentView>
                                     context.pop();
                                   }
                                 : null,
-                            child: _isButtonEnabled
-                                ? const Text('Return to main portal')
-                                : Text(
-                                    'Return to main portal (${_countdown}s)'),
+                            child: _isButtonEnabled ? Text(context.localization.returnToMainPortal) : Text('${context.localization.returnToMainPortal} (${_countdown}s)'),
                           ),
                         ),
                       ],

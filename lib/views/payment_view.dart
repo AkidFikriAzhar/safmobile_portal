@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:safmobile_portal/extensions/locale_extension.dart';
 import 'package:safmobile_portal/helpers/payment_helper.dart';
 import 'package:safmobile_portal/model/customer.dart';
 import 'package:safmobile_portal/model/invoice.dart';
@@ -45,19 +46,17 @@ class _PaymentViewState extends State<PaymentView> {
   void initState() {
     _fetchInvoice = PaymentSetupFirestore.getInvoice(widget.uid, widget.ticketId);
     _fetchCustomer = PaymentSetupFirestore.getCustomer(widget.uid);
-    
+
     // Setup stream listener untuk isPay
     _setupPaymentStatusListener();
-    
+
     super.initState();
   }
 
   void _setupPaymentStatusListener() {
     // Assuming you have a stream method in PaymentSetupFirestore
     // Replace this with your actual stream method
-    _paymentStatusSubscription = PaymentSetupFirestore
-        .getPaymentStatusStream(widget.uid, widget.ticketId)
-        .listen((isPay) {
+    _paymentStatusSubscription = PaymentSetupFirestore.getPaymentStatusStream(widget.uid, widget.ticketId).listen((isPay) {
       // Hanya show dialog jika screen masih aktif dan dialog belum pernah ditunjukkan
       if (isPay == true && _isScreenActive && !_isDialogShown && mounted) {
         _showPaymentSuccessDialog();
@@ -67,16 +66,16 @@ class _PaymentViewState extends State<PaymentView> {
 
   void _showPaymentSuccessDialog() {
     if (!mounted || _isDialogShown) return; // Double check sebelum show dialog
-    
+
     _isDialogShown = true; // Set flag untuk prevent duplicate dialog
-    
+
     showDialog(
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Payment Successful'),
-          content: Text('This payment has been made'),
+          title: Text(context.localization.paymentSuccess),
+          content: Text(context.localization.paymentSuccessDialogDescription),
           actions: [
             TextButton(
               onPressed: () {
@@ -85,7 +84,7 @@ class _PaymentViewState extends State<PaymentView> {
                   context.pop(); // Navigate back
                 }
               },
-              child: Text('Close'),
+              child: Text(context.localization.close),
             ),
           ],
         );
@@ -97,10 +96,10 @@ class _PaymentViewState extends State<PaymentView> {
   void dispose() {
     // Set screen sebagai tidak aktif
     _isScreenActive = false;
-    
+
     // Cancel stream subscription
     _paymentStatusSubscription.cancel();
-    
+
     // Dispose controllers and focus nodes
     _nameInput.dispose();
     _emailInput.dispose();
@@ -108,7 +107,7 @@ class _PaymentViewState extends State<PaymentView> {
     _nameFocusNode.dispose();
     _emailFocusNode.dispose();
     _phoneFocusNode.dispose();
-    
+
     super.dispose();
   }
 
@@ -140,7 +139,7 @@ class _PaymentViewState extends State<PaymentView> {
                             spacing: 10,
                             children: [
                               Text(
-                                'Total amount',
+                                context.localization.totalAmount,
                                 style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold),
                               ),
                               Text(
@@ -153,7 +152,7 @@ class _PaymentViewState extends State<PaymentView> {
                                 children: [
                                   Icon(Icons.lock_rounded, size: 18, color: Theme.of(context).colorScheme.primary),
                                   Text(
-                                    'Secure Payment',
+                                    context.localization.securePayment,
                                     style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold),
                                   ),
                                 ],
@@ -215,12 +214,12 @@ class _PaymentViewState extends State<PaymentView> {
                                           onTapOutside: (event) => _nameFocusNode.unfocus(),
                                           validator: (value) {
                                             if (value == null || value.isEmpty) {
-                                              return 'Please enter your name';
+                                              return context.localization.nameError;
                                             }
                                             return null;
                                           },
                                           decoration: InputDecoration(
-                                            labelText: 'Name',
+                                            labelText: context.localization.name,
                                             hintText: 'Abdullah',
                                             prefixIcon: Icon(Icons.person),
                                           ),
@@ -234,12 +233,12 @@ class _PaymentViewState extends State<PaymentView> {
                                           onTapOutside: (event) => _phoneFocusNode.unfocus(),
                                           validator: (value) {
                                             if (value == null || value.isEmpty) {
-                                              return 'Please enter your phone number';
+                                              return context.localization.phoneNumberError;
                                             }
                                             return null;
                                           },
                                           decoration: InputDecoration(
-                                            labelText: 'Phone Number',
+                                            labelText: context.localization.phoneNumber,
                                             hintText: '0123456789',
                                             prefixIcon: Icon(Icons.phone),
                                           ),
@@ -253,11 +252,11 @@ class _PaymentViewState extends State<PaymentView> {
                                           onTapOutside: (event) => _emailFocusNode.unfocus(),
                                           validator: (value) {
                                             if (value == null || value.isEmpty) {
-                                              return 'Please enter your email';
+                                              return context.localization.emailError;
                                             }
                                             return null;
                                           },
-                                          decoration: InputDecoration(
+                                          decoration: const InputDecoration(
                                             labelText: 'Email',
                                             hintText: 'abdullah@email.com',
                                             prefixIcon: Icon(Icons.email),
@@ -285,7 +284,7 @@ class _PaymentViewState extends State<PaymentView> {
                                                             email: _emailInput.text,
                                                             amount: invoice?.finalPrice ?? 0,
                                                           ),
-                                                  child: Text('Continue'),
+                                                  child: Text(context.localization.continueText),
                                                 ),
                                               ),
                                             ),
@@ -303,7 +302,7 @@ class _PaymentViewState extends State<PaymentView> {
                                                   backgroundColor: WidgetStateProperty.all(Theme.of(context).colorScheme.surfaceContainer),
                                                   foregroundColor: WidgetStateProperty.all(Theme.of(context).colorScheme.onSurface),
                                                 ),
-                                                child: Text('Cancel'),
+                                                child: Text(context.localization.cancel),
                                               ),
                                             ),
                                           ),

@@ -10,7 +10,7 @@ class BillPlizApi {
   static const _sandboxApiKey = 'bd261a8b-8109-4937-9639-5ced435ced20'; //save it in .env file
   static const _sandboxCollectionId = '1ds1p46e';
   static const _callbackUrl = 'https://billplzcallback-77vl7rkrqq-uc.a.run.app';
-  static const proxyServer = 'https://cors-anywhere.herokuapp.com/';
+  // static const proxyServer = 'https://cors-anywhere.herokuapp.com/';
 
   static int _toSen(double ringgit) {
     return (ringgit * 100).round();
@@ -24,7 +24,7 @@ class BillPlizApi {
     required String ticketId,
     required String userId,
   }) async {
-    final url = Uri.parse('$proxyServer$_sandboxBillApiUrl');
+    final url = Uri.parse(_sandboxBillApiUrl);
 
     final response = await http.post(
       url,

@@ -81,14 +81,19 @@ class PaymentHelper {
                 ticketId: ticketId,
                 userId: uid,
               );
-        final invoiceRef = firestore.collection(FirestoreReferences.customer).doc(uid).collection(FirestoreReferences.invoices).doc(ticketId);
+        final invoiceRef = firestore
+            .collection(FirestoreReferences.customer)
+            .doc(uid)
+            .collection(FirestoreReferences.invoices)
+            .doc(ticketId);
         await invoiceRef.update(
           {
             'payment_id': paymentId,
             'paymentMethod': 'Billplz',
           },
         );
-        final paymentIDRef = firestore.collection(FirestoreReferences.paymentId).doc(paymentId);
+        final paymentIDRef =
+            firestore.collection(FirestoreReferences.paymentId).doc(paymentId);
 
         await paymentIDRef.set({
           'uid': uid,
@@ -117,11 +122,13 @@ class PaymentHelper {
                     TextSpan(
                       children: [
                         TextSpan(
-                          text: '${context.localization.confirmPaymentDescription} ',
+                          text:
+                              '${context.localization.confirmPaymentDescription} ',
                         ),
                         TextSpan(
                           text: context.localization.termsAndConditions,
-                          style: TextStyle(color: Theme.of(context).colorScheme.primary),
+                          style: TextStyle(
+                              color: Theme.of(context).colorScheme.primary),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
                               final url = 'https://safmobile.my/terms/';
@@ -140,12 +147,14 @@ class PaymentHelper {
                       onPressed: () {
                         context.pop();
                       },
-                      child: Text(context.localization.cancel, style: TextStyle(color: Theme.of(context).colorScheme.error)),
+                      child: Text(context.localization.cancel,
+                          style: TextStyle(
+                              color: Theme.of(context).colorScheme.error)),
                     ),
                     TextButton(
                       onPressed: () async {
                         context.pop();
-                        final url = '${BillPlizApi.sandboxBaseUrl}$paymentId';
+                        final url = '${BillPlizApi.baseUrl}$paymentId';
                         context.goPush(
                           Routes.pending,
                           pathParameters: {

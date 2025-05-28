@@ -1,12 +1,14 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import 'package:safmobile_portal/provider/home_provider.dart';
 import 'package:safmobile_portal/extensions/locale_extension.dart';
 import 'package:safmobile_portal/provider/theme_data.dart';
 import 'package:safmobile_portal/extensions/route_extension.dart';
 import 'package:safmobile_portal/routes.dart';
 import 'package:safmobile_portal/widgets/dialogs/change_language.dart';
+import 'package:universal_html/html.dart' as html show window;
+import 'package:url_launcher/url_launcher.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -58,10 +60,58 @@ class _HomeViewState extends State<HomeView> {
             },
             icon: Icon(Icons.language_outlined),
           ),
-          IconButton(
-            tooltip: context.localization.more,
-            onPressed: () {},
-            icon: Icon(Icons.more_vert),
+          // IconButton(
+          //   tooltip: context.localization.more,
+          //   onPressed: () {},
+          //   icon: Icon(Icons.more_vert),
+          // ),
+          Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: PopupMenuButton(
+              tooltip: context.localization.more,
+              itemBuilder: (context) => [
+                PopupMenuItem(
+                  child: Text(context.localization.about),
+                  onTap: () {
+                    context.goPush(Routes.about);
+                  },
+                ),
+                PopupMenuItem(
+                  child: Text(context.localization.terms),
+                  onTap: () {
+                    final url = 'https://safmobile.my/terms';
+                    if (!kIsWeb) {
+                      launchUrl(Uri.parse(url));
+                    } else {
+                      html.window.open(url, '_blank');
+                    }
+                  },
+                ),
+                PopupMenuItem(
+                  child: Text(context.localization.privacy),
+                  onTap: () {
+                    final url = 'https://safmobile.my/privacy-policy';
+                    if (!kIsWeb) {
+                      launchUrl(Uri.parse(url));
+                    } else {
+                      html.window.open(url, '_blank');
+                    }
+                  },
+                ),
+                PopupMenuItem(
+                  child: Text(context.localization.refund),
+                  onTap: () {
+                    final url = 'https://safmobile.my/return';
+                    if (!kIsWeb) {
+                      launchUrl(Uri.parse(url));
+                    } else {
+                      html.window.open(url, '_blank');
+                    }
+                  },
+                ),
+              ],
+              child: Icon(Icons.more_vert),
+            ),
           ),
         ],
       ),

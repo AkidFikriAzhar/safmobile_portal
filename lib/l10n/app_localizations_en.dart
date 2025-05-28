@@ -251,4 +251,19 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get paymentCompletedDescription =>
       'We have successfully received your payment. You may have safely return to our portal to check your payment status.';
+
+  @override
+  String get about => 'About';
+
+  @override
+  String get terms => 'Terms of Services';
+
+  @override
+  String get privacy => 'Privacy Policy';
+
+  @override
+  String get refund => 'Return & Refund Policy';
+
+  @override
+  String get contact => 'Contact Us';
 }

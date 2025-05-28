@@ -1,6 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:safmobile_portal/provider/payment_provider.dart';
+import 'package:safmobile_portal/views/about_view.dart';
 import 'package:safmobile_portal/views/home_view.dart';
 import 'package:safmobile_portal/views/docs_view.dart';
 
@@ -18,6 +19,7 @@ class Routes {
   static const String qrScan = 'scan';
   static const String payment = 'payment';
   static const String pending = 'pending';
+  static const String about = 'about';
 
   static GoRouter router = GoRouter(
     initialLocation: '/',
@@ -79,6 +81,11 @@ class Routes {
         path: '/$qrScan',
         name: qrScan,
         builder: (context, state) => QrScanView(),
+      ),
+      GoRoute(
+        path: '/$about',
+        name: about,
+        builder: (context, state) => AboutView(),
       ),
     ],
   );

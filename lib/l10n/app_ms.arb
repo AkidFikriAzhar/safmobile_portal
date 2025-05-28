@@ -306,5 +306,25 @@
     "paymentCompletedDescription": "Kami telah menerima pembayaran anda dengan berjaya. Anda boleh kembali ke halaman portal utama untuk menyemak status pembayaran.",
     "@paymentCompletedDescription": {
         "description": "Teks keterangan pembayaran selesai"
+    },
+    "about": "Tentang Saf Mobile Portal",
+    "@about": {
+        "description": "About text"
+    },
+    "terms": "Terma dan Syarat",
+    "@terms": {
+        "description": "Terms of services text"
+    },
+    "privacy": "Dasar Privasi",
+    "@privacy": {
+        "description": "Privacy policy text"
+    },
+    "refund": "Polisi Bayaran Balik & Pemulangan",
+    "@refund": {
+        "description": "Return and refund policy text"
+    },
+    "contact": "Hubungi Kami",
+    "@contact": {
+        "description": "Contact us text"
     }
 }

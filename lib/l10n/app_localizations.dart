@@ -559,6 +559,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'We have successfully received your payment. You may have safely return to our portal to check your payment status.'**
   String get paymentCompletedDescription;
+
+  /// About text
+  ///
+  /// In en, this message translates to:
+  /// **'About'**
+  String get about;
+
+  /// Terms of services text
+  ///
+  /// In en, this message translates to:
+  /// **'Terms of Services'**
+  String get terms;
+
+  /// Privacy policy text
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy Policy'**
+  String get privacy;
+
+  /// Return and refund policy text
+  ///
+  /// In en, this message translates to:
+  /// **'Return & Refund Policy'**
+  String get refund;
+
+  /// Contact us text
+  ///
+  /// In en, this message translates to:
+  /// **'Contact Us'**
+  String get contact;
 }
 
 class _AppLocalizationsDelegate

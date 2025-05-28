@@ -312,5 +312,25 @@
     "paymentCompletedDescription": "We have successfully received your payment. You may have safely return to our portal to check your payment status.",
     "@paymentCompletedDescription": {
         "description": "Payment completed description text"
+    },
+    "about": "About",
+    "@about": {
+        "description": "About text"
+    },
+    "terms": "Terms of Services",
+    "@terms": {
+        "description": "Terms of services text"
+    },
+    "privacy": "Privacy Policy",
+    "@privacy": {
+        "description": "Privacy policy text"
+    },
+    "refund": "Return & Refund Policy",
+    "@refund": {
+        "description": "Return and refund policy text"
+    },
+    "contact": "Contact Us",
+    "@contact": {
+        "description": "Contact us text"
     }
 }

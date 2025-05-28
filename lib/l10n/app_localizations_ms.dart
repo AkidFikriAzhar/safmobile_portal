@@ -251,4 +251,19 @@ class AppLocalizationsMs extends AppLocalizations {
   @override
   String get paymentCompletedDescription =>
       'Kami telah menerima pembayaran anda dengan berjaya. Anda boleh kembali ke halaman portal utama untuk menyemak status pembayaran.';
+
+  @override
+  String get about => 'Tentang Saf Mobile Portal';
+
+  @override
+  String get terms => 'Terma dan Syarat';
+
+  @override
+  String get privacy => 'Dasar Privasi';
+
+  @override
+  String get refund => 'Polisi Bayaran Balik & Pemulangan';
+
+  @override
+  String get contact => 'Hubungi Kami';
 }

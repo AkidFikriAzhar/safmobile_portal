@@ -332,5 +332,105 @@
     "contact": "Contact Us",
     "@contact": {
         "description": "Contact us text"
+    },
+    "aboutTitle": "🛠️ About Saf Mobile Portal",
+    "@aboutTitle": {
+        "description": "Main title for about page"
+    },
+    "aboutDescription": "Saf Mobile Portal is a dedicated customer platform proudly developed by Akid Fikri Azhar — founder of Saf Mobile and TheKampungKod </>. Designed to simplify repair tracking and payments, this portal reflects our commitment to transparency, convenience, and leveraging modern technology in line with current digital trends.",
+    "@aboutDescription": {
+        "description": "Brief intro about Saf Mobile Portal"
+    },
+    "goalTitle": "🎯 Our Goals",
+    "@goalTitle": {
+        "description": "Title for goals section"
+    },
+    "goalIntro": "We develop this Saf Mobile Portal with 3 main goals in mind:",
+    "@goalIntro": {
+        "description": "Pengenalan untuk bahagian matlamat"
+    },
+    "goal1Bold": "✅ Transparency",
+    "@goal1Bold": {
+        "description": "Bold text for goal 1"
+    },
+    "goal1": "Check your job sheet status anytime.",
+    "@goal1": {
+        "description": "First goal - transparency"
+    },
+    "goal2Bold": "✅ Convenience",
+    "@goal2Bold": {
+        "description": "Bold text for goal 2"
+    },
+    "goal2": "Settle your invoice online in advance — so your pickup process at the shop will be smoother and faster.",
+    "@goal2": {
+        "description": "Second goal - convenience"
+    },
+    "goal3Bold": "✅ Security",
+    "@goal3Bold": {
+        "description": "Bold text for goal 3"
+    },
+    "goal3": "Your data is protected and processed securely.",
+    "@goal3": {
+        "description": "Third goal - security"
+    },
+    "featuresTitle": "📱 Features",
+    "@featuresTitle": {
+        "description": "Title for features section"
+    },
+    "feature1Title": "🔍 Check Repair Status",
+    "@feature1Title": {
+        "description": "Title for feature 1"
+    },
+    "feature1Desc": "Scan the QR code on your receipt to access your job sheet status instantly.",
+    "@feature1Desc": {
+        "description": "Description for checking repair status"
+    },
+    "feature2Title": "💸 Pay Pending Invoices",
+    "@feature2Title": {
+        "description": "Title for feature 2"
+    },
+    "feature2Desc": "View invoice details and pay via FPX, e-wallet, debit / credit card or Buy Now Pay Later.",
+    "@feature2Desc": {
+        "description": "Description for paying invoices"
+    },
+    "feature3Title": "📜 Digital Records",
+    "@feature3Title": {
+        "description": "Title for feature 3"
+    },
+    "feature3Desc": "Keep service and payment history for future reference.",
+    "@feature3Desc": {
+        "description": "Description for digital records"
+    },
+    "whoShouldUseTitle": "🤝 Who Should Use This?",
+    "@whoShouldUseTitle": {
+        "description": "Title for who should use the portal"
+    },
+    "whoShouldUseDesc": "This portal is designed for Saf Mobile customers who want to:\n• Check repair status easily\n• Pay outstanding balance anytime\n• Stay updated with service progress",
+    "@whoShouldUseDesc": {
+        "description": "Description of target users of the portal"
+    },
+    "techTitle": "🧠 Technology Behind the Portal",
+    "@techTitle": {
+        "description": "Title for technology section"
+    },
+    "techDesc": "Saf Mobile Portal is built with Flutter, Firebase, and Billplz API — delivering a fast, secure, and smooth experience.",
+    "@techDesc": {
+        "description": "Description about technologies used"
+    },
+    "getStartedTitle": "📌 Get Started",
+    "@getStartedTitle": {
+        "description": "Title for get started section"
+    },
+    "getStartedDesc": "If you received a receipt with a QR code, scan it to access your portal.\nNeed help? Contact us via WhatsApp.",
+    "@getStartedDesc": {
+        "description": "Instruction to start using the portal"
+    },
+    "useSafMobileNow": "Use Saf Mobile Portal Now",
+    "@useSafMobileNow": {
+        "description": "Button text to use Saf Mobile Portal"
+    },
+    "version": "Version",
+    "@version": {
+        "description": "Version text"
     }
 }

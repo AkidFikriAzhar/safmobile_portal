@@ -266,4 +266,88 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get contact => 'Hubungi Kami';
+
+  @override
+  String get aboutTitle => '🛠️ Mengenai Saf Mobile Portal';
+
+  @override
+  String get aboutDescription =>
+      'Saf Mobile Portal ialah platform pelanggan yang dibangunkan khas oleh Akid Fikri Azhar — pengasas Saf Mobile dan TheKampungKod </>. Portal ini dibina untuk memudahkan semakan status pembaikan dan pembayaran, sejajar dengan komitmen kami terhadap ketelusan, kemudahan dan memanfaatkan penggunaan teknologi yang moden seiring arus masa kini.';
+
+  @override
+  String get goalTitle => '🎯 Matlamat Kami';
+
+  @override
+  String get goalIntro =>
+      'Kami bangunkan Saf Mobile Portal ini dengan 3 maklamat utama:';
+
+  @override
+  String get goal1Bold => '✅ Ketelusan';
+
+  @override
+  String get goal1 => 'Semak status job sheet anda bila-bila masa.';
+
+  @override
+  String get goal2Bold => '✅ Kemudahan';
+
+  @override
+  String get goal2 =>
+      'Bayar invois lebih awal secara dalam talian – supaya urusan pickup di kedai jadi lebih pantas dan mudah.';
+
+  @override
+  String get goal3Bold => '✅ Keselamatan';
+
+  @override
+  String get goal3 => 'Data anda dilindungi dan diproses dengan selamat.';
+
+  @override
+  String get featuresTitle => '📱 Kelebihan';
+
+  @override
+  String get feature1Title => '🔍 Semak Status Pembaikan';
+
+  @override
+  String get feature1Desc =>
+      'Imbas kod QR pada resit anda untuk terus akses status job sheet.';
+
+  @override
+  String get feature2Title => '💸 Bayar Invois Tertunggak';
+
+  @override
+  String get feature2Desc =>
+      'Lihat butiran invois dan buat pembayaran melalui FPX, e-wallet, kad kredit / debit atau Buy Now Pay Later.';
+
+  @override
+  String get feature3Title => '📜 Rekod Digital';
+
+  @override
+  String get feature3Desc =>
+      'Simpan sejarah servis dan bayaran untuk rujukan masa depan.';
+
+  @override
+  String get whoShouldUseTitle => '🤝 Siapa Patut Guna Aplikasi Web Ini?';
+
+  @override
+  String get whoShouldUseDesc =>
+      'Portal ini direka khas untuk pelanggan Saf Mobile yang ingin:\n• Semak status dengan mudah\n• Bayar baki bila-bila masa\n• Kekal kemas kini dengan servis';
+
+  @override
+  String get techTitle => '🧠 Teknologi Digunakan ';
+
+  @override
+  String get techDesc =>
+      'Saf Mobile Portal dibina menggunakan Flutter, Firebase dan API Billplz — untuk pengalaman yang pantas, selamat dan lancar.';
+
+  @override
+  String get getStartedTitle => '📌 Mula Sekarang';
+
+  @override
+  String get getStartedDesc =>
+      'Jika anda menerima resit dengan kod QR, imbas untuk akses portal.\nPerlukan bantuan? Hubungi kami melalui WhatsApp.';
+
+  @override
+  String get useSafMobileNow => 'Gunakan Saf Mobile Portal Sekarang';
+
+  @override
+  String get version => 'Versi';
 }

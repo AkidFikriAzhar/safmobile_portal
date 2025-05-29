@@ -326,5 +326,105 @@
     "contact": "Hubungi Kami",
     "@contact": {
         "description": "Contact us text"
+    },
+    "aboutTitle": "🛠️ Mengenai Saf Mobile Portal",
+    "@aboutTitle": {
+        "description": "Tajuk utama untuk halaman mengenai"
+    },
+    "aboutDescription": "Saf Mobile Portal ialah platform pelanggan yang dibangunkan khas oleh Akid Fikri Azhar — pengasas Saf Mobile dan TheKampungKod </>. Portal ini dibina untuk memudahkan semakan status pembaikan dan pembayaran, sejajar dengan komitmen kami terhadap ketelusan, kemudahan dan memanfaatkan penggunaan teknologi yang moden seiring arus masa kini.",
+    "@aboutDescription": {
+        "description": "Pengenalan ringkas tentang Saf Mobile Portal"
+    },
+    "goalTitle": "🎯 Matlamat Kami",
+    "@goalTitle": {
+        "description": "Tajuk untuk bahagian matlamat"
+    },
+    "goalIntro": "Kami bangunkan Saf Mobile Portal ini dengan 3 maklamat utama:",
+    "@goalIntro": {
+        "description": "Pengenalan untuk bahagian matlamat"
+    },
+    "goal1Bold": "✅ Ketelusan",
+    "@goal1Bold": {
+        "description": "Teks untuk matlamat pertama"
+    },
+    "goal1": "Semak status job sheet anda bila-bila masa.",
+    "@goal1": {
+        "description": "Matlamat pertama - ketelusan"
+    },
+    "goal2Bold": "✅ Kemudahan",
+    "@goal2Bold": {
+        "description": "Teks untuk matlamat kedua"
+    },
+    "goal2": "Bayar invois lebih awal secara dalam talian – supaya urusan pickup di kedai jadi lebih pantas dan mudah.",
+    "@goal2": {
+        "description": "Matlamat kedua - kemudahan"
+    },
+    "goal3Bold": "✅ Keselamatan",
+    "@goal3Bold": {
+        "description": "Teks untuk matlamat ketiga"
+    },
+    "goal3": "Data anda dilindungi dan diproses dengan selamat.",
+    "@goal3": {
+        "description": "Matlamat ketiga - keselamatan"
+    },
+    "featuresTitle": "📱 Kelebihan",
+    "@featuresTitle": {
+        "description": "Tajuk untuk ciri-ciri"
+    },
+    "feature1Title": "🔍 Semak Status Pembaikan",
+    "@feature1Title": {
+        "description": "Tajuk untuk ciri pertama"
+    },
+    "feature1Desc": "Imbas kod QR pada resit anda untuk terus akses status job sheet.",
+    "@feature1Desc": {
+        "description": "Penerangan untuk semakan status"
+    },
+    "feature2Title": "💸 Bayar Invois Tertunggak",
+    "@feature2Title": {
+        "description": "Tajuk untuk ciri kedua"
+    },
+    "feature2Desc": "Lihat butiran invois dan buat pembayaran melalui FPX, e-wallet, kad kredit / debit atau Buy Now Pay Later.",
+    "@feature2Desc": {
+        "description": "Penerangan untuk pembayaran invois"
+    },
+    "feature3Title": "📜 Rekod Digital",
+    "@feature3Title": {
+        "description": "Tajuk untuk ciri ketiga"
+    },
+    "feature3Desc": "Simpan sejarah servis dan bayaran untuk rujukan masa depan.",
+    "@feature3Desc": {
+        "description": "Penerangan untuk rekod digital"
+    },
+    "whoShouldUseTitle": "🤝 Siapa Patut Guna Aplikasi Web Ini?",
+    "@whoShouldUseTitle": {
+        "description": "Tajuk untuk siapa pengguna sasaran"
+    },
+    "whoShouldUseDesc": "Portal ini direka khas untuk pelanggan Saf Mobile yang ingin:\n• Semak status dengan mudah\n• Bayar baki bila-bila masa\n• Kekal kemas kini dengan servis",
+    "@whoShouldUseDesc": {
+        "description": "Penerangan siapa patut guna portal"
+    },
+    "techTitle": "🧠 Teknologi Digunakan ",
+    "@techTitle": {
+        "description": "Tajuk untuk bahagian teknologi"
+    },
+    "techDesc": "Saf Mobile Portal dibina menggunakan Flutter, Firebase dan API Billplz — untuk pengalaman yang pantas, selamat dan lancar.",
+    "@techDesc": {
+        "description": "Penerangan tentang teknologi yang digunakan"
+    },
+    "getStartedTitle": "📌 Mula Sekarang",
+    "@getStartedTitle": {
+        "description": "Tajuk bahagian mula guna"
+    },
+    "getStartedDesc": "Jika anda menerima resit dengan kod QR, imbas untuk akses portal.\nPerlukan bantuan? Hubungi kami melalui WhatsApp.",
+    "@getStartedDesc": {
+        "description": "Arahan untuk mula menggunakan portal"
+    },
+    "useSafMobileNow": "Gunakan Saf Mobile Portal Sekarang",
+    "@useSafMobileNow": {
+        "description": "Button text to use Saf Mobile Portal"
+    },
+    "version": "Versi",
+    "@version": {
+        "description": "Version text"
     }
 }

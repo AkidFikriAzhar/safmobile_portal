@@ -589,6 +589,156 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Contact Us'**
   String get contact;
+
+  /// Main title for about page
+  ///
+  /// In en, this message translates to:
+  /// **'🛠️ About Saf Mobile Portal'**
+  String get aboutTitle;
+
+  /// Brief intro about Saf Mobile Portal
+  ///
+  /// In en, this message translates to:
+  /// **'Saf Mobile Portal is a dedicated customer platform proudly developed by Akid Fikri Azhar — founder of Saf Mobile and TheKampungKod </>. Designed to simplify repair tracking and payments, this portal reflects our commitment to transparency, convenience, and leveraging modern technology in line with current digital trends.'**
+  String get aboutDescription;
+
+  /// Title for goals section
+  ///
+  /// In en, this message translates to:
+  /// **'🎯 Our Goals'**
+  String get goalTitle;
+
+  /// Pengenalan untuk bahagian matlamat
+  ///
+  /// In en, this message translates to:
+  /// **'We develop this Saf Mobile Portal with 3 main goals in mind:'**
+  String get goalIntro;
+
+  /// Bold text for goal 1
+  ///
+  /// In en, this message translates to:
+  /// **'✅ Transparency'**
+  String get goal1Bold;
+
+  /// First goal - transparency
+  ///
+  /// In en, this message translates to:
+  /// **'Check your job sheet status anytime.'**
+  String get goal1;
+
+  /// Bold text for goal 2
+  ///
+  /// In en, this message translates to:
+  /// **'✅ Convenience'**
+  String get goal2Bold;
+
+  /// Second goal - convenience
+  ///
+  /// In en, this message translates to:
+  /// **'Settle your invoice online in advance — so your pickup process at the shop will be smoother and faster.'**
+  String get goal2;
+
+  /// Bold text for goal 3
+  ///
+  /// In en, this message translates to:
+  /// **'✅ Security'**
+  String get goal3Bold;
+
+  /// Third goal - security
+  ///
+  /// In en, this message translates to:
+  /// **'Your data is protected and processed securely.'**
+  String get goal3;
+
+  /// Title for features section
+  ///
+  /// In en, this message translates to:
+  /// **'📱 Features'**
+  String get featuresTitle;
+
+  /// Title for feature 1
+  ///
+  /// In en, this message translates to:
+  /// **'🔍 Check Repair Status'**
+  String get feature1Title;
+
+  /// Description for checking repair status
+  ///
+  /// In en, this message translates to:
+  /// **'Scan the QR code on your receipt to access your job sheet status instantly.'**
+  String get feature1Desc;
+
+  /// Title for feature 2
+  ///
+  /// In en, this message translates to:
+  /// **'💸 Pay Pending Invoices'**
+  String get feature2Title;
+
+  /// Description for paying invoices
+  ///
+  /// In en, this message translates to:
+  /// **'View invoice details and pay via FPX, e-wallet, debit / credit card or Buy Now Pay Later.'**
+  String get feature2Desc;
+
+  /// Title for feature 3
+  ///
+  /// In en, this message translates to:
+  /// **'📜 Digital Records'**
+  String get feature3Title;
+
+  /// Description for digital records
+  ///
+  /// In en, this message translates to:
+  /// **'Keep service and payment history for future reference.'**
+  String get feature3Desc;
+
+  /// Title for who should use the portal
+  ///
+  /// In en, this message translates to:
+  /// **'🤝 Who Should Use This?'**
+  String get whoShouldUseTitle;
+
+  /// Description of target users of the portal
+  ///
+  /// In en, this message translates to:
+  /// **'This portal is designed for Saf Mobile customers who want to:\n• Check repair status easily\n• Pay outstanding balance anytime\n• Stay updated with service progress'**
+  String get whoShouldUseDesc;
+
+  /// Title for technology section
+  ///
+  /// In en, this message translates to:
+  /// **'🧠 Technology Behind the Portal'**
+  String get techTitle;
+
+  /// Description about technologies used
+  ///
+  /// In en, this message translates to:
+  /// **'Saf Mobile Portal is built with Flutter, Firebase, and Billplz API — delivering a fast, secure, and smooth experience.'**
+  String get techDesc;
+
+  /// Title for get started section
+  ///
+  /// In en, this message translates to:
+  /// **'📌 Get Started'**
+  String get getStartedTitle;
+
+  /// Instruction to start using the portal
+  ///
+  /// In en, this message translates to:
+  /// **'If you received a receipt with a QR code, scan it to access your portal.\nNeed help? Contact us via WhatsApp.'**
+  String get getStartedDesc;
+
+  /// Button text to use Saf Mobile Portal
+  ///
+  /// In en, this message translates to:
+  /// **'Use Saf Mobile Portal Now'**
+  String get useSafMobileNow;
+
+  /// Version text
+  ///
+  /// In en, this message translates to:
+  /// **'Version'**
+  String get version;
 }
 
 class _AppLocalizationsDelegate

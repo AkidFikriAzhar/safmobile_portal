@@ -266,4 +266,88 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get contact => 'Contact Us';
+
+  @override
+  String get aboutTitle => '🛠️ About Saf Mobile Portal';
+
+  @override
+  String get aboutDescription =>
+      'Saf Mobile Portal is a dedicated customer platform proudly developed by Akid Fikri Azhar — founder of Saf Mobile and TheKampungKod </>. Designed to simplify repair tracking and payments, this portal reflects our commitment to transparency, convenience, and leveraging modern technology in line with current digital trends.';
+
+  @override
+  String get goalTitle => '🎯 Our Goals';
+
+  @override
+  String get goalIntro =>
+      'We develop this Saf Mobile Portal with 3 main goals in mind:';
+
+  @override
+  String get goal1Bold => '✅ Transparency';
+
+  @override
+  String get goal1 => 'Check your job sheet status anytime.';
+
+  @override
+  String get goal2Bold => '✅ Convenience';
+
+  @override
+  String get goal2 =>
+      'Settle your invoice online in advance — so your pickup process at the shop will be smoother and faster.';
+
+  @override
+  String get goal3Bold => '✅ Security';
+
+  @override
+  String get goal3 => 'Your data is protected and processed securely.';
+
+  @override
+  String get featuresTitle => '📱 Features';
+
+  @override
+  String get feature1Title => '🔍 Check Repair Status';
+
+  @override
+  String get feature1Desc =>
+      'Scan the QR code on your receipt to access your job sheet status instantly.';
+
+  @override
+  String get feature2Title => '💸 Pay Pending Invoices';
+
+  @override
+  String get feature2Desc =>
+      'View invoice details and pay via FPX, e-wallet, debit / credit card or Buy Now Pay Later.';
+
+  @override
+  String get feature3Title => '📜 Digital Records';
+
+  @override
+  String get feature3Desc =>
+      'Keep service and payment history for future reference.';
+
+  @override
+  String get whoShouldUseTitle => '🤝 Who Should Use This?';
+
+  @override
+  String get whoShouldUseDesc =>
+      'This portal is designed for Saf Mobile customers who want to:\n• Check repair status easily\n• Pay outstanding balance anytime\n• Stay updated with service progress';
+
+  @override
+  String get techTitle => '🧠 Technology Behind the Portal';
+
+  @override
+  String get techDesc =>
+      'Saf Mobile Portal is built with Flutter, Firebase, and Billplz API — delivering a fast, secure, and smooth experience.';
+
+  @override
+  String get getStartedTitle => '📌 Get Started';
+
+  @override
+  String get getStartedDesc =>
+      'If you received a receipt with a QR code, scan it to access your portal.\nNeed help? Contact us via WhatsApp.';
+
+  @override
+  String get useSafMobileNow => 'Use Saf Mobile Portal Now';
+
+  @override
+  String get version => 'Version';
 }

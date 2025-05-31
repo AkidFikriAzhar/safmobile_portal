@@ -350,4 +350,11 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get version => 'Versi';
+
+  @override
+  String get whatIsTicketId => 'Apa itu Ticket ID ?';
+
+  @override
+  String get whatIsTicketIdDesc =>
+      'Ticket ID adalah nombor rujukan unik servis untuk peranti anda, Ia terletak bersebelahan kod QR pada dokumen seperti Service Order atau Invoice. Anda juga boleh imbas QR yang terdapat pada dokumen tersebut untuk akses lebih pantas.';
 }

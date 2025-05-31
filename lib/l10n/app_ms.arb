@@ -426,5 +426,13 @@
     "version": "Versi",
     "@version": {
         "description": "Version text"
+    },
+    "whatIsTicketId" : "Apa itu Ticket ID ?",
+    "@whatIsTicketId" : {
+        "description": "Teks untuk pertanyaan apa itu Ticket ID"
+    },
+    "whatIsTicketIdDesc" : "Ticket ID adalah nombor rujukan unik servis untuk peranti anda, Ia terletak bersebelahan kod QR pada dokumen seperti Service Order atau Invoice. Anda juga boleh imbas QR yang terdapat pada dokumen tersebut untuk akses lebih pantas.",
+    "@whatIsTicketIdDesc" : {
+        "description": "Teks untuk penerangan apa itu Ticket ID"
     }
 }

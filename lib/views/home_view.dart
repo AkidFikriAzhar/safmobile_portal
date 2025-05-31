@@ -7,6 +7,7 @@ import 'package:safmobile_portal/provider/theme_data.dart';
 import 'package:safmobile_portal/extensions/route_extension.dart';
 import 'package:safmobile_portal/routes.dart';
 import 'package:safmobile_portal/widgets/dialogs/change_language.dart';
+import 'package:safmobile_portal/widgets/dialogs/ticket_id_help_dialog.dart';
 import 'package:universal_html/html.dart' as html show window;
 import 'package:url_launcher/url_launcher.dart';
 
@@ -60,11 +61,6 @@ class _HomeViewState extends State<HomeView> {
             },
             icon: Icon(Icons.language_outlined),
           ),
-          // IconButton(
-          //   tooltip: context.localization.more,
-          //   onPressed: () {},
-          //   icon: Icon(Icons.more_vert),
-          // ),
           Padding(
             padding: const EdgeInsets.all(5.0),
             child: PopupMenuButton(
@@ -128,7 +124,9 @@ class _HomeViewState extends State<HomeView> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Image.asset(
-                      Theme.of(context).brightness == Brightness.dark ? 'assets/images/logo_dark.png' : 'assets/images/logo_light.png',
+                      Theme.of(context).brightness == Brightness.dark
+                          ? 'assets/images/logo_dark.png'
+                          : 'assets/images/logo_light.png',
                       width: 70,
                     ),
                     const SizedBox(height: 25),
@@ -160,6 +158,22 @@ class _HomeViewState extends State<HomeView> {
                       },
                       decoration: InputDecoration(
                         prefixIcon: Icon(Icons.receipt_long),
+                        suffixIcon: Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: IconButton(
+                            tooltip: context.localization.whatIsTicketId,
+                            color: Theme.of(context).colorScheme.primary,
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return const TicketIdHelpDialog();
+                                },
+                              );
+                            },
+                            icon: const Icon(Icons.help_outline),
+                          ),
+                        ),
                         labelText: 'Ticket ID',
                         hintText: context.localization.enterTicketID,
                       ),

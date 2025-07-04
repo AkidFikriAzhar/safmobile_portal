@@ -126,7 +126,7 @@ class _AboutViewState extends State<AboutView> {
                 ),
                 const SizedBox(height: 5),
                 Text(
-                  '${context.localization.version} 1.5.2\nTheKampungKod </>',
+                  '${context.localization.version} 1.5.2\nAkid Fikri Azhar • TheKampungKod </>',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 10,

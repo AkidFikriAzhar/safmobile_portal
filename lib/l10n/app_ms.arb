@@ -263,7 +263,7 @@
     "@confirmPayment": {
         "description": "Confirm payment text"
     },
-    "confirmPaymentDescription": "Anda akan dibawa ke halaman pembayaran Billplz. Dengan meneruskan, anda bersetuju dengan",
+    "confirmPaymentDescription": "Anda akan dibawa ke halaman pembayaran. Dengan meneruskan, anda bersetuju dengan",
     "@confirmPaymentDescription": {
         "description": "Teks keterangan untuk pengesahan pembayaran"
     },
@@ -407,7 +407,7 @@
     "@techTitle": {
         "description": "Tajuk untuk bahagian teknologi"
     },
-    "techDesc": "Saf Mobile Portal dibina menggunakan Flutter, Firebase dan API Billplz — untuk pengalaman yang pantas, selamat dan lancar.",
+    "techDesc": "Saf Mobile Portal dibina menggunakan Flutter dan Firebase — untuk pengalaman yang pantas, selamat dan lancar.",
     "@techDesc": {
         "description": "Penerangan tentang teknologi yang digunakan"
     },
@@ -427,12 +427,12 @@
     "@version": {
         "description": "Version text"
     },
-    "whatIsTicketId" : "Apa itu Ticket ID ?",
-    "@whatIsTicketId" : {
+    "whatIsTicketId": "Apa itu Ticket ID ?",
+    "@whatIsTicketId": {
         "description": "Teks untuk pertanyaan apa itu Ticket ID"
     },
-    "whatIsTicketIdDesc" : "Ticket ID adalah nombor rujukan unik servis untuk peranti anda, Ia terletak bersebelahan kod QR pada dokumen seperti Service Order atau Invoice. Anda juga boleh imbas QR yang terdapat pada dokumen tersebut untuk akses lebih pantas.",
-    "@whatIsTicketIdDesc" : {
+    "whatIsTicketIdDesc": "Ticket ID adalah nombor rujukan unik servis untuk peranti anda, Ia terletak bersebelahan kod QR pada dokumen seperti Service Order atau Invoice. Anda juga boleh imbas QR yang terdapat pada dokumen tersebut untuk akses lebih pantas.",
+    "@whatIsTicketIdDesc": {
         "description": "Teks untuk penerangan apa itu Ticket ID"
     }
 }

@@ -7,15 +7,14 @@ import 'package:lottie/lottie.dart';
 import 'package:safmobile_portal/extensions/locale_extension.dart';
 import 'package:safmobile_portal/model/firestore_references.dart';
 import 'package:safmobile_portal/model/invoice.dart';
-import 'package:safmobile_portal/services/billplz_api.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:universal_html/html.dart' as html;
 
 class PendingPaymentView extends StatefulWidget {
   final String uid;
   final String ticketId;
-  final String billCode;
-  const PendingPaymentView({super.key, required this.uid, required this.ticketId, required this.billCode});
+  final String url;
+  const PendingPaymentView({super.key, required this.uid, required this.ticketId, required this.url});
 
   @override
   State<PendingPaymentView> createState() => _PendingPaymentViewState();
@@ -162,11 +161,10 @@ class _PendingPaymentViewState extends State<PendingPaymentView> with TickerProv
                             const SizedBox(height: 12),
                             TextButton(
                               onPressed: () {
-                                final url = '${BillPlizApi.sandboxBaseUrl}${widget.billCode}';
                                 if (!kIsWeb) {
-                                  launchUrl(Uri.parse(url));
+                                  launchUrl(Uri.parse(widget.url));
                                 } else {
-                                  html.window.open(url, '_blank');
+                                  html.window.open(widget.url, '_blank');
                                 }
                               },
                               child: Text(context.localization.reopenPaymentPage),

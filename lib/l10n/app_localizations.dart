@@ -497,7 +497,7 @@ abstract class AppLocalizations {
   /// Confirm payment description text
   ///
   /// In en, this message translates to:
-  /// **'You will redirect to the Billplz payment page. By proceeding, you agree to our'**
+  /// **'You will redirect to the payment page. By proceeding, you agree to our'**
   String get confirmPaymentDescription;
 
   /// Terms and conditions text
@@ -713,7 +713,7 @@ abstract class AppLocalizations {
   /// Description about technologies used
   ///
   /// In en, this message translates to:
-  /// **'Saf Mobile Portal is built with Flutter, Firebase, and Billplz API — delivering a fast, secure, and smooth experience.'**
+  /// **'Saf Mobile Portal is built with Flutter and Firebase — delivering a fast, secure, and smooth experience.'**
   String get techDesc;
 
   /// Title for get started section

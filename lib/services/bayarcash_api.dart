@@ -39,7 +39,8 @@ class BayarcashApi {
   }) async {
     // final corsProxy = 'https://proxy.corsfix.com/?';
     // final x2u = 'https://go.x2u.in/proxy?email=akidfikriazhar@gmail.com&apiKey=8967b944&url=https://www.bbc.com';
-    final apiUrl = Uri.parse('https://go.x2u.in/proxy?email=akidfikriazhar@gmail.com&apiKey=8967b944&url=https://api.console.bayarcash-sandbox.com/v3/payment-intents');
+    // final x2uv2 = 'https://go.x2u.in/proxy?email=akidfikriazhar@gmail.com&apiKey=8967b944&url=';
+    final apiUrl = Uri.parse('https://api.console.bayarcash-sandbox.com/v3/payment-intents');
     final sandboxPortal = '779cd699e9e59a84c4581a68fd7e0130';
 
     final response = await http.post(
@@ -56,8 +57,7 @@ class BayarcashApi {
         "payer_name": name,
         "payer_email": email,
         "payer_telephone_number": phoneNumber,
-
-        // "return_url": "https://portal.safmobile.my",
+        "return_url": "https://safmobile.my/payment-completed",
       }),
     );
 

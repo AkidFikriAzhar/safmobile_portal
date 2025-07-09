@@ -217,7 +217,7 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get confirmPaymentDescription =>
-      'Anda akan dibawa ke halaman pembayaran Billplz. Dengan meneruskan, anda bersetuju dengan';
+      'Anda akan dibawa ke halaman pembayaran. Dengan meneruskan, anda bersetuju dengan';
 
   @override
   String get termsAndConditions => 'Terma dan Syarat';
@@ -336,7 +336,7 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get techDesc =>
-      'Saf Mobile Portal dibina menggunakan Flutter, Firebase dan API Billplz — untuk pengalaman yang pantas, selamat dan lancar.';
+      'Saf Mobile Portal dibina menggunakan Flutter dan Firebase — untuk pengalaman yang pantas, selamat dan lancar.';
 
   @override
   String get getStartedTitle => '📌 Mula Sekarang';

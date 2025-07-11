@@ -229,7 +229,7 @@
     "@totalAmount": {
         "description": "Total amount text"
     },
-    "securePayment": "Secure Payment",
+    "securePayment": "Secure payment from",
     "@securePayment": {
         "description": "Secure payment text"
     },

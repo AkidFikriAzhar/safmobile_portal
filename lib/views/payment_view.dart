@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -9,6 +10,7 @@ import 'package:safmobile_portal/provider/payment_provider.dart';
 import 'package:safmobile_portal/services/payment_setup_firestore.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'dart:async';
+import 'package:intl/intl.dart' show toBeginningOfSentenceCase;
 
 class PaymentView extends StatefulWidget {
   final String uid;
@@ -29,6 +31,7 @@ class _PaymentViewState extends State<PaymentView> {
 
   late Future _fetchInvoice;
   late Future _fetchCustomer;
+  late Stream _paymentProvider;
   Invoice? invoice;
   Customer? customer;
 
@@ -46,6 +49,7 @@ class _PaymentViewState extends State<PaymentView> {
   void initState() {
     _fetchInvoice = PaymentSetupFirestore.getInvoice(widget.uid, widget.ticketId);
     _fetchCustomer = PaymentSetupFirestore.getCustomer(widget.uid);
+    _paymentProvider = FirebaseFirestore.instance.collection('Settings').doc('payment-gateway').snapshots();
 
     // Setup stream listener untuk isPay
     _setupPaymentStatusListener();
@@ -151,10 +155,30 @@ class _PaymentViewState extends State<PaymentView> {
                                 spacing: 5,
                                 children: [
                                   Icon(Icons.lock_rounded, size: 18, color: Theme.of(context).colorScheme.primary),
-                                  Text(
-                                    context.localization.securePayment,
-                                    style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold),
-                                  ),
+                                  StreamBuilder(
+                                      stream: _paymentProvider,
+                                      builder: (context, asyncSnapshot) {
+                                        if (snapshot.connectionState == ConnectionState.waiting) {
+                                          return Text(
+                                            '---',
+                                            style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold),
+                                          );
+                                        }
+
+                                        if (asyncSnapshot.hasData) {
+                                          var data = asyncSnapshot.data!.data() as Map<String, dynamic>;
+                                          final paymentGateway = data['currentProviderId'];
+
+                                          return Text(
+                                            '${context.localization.securePayment} ${toBeginningOfSentenceCase(paymentGateway.toString())}',
+                                            style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold),
+                                          );
+                                        }
+                                        return Text(
+                                          '${context.localization.securePayment} Saf Mobile',
+                                          style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold),
+                                        );
+                                      }),
                                 ],
                               ),
                             ],

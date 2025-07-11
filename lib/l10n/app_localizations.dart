@@ -437,7 +437,7 @@ abstract class AppLocalizations {
   /// Secure payment text
   ///
   /// In en, this message translates to:
-  /// **'Secure Payment'**
+  /// **'Secure payment from'**
   String get securePayment;
 
   /// Name text

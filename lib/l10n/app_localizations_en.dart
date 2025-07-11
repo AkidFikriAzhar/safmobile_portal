@@ -185,7 +185,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get totalAmount => 'Total Amount';
 
   @override
-  String get securePayment => 'Secure Payment';
+  String get securePayment => 'Secure payment from';
 
   @override
   String get name => 'Name';

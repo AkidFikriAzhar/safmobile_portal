@@ -185,7 +185,7 @@ class AppLocalizationsMs extends AppLocalizations {
   String get totalAmount => 'Jumlah Keseluruhan';
 
   @override
-  String get securePayment => 'Pembayaran Terjamin';
+  String get securePayment => 'Pembayaran terjamin dari';
 
   @override
   String get name => 'Nama';

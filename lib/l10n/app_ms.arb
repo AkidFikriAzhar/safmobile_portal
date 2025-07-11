@@ -223,7 +223,7 @@
     "@totalAmount": {
         "description": "Teks jumlah keseluruhan"
     },
-    "securePayment": "Pembayaran Terjamin",
+    "securePayment": "Pembayaran terjamin dari",
     "@securePayment": {
         "description": "Teks bayaran selamat"
     },

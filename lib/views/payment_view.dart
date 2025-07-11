@@ -156,9 +156,9 @@ class _PaymentViewState extends State<PaymentView> {
                                 children: [
                                   Icon(Icons.lock_rounded, size: 18, color: Theme.of(context).colorScheme.primary),
                                   StreamBuilder(
-                                      stream: _paymentProvider,
+                                      stream: FirebaseFirestore.instance.collection('Settings').doc('payment-gateway').snapshots(),
                                       builder: (context, asyncSnapshot) {
-                                        if (snapshot.connectionState == ConnectionState.waiting) {
+                                        if (asyncSnapshot.connectionState == ConnectionState.waiting) {
                                           return Text(
                                             '---',
                                             style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold),

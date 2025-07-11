@@ -119,14 +119,23 @@ class PaymentHelper {
           // final String paymentId = await Future.delayed(const Duration(seconds: 2), () async {
           //   return 'Yahahah you found me!';
           // });
-          final paymentId = await BayarcashApi().createBayarCashPaymentIntent(
-            name: name,
-            email: email,
-            phoneNumber: phone,
-            amount: amount,
-            ticketId: ticketId,
-            paymentMethod: 1,
-          );
+          final paymentId = kIsWeb
+              ? await BayarcashApi().createBayarCashPaymentIntentFromFunctions(
+                  name: name,
+                  email: email,
+                  phoneNumber: phone,
+                  amount: amount,
+                  ticketId: ticketId,
+                  paymentMethod: currentPaymentMethod,
+                )
+              : await BayarcashApi().createBayarCashPaymentIntent(
+                  name: name,
+                  email: email,
+                  phoneNumber: phone,
+                  amount: amount,
+                  ticketId: ticketId,
+                  paymentMethod: currentPaymentMethod,
+                );
           final invoiceRef = firestore.collection(FirestoreReferences.customer).doc(uid).collection(FirestoreReferences.invoices).doc(ticketId);
           await invoiceRef.update(
             {

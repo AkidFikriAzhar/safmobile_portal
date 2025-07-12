@@ -31,7 +31,6 @@ class _PaymentViewState extends State<PaymentView> {
 
   late Future _fetchInvoice;
   late Future _fetchCustomer;
-  late Stream _paymentProvider;
   Invoice? invoice;
   Customer? customer;
 
@@ -49,8 +48,6 @@ class _PaymentViewState extends State<PaymentView> {
   void initState() {
     _fetchInvoice = PaymentSetupFirestore.getInvoice(widget.uid, widget.ticketId);
     _fetchCustomer = PaymentSetupFirestore.getCustomer(widget.uid);
-    _paymentProvider = FirebaseFirestore.instance.collection('Settings').doc('payment-gateway').snapshots();
-
     // Setup stream listener untuk isPay
     _setupPaymentStatusListener();
 

@@ -143,7 +143,7 @@ class PaymentHelper {
               'paymentMethod': 'BayarCash',
             },
           );
-          final paymentIDRef = firestore.collection(FirestoreReferences.paymentId).doc(paymentId);
+          final paymentIDRef = firestore.collection(FirestoreReferences.paymentId).doc(ticketId);
 
           await paymentIDRef.set({
             'uid': uid,

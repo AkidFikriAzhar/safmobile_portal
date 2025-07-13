@@ -45,9 +45,11 @@ class PaymentHelper {
         // if (currentPaymentMethod != null) {
         //   if (context.mounted) {
 
-        final paymentApiProvider = await firestore.collection('Settings').doc('payment-gateway').get();
+        final paymentApiProvider =
+            await firestore.collection('Settings').doc('payment-gateway').get();
 
-        String currentProviderId = paymentApiProvider.data()!['currentProviderId'];
+        String currentProviderId =
+            paymentApiProvider.data()!['currentProviderId'];
 
         if (currentProviderId == 'billplz') {
           final paymentId = kIsWeb
@@ -67,14 +69,20 @@ class PaymentHelper {
                   ticketId: ticketId,
                   userId: uid,
                 );
-          final invoiceRef = firestore.collection(FirestoreReferences.customer).doc(uid).collection(FirestoreReferences.invoices).doc(ticketId);
+          final invoiceRef = firestore
+              .collection(FirestoreReferences.customer)
+              .doc(uid)
+              .collection(FirestoreReferences.invoices)
+              .doc(ticketId);
           await invoiceRef.update(
             {
               'payment_id': paymentId,
               'paymentMethod': 'Billplz',
             },
           );
-          final paymentIDRef = firestore.collection(FirestoreReferences.paymentId).doc(paymentId);
+          final paymentIDRef = firestore
+              .collection(FirestoreReferences.paymentId)
+              .doc(paymentId);
 
           await paymentIDRef.set({
             'uid': uid,
@@ -89,7 +97,8 @@ class PaymentHelper {
                 context: context,
                 // barrierDismissible: false,
                 builder: (context) {
-                  return _terms(context, paymentId, uid, ticketId, currentProviderId);
+                  return _terms(
+                      context, paymentId, uid, ticketId, currentProviderId);
                 });
           } else {
             return;
@@ -136,14 +145,19 @@ class PaymentHelper {
                   ticketId: ticketId,
                   paymentMethod: currentPaymentMethod,
                 );
-          final invoiceRef = firestore.collection(FirestoreReferences.customer).doc(uid).collection(FirestoreReferences.invoices).doc(ticketId);
+          final invoiceRef = firestore
+              .collection(FirestoreReferences.customer)
+              .doc(uid)
+              .collection(FirestoreReferences.invoices)
+              .doc(ticketId);
           await invoiceRef.update(
             {
               'payment_id': paymentId,
               'paymentMethod': 'BayarCash',
             },
           );
-          final paymentIDRef = firestore.collection(FirestoreReferences.paymentId).doc(ticketId);
+          final paymentIDRef =
+              firestore.collection(FirestoreReferences.paymentId).doc(ticketId);
 
           await paymentIDRef.set({
             'uid': uid,
@@ -157,7 +171,8 @@ class PaymentHelper {
                 context: context,
                 // barrierDismissible: false,
                 builder: (context) {
-                  return _terms(context, paymentId, uid, ticketId, currentProviderId);
+                  return _terms(
+                      context, paymentId, uid, ticketId, currentProviderId);
                 });
           } else {
             return;
@@ -179,7 +194,8 @@ class PaymentHelper {
     }
   }
 
-  AlertDialog _terms(BuildContext context, String? paymentId, String uid, String ticketId, String currentProviderId) {
+  AlertDialog _terms(BuildContext context, String? paymentId, String uid,
+      String ticketId, String currentProviderId) {
     return AlertDialog(
       title: Text(context.localization.confirmPayment),
       content: Text.rich(
@@ -209,7 +225,8 @@ class PaymentHelper {
           onPressed: () {
             context.pop();
           },
-          child: Text(context.localization.cancel, style: TextStyle(color: Theme.of(context).colorScheme.error)),
+          child: Text(context.localization.cancel,
+              style: TextStyle(color: Theme.of(context).colorScheme.error)),
         ),
         TextButton(
           onPressed: () async {
@@ -219,7 +236,7 @@ class PaymentHelper {
             if (currentProviderId == 'billplz') {
               url = '${BillPlizApi.baseUrl}$paymentId';
             } else if (currentProviderId == 'bayarcash') {
-              url = '${BayarcashApi.paymentIntentUrlSandbox}$paymentId';
+              url = '${BayarcashApi.paymentIntentUrlProduction}$paymentId';
             }
             context.goPush(
               Routes.pending,

@@ -185,7 +185,7 @@ abstract class AppLocalizations {
   /// Receipt text
   ///
   /// In en, this message translates to:
-  /// **'Receipt'**
+  /// **'Receipt & Warranty'**
   String get receipt;
 
   /// Invoice text
@@ -751,6 +751,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The Ticket ID is a unique service reference number for your device. It is located next to the QR code on documents such as the Service Order or Invoice. You can also scan the QR code on the document for quicker access.'**
   String get whatIsTicketIdDesc;
+
+  /// Invoice date
+  ///
+  /// In en, this message translates to:
+  /// **'Invoice Date'**
+  String get invoiceDate;
 }
 
 class _AppLocalizationsDelegate

@@ -52,7 +52,7 @@ class AppLocalizationsMs extends AppLocalizations {
   String get showingResult => 'Menunjukkan hasil carian untuk Tiket ID';
 
   @override
-  String get receipt => 'Resit';
+  String get receipt => 'Resit & Waranti';
 
   @override
   String get invoice => 'Invois';
@@ -357,4 +357,7 @@ class AppLocalizationsMs extends AppLocalizations {
   @override
   String get whatIsTicketIdDesc =>
       'Ticket ID adalah nombor rujukan unik servis untuk peranti anda, Ia terletak bersebelahan kod QR pada dokumen seperti Service Order atau Invoice. Anda juga boleh imbas QR yang terdapat pada dokumen tersebut untuk akses lebih pantas.';
+
+  @override
+  String get invoiceDate => 'Tarikh Invois';
 }

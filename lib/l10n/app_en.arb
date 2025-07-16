@@ -56,7 +56,7 @@
     "@showingResult": {
         "description": "Showing results text"
     },
-    "receipt": "Receipt",
+    "receipt": "Receipt & Warranty",
     "@receipt": {
         "description": "Receipt text"
     },
@@ -440,5 +440,9 @@
     "whatIsTicketIdDesc": "The Ticket ID is a unique service reference number for your device. It is located next to the QR code on documents such as the Service Order or Invoice. You can also scan the QR code on the document for quicker access.",
     "@whatIsTicketIdDesc": {
         "description": "Teks untuk penerangan apa itu Ticket ID"
+    },
+    "invoiceDate": "Invoice Date",
+    "@invoiceDate": {
+        "description": "Invoice date"
     }
 }

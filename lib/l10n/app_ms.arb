@@ -50,7 +50,7 @@
     "@showingResult": {
         "description": "Teks menunjukkan hasil"
     },
-    "receipt": "Resit",
+    "receipt": "Resit & Waranti",
     "@receipt": {
         "description": "Teks resit"
     },
@@ -434,5 +434,9 @@
     "whatIsTicketIdDesc": "Ticket ID adalah nombor rujukan unik servis untuk peranti anda, Ia terletak bersebelahan kod QR pada dokumen seperti Service Order atau Invoice. Anda juga boleh imbas QR yang terdapat pada dokumen tersebut untuk akses lebih pantas.",
     "@whatIsTicketIdDesc": {
         "description": "Teks untuk penerangan apa itu Ticket ID"
+    },
+    "invoiceDate": "Tarikh Invois",
+    "@invoiceDate": {
+        "description": "Invoice date"
     }
 }

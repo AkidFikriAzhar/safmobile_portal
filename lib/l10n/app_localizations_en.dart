@@ -52,7 +52,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get showingResult => 'Showing results for Ticket ID';
 
   @override
-  String get receipt => 'Receipt';
+  String get receipt => 'Receipt & Warranty';
 
   @override
   String get invoice => 'Invoice';
@@ -357,4 +357,7 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get whatIsTicketIdDesc =>
       'The Ticket ID is a unique service reference number for your device. It is located next to the QR code on documents such as the Service Order or Invoice. You can also scan the QR code on the document for quicker access.';
+
+  @override
+  String get invoiceDate => 'Invoice Date';
 }

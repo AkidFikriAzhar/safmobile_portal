@@ -2,16 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:safmobile_portal/extensions/locale_extension.dart';
 import 'package:safmobile_portal/model/invoice.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class WarrantyDetails extends StatefulWidget {
   final Stream<QuerySnapshot<Map<String, dynamic>>> invoiceItemStream;
   final Invoice invoice;
   final Function(List<InvoiceItem>) onItemsLoaded;
-  const WarrantyDetails(
-      {super.key,
-      required this.invoice,
-      required this.invoiceItemStream,
-      required this.onItemsLoaded});
+  const WarrantyDetails({super.key, required this.invoice, required this.invoiceItemStream, required this.onItemsLoaded});
 
   @override
   State<WarrantyDetails> createState() => _WarrantyDetailsState();
@@ -24,43 +21,94 @@ class _WarrantyDetailsState extends State<WarrantyDetails> {
         stream: widget.invoiceItemStream,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const CircularProgressIndicator.adaptive(),
-                  const SizedBox(height: 10),
-                  Text(context.localization.loading),
-                ],
-              ),
-            );
+            return Card.outlined(
+                surfaceTintColor: Theme.of(context).colorScheme.primaryContainer,
+                elevation: 2,
+                shadowColor: Colors.transparent,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 35, horizontal: 20),
+                  child: Skeletonizer(
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: 1,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          title: Text(context.localization.loading),
+                        );
+                      },
+                    ),
+                  ),
+                ));
           } else if (snapshot.data == null || !snapshot.hasData) {
             return SizedBox();
           } else {
-            final List<InvoiceItem> items = snapshot.data!.docs
-                .map((e) => InvoiceItem.fromJson(e.data()))
-                .toList();
-
-            return Card.outlined(
-              surfaceTintColor: Theme.of(context).colorScheme.primaryContainer,
-              elevation: 2,
-              shadowColor: Colors.transparent,
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 35, horizontal: 20),
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: items.length,
-                  itemBuilder: (context, index) {
-                    final parts = items[index];
-                    return ListTile(
-                      title: Text(parts.itemName),
-                    );
-                  },
-                ),
-              ),
-            );
+            final List<InvoiceItem> items = snapshot.data!.docs.map((e) => InvoiceItem.fromJson(e.data())).toList().where((element) => !element.itemName.contains('Discount')).toList();
+            return items.isEmpty
+                ? SizedBox()
+                : Card.outlined(
+                    surfaceTintColor: Theme.of(context).colorScheme.primaryContainer,
+                    elevation: 2,
+                    shadowColor: Colors.transparent,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 35, horizontal: 20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Warranty Details',
+                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                          ),
+                          const SizedBox(height: 20),
+                          ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: items.length,
+                            itemBuilder: (context, index) {
+                              final parts = items[index];
+                              final now = DateTime.now();
+                              final totalDays = parts.warrantyEnd!.toDate().difference(parts.warrantyStart!.toDate()).inDays;
+                              int remainingDays = parts.warrantyEnd!.toDate().difference(now).inDays + 1;
+                              // if (remainingDays < 0) remainingDays = 0;
+                              final isExpired = remainingDays < 0;
+                              double progress = isExpired ? 1.0 : (remainingDays / totalDays).clamp(0.0, 1.0);
+                              return ListTile(
+                                isThreeLine: true,
+                                leading: Column(
+                                  children: [
+                                    const SizedBox(height: 5),
+                                    CircleAvatar(
+                                      radius: 20,
+                                      child: Text('${index + 1}'),
+                                    ),
+                                  ],
+                                ),
+                                title: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(parts.itemName),
+                                    const SizedBox(height: 5),
+                                  ],
+                                ),
+                                subtitle: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  spacing: isExpired == false ? 5 : 0,
+                                  children: [
+                                    isExpired == false ? LinearProgressIndicator(value: progress) : const SizedBox(),
+                                    Text(
+                                      isExpired == false ? '$remainingDays days remaining' : 'Warranty expired ${remainingDays.abs()} days ago',
+                                      style: TextStyle(color: Colors.grey, fontSize: 13),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
           }
         });
   }

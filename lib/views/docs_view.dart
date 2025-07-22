@@ -75,26 +75,25 @@ class _DocsViewState extends State<DocsView> with AutomaticKeepAliveClientMixin 
 
   PreferredSizeWidget _buildAppBar(BuildContext context) {
     return AppBar(
-      title: StreamBuilder<DocumentSnapshot>(
-          stream: _invoiceStream,
-          builder: (context, snapshot) {
-            final isFetched = snapshot.connectionState == ConnectionState.waiting;
-            if (snapshot.hasData && snapshot.data!.exists) {
-              final Invoice invoice = Invoice.fromMap(snapshot.data!.data()!);
-              _cachedInvoice = invoice; // Cache data
-              return Skeletonizer(
-                enabled: isFetched,
-                child: Text(invoice.isPay == false ? context.localization.invoice : context.localization.receipt),
-              );
-            } else {
-              return const Text('Documents');
-            }
-          }),
-      actions: [
-        _buildThemeToggle(context),
-        _buildLanguageButton(context),
-      ],
-    );
+        title: StreamBuilder<DocumentSnapshot>(
+            stream: _invoiceStream,
+            builder: (context, snapshot) {
+              final isFetched = snapshot.connectionState == ConnectionState.waiting;
+              if (snapshot.hasData && snapshot.data!.exists) {
+                final Invoice invoice = Invoice.fromMap(snapshot.data!.data()!);
+                _cachedInvoice = invoice; // Cache data
+                return Skeletonizer(
+                  enabled: isFetched,
+                  child: Text(invoice.isPay == false ? context.localization.invoice : context.localization.receipt),
+                );
+              } else {
+                return const Text('Documents');
+              }
+            }),
+        actions: [
+          _buildThemeToggle(context),
+          _buildLanguageButton(context),
+        ]);
   }
 
   Widget _buildThemeToggle(BuildContext context) {

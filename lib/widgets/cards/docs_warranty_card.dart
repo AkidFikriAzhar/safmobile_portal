@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:jiffy/jiffy.dart';
 import 'package:safmobile_portal/extensions/locale_extension.dart';
 import 'package:safmobile_portal/model/invoice.dart';
 import 'package:skeletonizer/skeletonizer.dart';
@@ -56,7 +57,7 @@ class _WarrantyDetailsState extends State<WarrantyDetails> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Warranty Details',
+                            context.localization.warrantyDetails,
                             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                           ),
                           const SizedBox(height: 20),
@@ -69,7 +70,8 @@ class _WarrantyDetailsState extends State<WarrantyDetails> {
                               final now = DateTime.now();
                               final totalDays = parts.warrantyEnd!.toDate().difference(parts.warrantyStart!.toDate()).inDays;
                               int remainingDays = parts.warrantyEnd!.toDate().difference(now).inDays + 1;
-                              // if (remainingDays < 0) remainingDays = 0;
+                              final warrantyDuration =
+                                  '${Jiffy.parseFromDateTime(parts.warrantyStart!.toDate()).format(pattern: 'dd/MM/yyyy')} - ${Jiffy.parseFromDateTime(parts.warrantyEnd!.toDate()).format(pattern: 'dd/MM/yyyy')}';
                               final isExpired = remainingDays < 0;
                               double progress = isExpired ? 1.0 : (remainingDays / totalDays).clamp(0.0, 1.0);
                               return ListTile(
@@ -86,7 +88,7 @@ class _WarrantyDetailsState extends State<WarrantyDetails> {
                                 title: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(parts.itemName),
+                                    Text('${parts.itemName} (${totalDays + 1} ${context.localization.days})'),
                                     const SizedBox(height: 5),
                                   ],
                                 ),
@@ -97,7 +99,9 @@ class _WarrantyDetailsState extends State<WarrantyDetails> {
                                   children: [
                                     isExpired == false ? LinearProgressIndicator(value: progress) : const SizedBox(),
                                     Text(
-                                      isExpired == false ? '$remainingDays days remaining' : 'Warranty expired ${remainingDays.abs()} days ago',
+                                      isExpired == false
+                                          ? '$remainingDays ${context.localization.daysRemaining} ($warrantyDuration)'
+                                          : '${context.localization.warrantyExpired} ${remainingDays.abs()} ${context.localization.daysAgo} ($warrantyDuration)',
                                       style: TextStyle(color: Colors.grey, fontSize: 13),
                                     ),
                                   ],

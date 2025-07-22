@@ -444,5 +444,25 @@
     "invoiceDate": "Invoice Date",
     "@invoiceDate": {
         "description": "Invoice date"
+    },
+    "warrantyDetails": "Warranty Details",
+    "@warrantyDetails": {
+        "description": "Warranty details"
+    },
+    "warrantyExpired": "Warranty expired",
+    "@warrantyExpired": {
+        "description": "Warranty expired"
+    },
+    "daysAgo": "days ago",
+    "@daysAgo": {
+        "description": "Days ago"
+    },
+    "daysRemaining": "days remaining",
+    "@daysRemaining": {
+        "description": "Days remaining"
+    },
+    "days": "days",
+    "@days": {
+        "description": "Days"
     }
 }

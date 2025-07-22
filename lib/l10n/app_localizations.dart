@@ -757,6 +757,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Invoice Date'**
   String get invoiceDate;
+
+  /// Warranty details
+  ///
+  /// In en, this message translates to:
+  /// **'Warranty Details'**
+  String get warrantyDetails;
+
+  /// Warranty expired
+  ///
+  /// In en, this message translates to:
+  /// **'Warranty expired'**
+  String get warrantyExpired;
+
+  /// Days ago
+  ///
+  /// In en, this message translates to:
+  /// **'days ago'**
+  String get daysAgo;
+
+  /// Days remaining
+  ///
+  /// In en, this message translates to:
+  /// **'days remaining'**
+  String get daysRemaining;
+
+  /// Days
+  ///
+  /// In en, this message translates to:
+  /// **'days'**
+  String get days;
 }
 
 class _AppLocalizationsDelegate

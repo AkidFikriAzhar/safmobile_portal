@@ -360,4 +360,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get invoiceDate => 'Invoice Date';
+
+  @override
+  String get warrantyDetails => 'Warranty Details';
+
+  @override
+  String get warrantyExpired => 'Warranty expired';
+
+  @override
+  String get daysAgo => 'days ago';
+
+  @override
+  String get daysRemaining => 'days remaining';
+
+  @override
+  String get days => 'days';
 }

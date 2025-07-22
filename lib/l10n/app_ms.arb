@@ -438,5 +438,25 @@
     "invoiceDate": "Tarikh Invois",
     "@invoiceDate": {
         "description": "Invoice date"
+    },
+    "warrantyDetails": "Maklumat Waranti",
+    "@warrantyDetails": {
+        "description": "Warranty details"
+    },
+    "warrantyExpired": "Tempoh waranti telah berakhir",
+    "@warrantyExpired": {
+        "description": "Warranty expired"
+    },
+    "daysAgo": "hari yang lalu",
+    "@daysAgo": {
+        "description": "Days ago"
+    },
+    "daysRemaining": "hari lagi",
+    "@daysRemaining": {
+        "description": "Days remaining"
+    },
+    "days": "hari",
+    "@days": {
+        "description": "Days"
     }
 }

@@ -14,6 +14,7 @@ import 'package:safmobile_portal/model/technician.dart';
 import 'package:safmobile_portal/routes.dart';
 import 'package:safmobile_portal/services/docs_firestore.dart';
 import 'package:safmobile_portal/pdf/invoice_pdf.dart';
+import 'package:safmobile_portal/widgets/cards/docs_warranty_card.dart';
 import 'package:safmobile_portal/widgets/dialogs/change_language.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
@@ -26,7 +27,8 @@ class DocsView extends StatefulWidget {
   State<DocsView> createState() => _DocsViewState();
 }
 
-class _DocsViewState extends State<DocsView> with AutomaticKeepAliveClientMixin {
+class _DocsViewState extends State<DocsView>
+    with AutomaticKeepAliveClientMixin {
   late Stream<DocumentSnapshot<Map<String, dynamic>>> _invoiceStream;
   late Stream<DocumentSnapshot<Map<String, dynamic>>> _customerStream;
   late Stream<QuerySnapshot<Map<String, dynamic>>> _invoiceItemStream;
@@ -51,9 +53,11 @@ class _DocsViewState extends State<DocsView> with AutomaticKeepAliveClientMixin 
   }
 
   void _initializeStreams() {
-    _invoiceStream = DocsFirestore().getDocsStream(widget.uid.toString(), widget.ticketId.toString());
+    _invoiceStream = DocsFirestore()
+        .getDocsStream(widget.uid.toString(), widget.ticketId.toString());
     _customerStream = DocsFirestore().getCustomerStream(widget.uid.toString());
-    _invoiceItemStream = DocsFirestore().getInvoiceItem(widget.uid.toString(), widget.ticketId.toString());
+    _invoiceItemStream = DocsFirestore()
+        .getInvoiceItem(widget.uid.toString(), widget.ticketId.toString());
   }
 
   @override
@@ -77,13 +81,16 @@ class _DocsViewState extends State<DocsView> with AutomaticKeepAliveClientMixin 
       title: StreamBuilder<DocumentSnapshot>(
           stream: _invoiceStream,
           builder: (context, snapshot) {
-            final isFetched = snapshot.connectionState == ConnectionState.waiting;
+            final isFetched =
+                snapshot.connectionState == ConnectionState.waiting;
             if (snapshot.hasData && snapshot.data!.exists) {
               final Invoice invoice = Invoice.fromMap(snapshot.data!.data()!);
               _cachedInvoice = invoice; // Cache data
               return Skeletonizer(
                 enabled: isFetched,
-                child: Text(invoice.isPay == false ? context.localization.invoice : context.localization.receipt),
+                child: Text(invoice.isPay == false
+                    ? context.localization.invoice
+                    : context.localization.receipt),
               );
             } else {
               return const Text('Documents');
@@ -128,7 +135,8 @@ class _DocsViewState extends State<DocsView> with AutomaticKeepAliveClientMixin 
     return StreamBuilder<DocumentSnapshot>(
       stream: _invoiceStream,
       builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting && _cachedInvoice == null) {
+        if (snapshot.connectionState == ConnectionState.waiting &&
+            _cachedInvoice == null) {
           return _buildLoadingState(context);
         } else if (snapshot.hasError) {
           return _buildErrorState(snapshot.error.toString());
@@ -185,10 +193,13 @@ class _DocsViewState extends State<DocsView> with AutomaticKeepAliveClientMixin 
     );
   }
 
+  ///MAIN CONTENT///
+
   Widget _buildMainContent(Invoice invoice) {
     return SingleChildScrollView(
       controller: _scrollController,
-      physics: const ClampingScrollPhysics(), // Better performance than BouncingScrollPhysics
+      physics:
+          const ClampingScrollPhysics(), // Better performance than BouncingScrollPhysics
       padding: const EdgeInsets.symmetric(horizontal: 15.0),
       child: Center(
         child: ConstrainedBox(
@@ -209,7 +220,13 @@ class _DocsViewState extends State<DocsView> with AutomaticKeepAliveClientMixin 
                 onItemsLoaded: (items) => _cachedInvoiceItems = items,
               ),
               const SizedBox(height: 20),
-              invoice.isPay == false ? const SizedBox() : _warrantyDetails(_cachedInvoiceItems),
+              invoice.isPay == false
+                  ? const SizedBox()
+                  : WarrantyDetails(
+                      invoiceItemStream: _invoiceItemStream,
+                      invoice: invoice,
+                      onItemsLoaded: (items) => _cachedInvoiceItems = items,
+                    ),
               _ActionButtons(
                 invoice: invoice,
                 onDownloadPdf: () => _handleDownloadPdf(invoice),
@@ -220,30 +237,6 @@ class _DocsViewState extends State<DocsView> with AutomaticKeepAliveClientMixin 
         ),
       ),
     );
-  }
-
-  Widget _warrantyDetails(List<InvoiceItem>? items) {
-    return items == null
-        ? const CircularProgressIndicator.adaptive()
-        : SizedBox(
-            width: 600,
-            child: Card.outlined(
-                surfaceTintColor: Theme.of(context).colorScheme.primaryContainer,
-                elevation: 2,
-                shadowColor: Colors.transparent,
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: items.length,
-                    itemBuilder: (context, i) {
-                      return ListTile(
-                        title: Text(items[i].itemName),
-                      );
-                    },
-                  ),
-                )),
-          );
   }
 
   Future<void> _handleDownloadPdf(Invoice invoice) async {
@@ -271,7 +264,9 @@ class _DocsViewState extends State<DocsView> with AutomaticKeepAliveClientMixin 
 
       // If any data is missing, try to fetch directly
       if (customer == null) {
-        final customerDoc = await DocsFirestore().getCustomerStream(widget.uid.toString()).first;
+        final customerDoc = await DocsFirestore()
+            .getCustomerStream(widget.uid.toString())
+            .first;
         if (customerDoc.exists) {
           customer = Customer.fromMap(customerDoc.data()!);
           _cachedCustomer = customer;
@@ -279,13 +274,17 @@ class _DocsViewState extends State<DocsView> with AutomaticKeepAliveClientMixin 
       }
 
       if (invoiceItems == null) {
-        final itemsQuery = await DocsFirestore().getInvoiceItem(widget.uid.toString(), widget.ticketId.toString()).first;
-        invoiceItems = itemsQuery.docs.map((e) => InvoiceItem.fromJson(e.data())).toList();
+        final itemsQuery = await DocsFirestore()
+            .getInvoiceItem(widget.uid.toString(), widget.ticketId.toString())
+            .first;
+        invoiceItems =
+            itemsQuery.docs.map((e) => InvoiceItem.fromJson(e.data())).toList();
         _cachedInvoiceItems = invoiceItems;
       }
 
       if (technician == null) {
-        final techDoc = await DocsFirestore().getTechnicianStream(invoice.techId).first;
+        final techDoc =
+            await DocsFirestore().getTechnicianStream(invoice.techId).first;
         if (techDoc.exists) {
           technician = Technician.fromMap(techDoc);
           _cachedTechnician = technician;
@@ -297,7 +296,9 @@ class _DocsViewState extends State<DocsView> with AutomaticKeepAliveClientMixin 
         if (!mounted) return;
         Navigator.of(context).pop(); // Close loading dialog
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Unable to load all required data. Please try again.')),
+          const SnackBar(
+              content:
+                  Text('Unable to load all required data. Please try again.')),
         );
         return;
       }
@@ -357,7 +358,9 @@ class _InvoiceHeaderCard extends StatelessWidget {
             const SizedBox(height: 25),
             _buildTechnicianInfo(context),
             invoice.isPay == false ? const SizedBox(height: 25) : SizedBox(),
-            invoice.isPay == false ? _buildInvoiceDateInfo(context) : SizedBox(),
+            invoice.isPay == false
+                ? _buildInvoiceDateInfo(context)
+                : SizedBox(),
           ],
         ),
       ),
@@ -374,7 +377,8 @@ class _InvoiceHeaderCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Consumer<DocumentProvider>(builder: (context, provider, child) {
-              return Text(context.localization.billingItem(provider.totalBilling));
+              return Text(
+                  context.localization.billingItem(provider.totalBilling));
             }),
             Text(
               '#$ticketId',
@@ -387,11 +391,16 @@ class _InvoiceHeaderCard extends StatelessWidget {
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            color: invoice.isPay == true ? Colors.green.withValues(alpha: 0.1) : Colors.red.withValues(alpha: 0.1),
+            color: invoice.isPay == true
+                ? Colors.green.withValues(alpha: 0.1)
+                : Colors.red.withValues(alpha: 0.1),
           ),
           child: Text(
-            invoice.isPay == true ? context.localization.paid : context.localization.unpaid,
-            style: TextStyle(color: invoice.isPay == true ? Colors.green : Colors.red),
+            invoice.isPay == true
+                ? context.localization.paid
+                : context.localization.unpaid,
+            style: TextStyle(
+                color: invoice.isPay == true ? Colors.green : Colors.red),
           ),
         ),
       ],
@@ -413,10 +422,12 @@ class _InvoiceHeaderCard extends StatelessWidget {
         StreamBuilder<DocumentSnapshot>(
             stream: customerStream,
             builder: (context, snapshot) {
-              bool isFetching = snapshot.connectionState == ConnectionState.waiting;
+              bool isFetching =
+                  snapshot.connectionState == ConnectionState.waiting;
 
               if (snapshot.hasData && snapshot.data!.exists) {
-                final Customer customer = Customer.fromMap(snapshot.data!.data()!);
+                final Customer customer =
+                    Customer.fromMap(snapshot.data!.data()!);
                 onCustomerLoaded(customer);
                 return Skeletonizer(
                   enabled: isFetching,
@@ -433,10 +444,15 @@ class _InvoiceHeaderCard extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              isFetching ? 'Muhammad Aqif Syafi' : customer.name,
-                              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                              isFetching
+                                  ? 'Muhammad Aqif Syafi'
+                                  : customer.name,
+                              style: const TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.bold),
                             ),
-                            Text(isFetching ? '01111796421' : customer.phoneNumber),
+                            Text(isFetching
+                                ? '01111796421'
+                                : customer.phoneNumber),
                             Text(isFetching ? 'Kajang' : customer.location),
                           ],
                         ),
@@ -494,7 +510,8 @@ class _InvoiceHeaderCard extends StatelessWidget {
                     children: [
                       Text(context.localization.issued),
                       Text(
-                        Jiffy.parseFromDateTime(invoice.startDate.toDate()).format(pattern: 'dd/MM/yyyy'),
+                        Jiffy.parseFromDateTime(invoice.startDate.toDate())
+                            .format(pattern: 'dd/MM/yyyy'),
                         style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ],
@@ -507,7 +524,8 @@ class _InvoiceHeaderCard extends StatelessWidget {
                     children: [
                       Text(context.localization.due),
                       Text(
-                        Jiffy.parseFromDateTime(invoice.dueDate.toDate()).format(pattern: 'dd/MM/yyyy'),
+                        Jiffy.parseFromDateTime(invoice.dueDate.toDate())
+                            .format(pattern: 'dd/MM/yyyy'),
                         style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ],
@@ -552,13 +570,17 @@ class _InvoiceItemsSection extends StatelessWidget {
           } else if (snapshotItem.data == null || !snapshotItem.hasData) {
             return Container();
           } else {
-            final List<InvoiceItem> items = snapshotItem.data!.docs.map((e) => InvoiceItem.fromJson(e.data() as Map<String, dynamic>)).toList();
+            final List<InvoiceItem> items = snapshotItem.data!.docs
+                .map((e) =>
+                    InvoiceItem.fromJson(e.data() as Map<String, dynamic>))
+                .toList();
 
             onItemsLoaded(items);
 
             // Use post frame callback to avoid calling setState during build
             WidgetsBinding.instance.addPostFrameCallback((_) {
-              Provider.of<DocumentProvider>(context, listen: false).incrementBilling(items.length);
+              Provider.of<DocumentProvider>(context, listen: false)
+                  .incrementBilling(items.length);
             });
 
             return Card.outlined(
@@ -614,19 +636,25 @@ class _InvoiceItemsSection extends StatelessWidget {
                 TableCell(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 5.0),
-                    child: Text(item.itemName, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+                    child: Text(item.itemName,
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 14)),
                   ),
                 ),
                 TableCell(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 5.0),
-                    child: Text(_getWarrantyDuration(item), style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+                    child: Text(_getWarrantyDuration(item),
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 14)),
                   ),
                 ),
                 TableCell(
                     child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 5.0),
-                  child: Text(item.itemPrice.toStringAsFixed(2), style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+                  child: Text(item.itemPrice.toStringAsFixed(2),
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 14)),
                 )),
               ],
             )),
@@ -655,10 +683,12 @@ class _InvoiceItemsSection extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(context.localization.total, style: const TextStyle(fontSize: 14)),
+              Text(context.localization.total,
+                  style: const TextStyle(fontSize: 14)),
               Text(
                 'RM ${total.toStringAsFixed(2)}',
-                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                style:
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
               ),
             ],
           ),
@@ -666,10 +696,12 @@ class _InvoiceItemsSection extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(context.localization.discount, style: const TextStyle(fontSize: 14)),
+              Text(context.localization.discount,
+                  style: const TextStyle(fontSize: 14)),
               Text(
                 'RM ${invoice.discount.toStringAsFixed(2)}',
-                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                style:
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
               ),
             ],
           ),
@@ -678,10 +710,12 @@ class _InvoiceItemsSection extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(context.localization.paymentMethod, style: const TextStyle(fontSize: 14)),
+                Text(context.localization.paymentMethod,
+                    style: const TextStyle(fontSize: 14)),
                 Text(
                   invoice.paymentMethod.displayName,
-                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 14),
                 ),
               ],
             ),
@@ -718,7 +752,9 @@ class _InvoiceItemsSection extends StatelessWidget {
   String _getWarrantyDuration(InvoiceItem item) {
     if (item.warrantyStart == null || item.warrantyEnd == null) return '--';
 
-    final String dur = Jiffy.parseFromDateTime(item.warrantyEnd!.toDate()).from(Jiffy.parseFromDateTime(item.warrantyStart!.toDate()), withPrefixAndSuffix: false);
+    final String dur = Jiffy.parseFromDateTime(item.warrantyEnd!.toDate()).from(
+        Jiffy.parseFromDateTime(item.warrantyStart!.toDate()),
+        withPrefixAndSuffix: false);
 
     if (dur == '0 seconds' || dur == 'a few seconds') {
       return '--';
@@ -775,10 +811,13 @@ class _OptimizedTechnicianInformation extends StatefulWidget {
   const _OptimizedTechnicianInformation({required this.techId});
 
   @override
-  State<_OptimizedTechnicianInformation> createState() => __OptimizedTechnicianInformationState();
+  State<_OptimizedTechnicianInformation> createState() =>
+      __OptimizedTechnicianInformationState();
 }
 
-class __OptimizedTechnicianInformationState extends State<_OptimizedTechnicianInformation> with AutomaticKeepAliveClientMixin {
+class __OptimizedTechnicianInformationState
+    extends State<_OptimizedTechnicianInformation>
+    with AutomaticKeepAliveClientMixin {
   late Stream<DocumentSnapshot> _technicianStream;
   Technician? _cachedTechnician;
 
@@ -806,11 +845,14 @@ class __OptimizedTechnicianInformationState extends State<_OptimizedTechnicianIn
 
             // Update provider and cache technician data
             WidgetsBinding.instance.addPostFrameCallback((_) {
-              final docsProvider = Provider.of<DocumentProvider>(context, listen: false);
+              final docsProvider =
+                  Provider.of<DocumentProvider>(context, listen: false);
               docsProvider.technicianLate = technician;
               // Also update parent cache
               if (context.findAncestorStateOfType<_DocsViewState>() != null) {
-                context.findAncestorStateOfType<_DocsViewState>()!._cachedTechnician = technician;
+                context
+                    .findAncestorStateOfType<_DocsViewState>()!
+                    ._cachedTechnician = technician;
               }
             });
 
@@ -830,13 +872,18 @@ class __OptimizedTechnicianInformationState extends State<_OptimizedTechnicianIn
                       children: [
                         Text(
                           isFetched ? 'Akid Fikri Azhar' : technician.name,
-                          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                          style: const TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                         Text(
-                          isFetched ? 'Chief Technician Officer' : technician.jawatan,
+                          isFetched
+                              ? 'Chief Technician Officer'
+                              : technician.jawatan,
                         ),
                         Text(
-                          isFetched ? 'Saf Mobile Express - Sungai Ramal Luar' : technician.branchText,
+                          isFetched
+                              ? 'Saf Mobile Express - Sungai Ramal Luar'
+                              : technician.branchText,
                         ),
                       ],
                     ),
@@ -860,7 +907,8 @@ class __OptimizedTechnicianInformationState extends State<_OptimizedTechnicianIn
                     children: [
                       Text(
                         _cachedTechnician!.name,
-                        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                        style: const TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                       Text(_cachedTechnician!.jawatan),
                       Text(_cachedTechnician!.branchText),

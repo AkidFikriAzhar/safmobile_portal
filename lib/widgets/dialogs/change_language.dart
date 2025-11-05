@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:jiffy/jiffy.dart';
 import 'package:safmobile_portal/extensions/locale_extension.dart';
 import 'package:safmobile_portal/l10n/stream_language.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -25,7 +24,6 @@ class ChangeLanguageDialog extends StatelessWidget {
 
               Navigator.of(context).pop();
               final SharedPreferences prefs = await SharedPreferences.getInstance();
-              await Jiffy.setLocale('en');
               prefs.setString('language', 'en');
             },
           ),
@@ -38,7 +36,6 @@ class ChangeLanguageDialog extends StatelessWidget {
               StreamLanguage.languageStream.add(const Locale('ms'));
               Navigator.of(context).pop();
               final SharedPreferences prefs = await SharedPreferences.getInstance();
-              await Jiffy.setLocale('ms');
               prefs.setString('language', 'ms');
             },
           ),

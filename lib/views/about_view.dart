@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -52,6 +54,13 @@ class _AboutViewState extends State<AboutView> {
               );
             },
             icon: Icon(Icons.language_outlined),
+          ),
+          IconButton(
+            onPressed: () {
+              const isRunningWithWasm = bool.fromEnvironment('dart.tool.dart2wasm');
+              log('Is running with WASM: $isRunningWithWasm');
+            },
+            icon: Icon(Icons.developer_board),
           ),
         ],
       ),

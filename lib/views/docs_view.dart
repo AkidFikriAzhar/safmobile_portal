@@ -605,7 +605,7 @@ class _InvoiceItemsSection extends StatelessWidget {
                 TableCell(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 5.0),
-                    child: Text(_getWarrantyDuration(item), style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+                    child: Text(_getWarrantyDuration(item, context), style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
                   ),
                 ),
                 TableCell(
@@ -700,11 +700,11 @@ class _InvoiceItemsSection extends StatelessWidget {
     );
   }
 
-  String _getWarrantyDuration(InvoiceItem item) {
+  String _getWarrantyDuration(InvoiceItem item, BuildContext context) {
     if (item.warrantyStart == null || item.warrantyEnd == null) return '--';
 
-    final String dur = Jiffy.parseFromDateTime(item.warrantyEnd!.toDate()).from(Jiffy.parseFromDateTime(item.warrantyStart!.toDate()), withPrefixAndSuffix: false);
-
+    // final String dur = Jiffy.parseFromDateTime(item.warrantyEnd!.toDate()).from(Jiffy.parseFromDateTime(item.warrantyStart!.toDate()), withPrefixAndSuffix: false);
+    final String dur = '${item.warrantyEnd!.toDate().difference(item.warrantyStart!.toDate()).inDays + 1} ${context.localization.days}';
     if (dur == '0 seconds' || dur == 'a few seconds') {
       return '--';
     }

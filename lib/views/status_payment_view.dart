@@ -8,7 +8,7 @@ import 'package:safmobile_portal/extensions/locale_extension.dart';
 import 'package:safmobile_portal/model/firestore_references.dart';
 import 'package:safmobile_portal/model/invoice.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:universal_html/html.dart' as html;
+import 'package:web/web.dart' as html;
 
 class PendingPaymentView extends StatefulWidget {
   final String uid;

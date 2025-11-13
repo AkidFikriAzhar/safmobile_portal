@@ -8,8 +8,8 @@ import 'package:safmobile_portal/extensions/route_extension.dart';
 import 'package:safmobile_portal/routes.dart';
 import 'package:safmobile_portal/widgets/dialogs/change_language.dart';
 import 'package:safmobile_portal/widgets/dialogs/ticket_id_help_dialog.dart';
-import 'package:universal_html/html.dart' as html show window;
 import 'package:url_launcher/url_launcher.dart';
+import 'package:web/web.dart' as html;
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -124,9 +124,7 @@ class _HomeViewState extends State<HomeView> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Image.asset(
-                      Theme.of(context).brightness == Brightness.dark
-                          ? 'assets/images/logo_dark.png'
-                          : 'assets/images/logo_light.png',
+                      Theme.of(context).brightness == Brightness.dark ? 'assets/images/logo_dark.png' : 'assets/images/logo_light.png',
                       width: 70,
                     ),
                     const SizedBox(height: 25),

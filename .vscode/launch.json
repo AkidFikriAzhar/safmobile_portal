@@ -1,0 +1,39 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        
+        {
+            "name": "safmobile_portal",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "safmobile_portal (profile mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "safmobile_portal (release mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "safmobile_portal (Chrome WASM)",
+            "request": "launch",
+            "type": "dart",
+            "deviceId": "chrome",
+            "args": ["--wasm"]
+        },
+                {
+            "name": "safmobile_portal (Chrome HTML)",
+            "request": "launch",
+            "type": "dart",
+            "deviceId": "chrome",
+        }
+    ]
+}

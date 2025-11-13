@@ -43,7 +43,7 @@ class Technician {
       photoUrl: json['photoUrl'],
       totalRepair: json['totalRepair'] as int,
       token: json['token'],
-      rating: json['rating'] as double,
+      rating: double.parse(json['rating'].toString()),
       timeStamp: json['timeStamp'] as Timestamp,
       branchText: json['branchText'],
     );

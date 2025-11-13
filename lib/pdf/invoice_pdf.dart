@@ -1,3 +1,4 @@
+import 'dart:js_interop';
 import 'package:file_saver/file_saver.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -9,7 +10,7 @@ import 'package:safmobile_portal/model/customer.dart';
 import 'package:safmobile_portal/model/invoice.dart';
 import 'package:safmobile_portal/model/payment_method.dart';
 import 'package:safmobile_portal/model/technician.dart';
-import "package:universal_html/html.dart" as html;
+import 'package:web/web.dart' as web;
 
 class PdfInvoice {
   static Future<Uint8List> generatePdf({
@@ -452,12 +453,16 @@ class PdfInvoice {
 
   static savePDF(Uint8List pdfFile, bool isPay, String ticketId) async {
     if (kIsWeb) {
-      final blob = html.Blob([pdfFile], 'application/pdf');
-      final url = html.Url.createObjectUrlFromBlob(blob);
-      html.AnchorElement(href: url)
-        ..setAttribute("download", isPay == false ? "Invoice#$ticketId.pdf" : 'Receipt#$ticketId.pdf')
-        ..click();
-      html.Url.revokeObjectUrl(url);
+      final blob = web.Blob([pdfFile.toJS].toJS, web.BlobPropertyBag(type: 'application/pdf'));
+      final url = web.URL.createObjectURL(blob);
+      final anchor = web.document.createElement('a') as web.HTMLAnchorElement
+        ..href = url
+        ..download = isPay == false ? 'Invoice#$ticketId.pdf' : 'Receipt#$ticketId.pdf'
+        ..style.display = 'none';
+      web.document.body?.appendChild(anchor);
+      anchor.click();
+      web.document.body?.removeChild(anchor);
+      web.URL.revokeObjectURL(url);
     } else {
       await FileSaver.instance.saveFile(
         name: isPay == false ? 'Invoice#$ticketId.pdf' : 'Receipt#$ticketId.pdf',

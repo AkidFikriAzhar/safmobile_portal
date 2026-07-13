@@ -5,26 +5,6 @@ class BayarcashApi {
   static const paymentIntentUrlProduction =
       'https://console.bayar.cash/payment-intent/';
 
-  // Future<List<FpxBank>> getFpxBanks() async {
-  //   const url = 'https://api.console.bayarcash-sandbox.com/v3/banks';
-
-  //   final response = await http.get(
-  //     Uri.parse(url),
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       'Authorization': 'Bearer $secretKeyProduction',
-  //     },
-  //   );
-
-  //   if (response.statusCode == 200) {
-  //     final List<dynamic> data = json.decode(response.body);
-  //     return data.map((bank) => FpxBank.fromJson(bank)).toList();
-  //   } else {
-  //     throw Exception(
-  //         'Failed to load bank list: ${response.statusCode} ${response.body}');
-  //   }
-  // }
-
   Future<String> createBayarCashPaymentIntentFromFunctions({
     required String name,
     required String email,
